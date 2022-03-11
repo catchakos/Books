@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias Book = ItemDetails
-
 struct ItemDetails: Codable {
     let id: String
     let image: String?

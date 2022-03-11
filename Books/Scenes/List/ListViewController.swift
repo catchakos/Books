@@ -9,10 +9,14 @@
 import UIKit
 
 protocol ListDisplayLogic: AnyObject {
-    func displaySomething(_ viewModel: List.Something.ViewModel)
+    func displayLoad(_ viewModel: List.Load.ViewModel)
+    func displayClear(_ viewModel: List.Clear.ViewModel)
+    func displaySelectListItem(_ viewModel: List.Select.ViewModel)
+    func displayAddListItem(_ viewModel: List.Add.ViewModel)
 }
 
 class ListViewController: UIViewController, ListDisplayLogic, DependentViewController {
+    
     var dataStore: DependentStore? {
         return router?.dataStore
     }
@@ -55,7 +59,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         setupView()
         setupConstraints()
         
-        doSomething()
+        loadList()
     }
     
     private func setupView() {
@@ -66,14 +70,47 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         
     }
     
-    // MARK:
+    // MARK: - Load
         
-    func doSomething() {
-        let request = List.Something.Request()
-        interactor?.doSomething(request)
+    func loadList() {
+        let request = List.Load.Request()
+        interactor?.loadList(request)
     }
     
-    func displaySomething(_ viewModel: List.Something.ViewModel) {
+    func displayLoad(_ viewModel: List.Load.ViewModel) {
+        
+    }
     
+    // MARK: - Clear
+        
+    func clearList() {
+        let request = List.Clear.Request()
+        interactor?.clearList(request)
+    }
+    
+    func displayClear(_ viewModel: List.Clear.ViewModel) {
+        
+    }
+    
+    // MARK: - Select
+        
+    func selectListItem(_ indexPath: IndexPath) {
+        let request = List.Select.Request(indexPath: indexPath)
+        interactor?.selectListItem(request)
+    }
+    
+    func displaySelectListItem(_ viewModel: List.Select.ViewModel) {
+    
+    }
+    
+    // MARK: Add
+    
+    func addListItem() {
+        let request = List.Add.Request()
+        interactor?.addItem(request)
+    }
+    
+    func displayAddListItem(_ viewModel: List.Add.ViewModel) {
+        
     }
 }

@@ -39,10 +39,15 @@
 		5E57EE0527DBBA0A001F8989 /* APIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0427DBBA0A001F8989 /* APIClientError.swift */; };
 		5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */; };
 		5E57EE0D27DBBB30001F8989 /* FakeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */; };
+		5E57EE1027DBBECC001F8989 /* Fakery in Frameworks */ = {isa = PBXBuildFile; productRef = 5E57EE0F27DBBECC001F8989 /* Fakery */; };
+		5E57EE1327DBBEFC001F8989 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E57EE1227DBBEFC001F8989 /* SnapKit */; };
+		5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */; };
+		5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */; };
+		5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */; };
+		5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1F27DBDEE0001F8989 /* Books.swift */; };
 		5EC7D39A27DBAF6B00FC0F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */; };
 		5EC7D3A327DBAF6C00FC0F7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */; };
 		5EC7D3A627DBAF6C00FC0F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */; };
-		5EC7D3B127DBAF6C00FC0F7B /* BooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D3B027DBAF6C00FC0F7B /* BooksTests.swift */; };
 		5EC7D3BB27DBAF6C00FC0F7B /* BooksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D3BA27DBAF6C00FC0F7B /* BooksUITests.swift */; };
 		5EC7D3BD27DBAF6C00FC0F7B /* BooksUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D3BC27DBAF6C00FC0F7B /* BooksUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
@@ -97,13 +102,16 @@
 		5E57EE0427DBBA0A001F8989 /* APIClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientError.swift; sourceTree = "<group>"; };
 		5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAPIClient.swift; sourceTree = "<group>"; };
+		5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerTests.swift; sourceTree = "<group>"; };
+		5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractorTests.swift; sourceTree = "<group>"; };
+		5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenterTests.swift; sourceTree = "<group>"; };
+		5E57EE1F27DBDEE0001F8989 /* Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Books.swift; sourceTree = "<group>"; };
 		5EC7D39627DBAF6B00FC0F7B /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5EC7D3A527DBAF6C00FC0F7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EC7D3A727DBAF6C00FC0F7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EC7D3AC27DBAF6C00FC0F7B /* BooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5EC7D3B027DBAF6C00FC0F7B /* BooksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTests.swift; sourceTree = "<group>"; };
 		5EC7D3B627DBAF6C00FC0F7B /* BooksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D3BA27DBAF6C00FC0F7B /* BooksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksUITests.swift; sourceTree = "<group>"; };
 		5EC7D3BC27DBAF6C00FC0F7B /* BooksUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -114,6 +122,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E57EE1027DBBECC001F8989 /* Fakery in Frameworks */,
+				5E57EE1327DBBEFC001F8989 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +228,7 @@
 			children = (
 				5E57EDF827DBB7BB001F8989 /* ListItem.swift */,
 				5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */,
+				5E57EE1F27DBDEE0001F8989 /* Books.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,6 +250,16 @@
 				5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */,
 			);
 			path = APIClient;
+			sourceTree = "<group>";
+		};
+		5E57EE1C27DBDDEF001F8989 /* BooksList */ = {
+			isa = PBXGroup;
+			children = (
+				5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */,
+				5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */,
+				5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */,
+			);
+			path = BooksList;
 			sourceTree = "<group>";
 		};
 		5EC7D38D27DBAF6B00FC0F7B = {
@@ -280,7 +301,7 @@
 		5EC7D3AF27DBAF6C00FC0F7B /* BooksTests */ = {
 			isa = PBXGroup;
 			children = (
-				5EC7D3B027DBAF6C00FC0F7B /* BooksTests.swift */,
+				5E57EE1C27DBDDEF001F8989 /* BooksList */,
 			);
 			path = BooksTests;
 			sourceTree = "<group>";
@@ -310,6 +331,10 @@
 			dependencies = (
 			);
 			name = Books;
+			packageProductDependencies = (
+				5E57EE0F27DBBECC001F8989 /* Fakery */,
+				5E57EE1227DBBEFC001F8989 /* SnapKit */,
+			);
 			productName = Books;
 			productReference = 5EC7D39627DBAF6B00FC0F7B /* Books.app */;
 			productType = "com.apple.product-type.application";
@@ -382,6 +407,10 @@
 				Base,
 			);
 			mainGroup = 5EC7D38D27DBAF6B00FC0F7B;
+			packageReferences = (
+				5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */,
+				5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 5EC7D39727DBAF6B00FC0F7B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -452,6 +481,7 @@
 				5E57EDDB27DBB46F001F8989 /* ListViewController.swift in Sources */,
 				5E57EDDC27DBB46F001F8989 /* ListInteractor.swift in Sources */,
 				5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */,
+				5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */,
 				5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
 				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
@@ -464,7 +494,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EC7D3B127DBAF6C00FC0F7B /* BooksTests.swift in Sources */,
+				5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */,
+				5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */,
+				5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,6 +828,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vadymmarkov/Fakery";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5E57EE0F27DBBECC001F8989 /* Fakery */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */;
+			productName = Fakery;
+		};
+		5E57EE1227DBBEFC001F8989 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5EC7D38E27DBAF6B00FC0F7B /* Project object */;
 }
