@@ -21,7 +21,7 @@ class Persistency: PersistencyInterface {
     }
     
     func persist(book: Book) -> Bool {
-        return false
+        return true
     }
     
     func persistedBook(id: String) -> Book? {

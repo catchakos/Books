@@ -13,7 +13,7 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
     let faker = Faker()
     
     func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             var items = [ListItem]()
             for _ in  0..<count  {
                 items.append(self.generateListItem())
@@ -24,7 +24,7 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
     }
     
     func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
-        
+        completion(.success(generateItemDetails()))
     }
     
     func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void)) {

@@ -9,16 +9,34 @@
 import UIKit
 
 protocol DetailPresentationLogic {
-    func presentSomething(_ response: Detail.Something.Response)
+    func presentLoad(_ response: Detail.Load.Response)
 }
 
 class DetailPresenter: DetailPresentationLogic {
     weak var viewController: DetailDisplayLogic?
     
-    // MARK: Do something
+    private lazy var priceFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        return formatter
+    }()
     
-    func presentSomething(_ response: Detail.Something.Response) {
-        let viewModel = Detail.Something.ViewModel()
-        viewController?.displaySomething(viewModel)
+    // MARK: Do Load
+    
+    func presentLoad(_ response: Detail.Load.Response) {
+        let book = response.book
+        var priceString = ""
+        if let price = book?.price,
+            let formattedPrice = priceFormatter.string(from: price as NSNumber) {
+            priceString = formattedPrice
+        }
+        
+        let viewModel = Detail.Load.ViewModel(
+            title: book?.title.capitalized,
+            author: book?.author,
+            imageUrl: book?.image,
+            price: priceString,
+            errorMessage: response.error?.localizedDescription)
+        viewController?.displayLoad(viewModel)
     }
 }

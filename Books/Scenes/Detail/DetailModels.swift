@@ -11,12 +11,19 @@ import UIKit
 enum Detail {
     // MARK: Use cases
     
-    enum Something {
+    enum Load {
         struct Request {
         }
         struct Response {
+            let book: Book?
+            let error: BooksError?
         }
         struct ViewModel {
+            let title: String?
+            let author: String?
+            let imageUrl: String?
+            let price: String?
+            let errorMessage: String?
         }
     }
 }

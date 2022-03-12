@@ -17,6 +17,7 @@ protocol ListBusinessLogic {
 
 protocol ListDataStore: DependentStore {
     var listItems: ListItems { get set }
+    var selectedItem: ListItem? { get set }
 }
 
 class ListInteractor: ListBusinessLogic, ListDataStore {
@@ -27,6 +28,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     var isLoading = false
  
     var listItems: ListItems = []
+    var selectedItem: ListItem?
     
     enum Constants {
         static let pageSize = 20
@@ -77,10 +79,14 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     func selectListItem(_ request: List.Select.Request) {
         let itemIndex = request.indexPath.item
         guard listItems.count > itemIndex else {
+            selectedItem = nil
             return
         }
         
-        let response = List.Select.Response(book: listItems[itemIndex])
+        let item = listItems[itemIndex]
+        selectedItem = item
+        
+        let response = List.Select.Response(book: selectedItem)
         presenter?.presentItemSelect(response)
     }
     

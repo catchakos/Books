@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DetailDisplayLogic: AnyObject {
-    func displaySomething(_ viewModel: Detail.Something.ViewModel)
+    func displayLoad(_ viewModel: Detail.Load.ViewModel)
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewController {
@@ -19,6 +19,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
     var interactor: DetailBusinessLogic?
     var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
+    
+    // MARK: - UI Elements
     
     lazy var dimmedView: UIView = {
         let view = UIView()
@@ -39,6 +41,40 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
         return view
     }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        label.textColor = .black
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.textColor = .black
+        label.textAlignment = .right
+        return label
+    }()
+    
+    lazy var stack = UIStackView.vertical(
+        with: [
+            titleLabel,
+            authorLabel,
+            priceLabel
+        ]
+    )
     
     // MARK: Object lifecycle
     
@@ -76,13 +112,15 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         setupConstraints()
         setupBackgroundTap()
         
-        doSomething()
+        doLoad()
     }
     
     private func setupView() {
         [dimmedView, contentView].forEach({
             view.addSubview($0)
         })
+        
+        contentView.addSubview(stack)
     }
     
     private func setupConstraints() {
@@ -94,6 +132,11 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(300)
         }
+        
+        stack.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leadingMargin.trailingMargin.equalToSuperview()
+        }
     }
     
     private func setupBackgroundTap() {
@@ -104,13 +147,15 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
     
     // MARK:
     
-    func doSomething() {
-        let request = Detail.Something.Request()
-        interactor?.doSomething(request)
+    func doLoad() {
+        let request = Detail.Load.Request()
+        interactor?.doLoad(request)
     }
     
-    func displaySomething(_ viewModel: Detail.Something.ViewModel) {
-        
+    func displayLoad(_ viewModel: Detail.Load.ViewModel) {
+        titleLabel.text = viewModel.title
+        authorLabel.text = viewModel.author
+        priceLabel.text = viewModel.price
     }
     
     @objc func didTap(_ tap: UITapGestureRecognizer) {

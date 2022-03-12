@@ -54,6 +54,9 @@
 		5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */; };
 		5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3127DCAB0C001F8989 /* BookFakes.swift */; };
 		5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */; };
+		5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */; };
+		5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */; };
+		5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */; };
 		5EAC40D527DCDB9600B615CC /* ListTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D427DCDB9600B615CC /* ListTableHandler.swift */; };
 		5EAC40D727DCDBD500B615CC /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D627DCDBD500B615CC /* ListCell.swift */; };
 		5EAC40DA27DCDCB200B615CC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D927DCDCB200B615CC /* UITableViewCell+.swift */; };
@@ -133,6 +136,9 @@
 		5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerTests.swift; sourceTree = "<group>"; };
 		5E57EE3127DCAB0C001F8989 /* BookFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFakes.swift; sourceTree = "<group>"; };
 		5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesFake.swift; sourceTree = "<group>"; };
+		5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
+		5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
+		5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
 		5EAC40D427DCDB9600B615CC /* ListTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableHandler.swift; sourceTree = "<group>"; };
 		5EAC40D627DCDBD500B615CC /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		5EAC40D927DCDCB200B615CC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
@@ -333,6 +339,16 @@
 			path = Fakes;
 			sourceTree = "<group>";
 		};
+		5EA5708227DD0FEA00942DB3 /* BookDetail */ = {
+			isa = PBXGroup;
+			children = (
+				5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */,
+				5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */,
+				5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */,
+			);
+			path = BookDetail;
+			sourceTree = "<group>";
+		};
 		5EAC40D827DCDBDA00B615CC /* ListTable */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				5E57EE1C27DBDDEF001F8989 /* BooksList */,
+				5EA5708227DD0FEA00942DB3 /* BookDetail */,
 				5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */,
 				5E57EE3527DCB8DC001F8989 /* Fakes */,
 			);
@@ -603,12 +620,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */,
 				5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */,
 				5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */,
 				5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */,
 				5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */,
+				5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */,
 				5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */,
 				5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */,
+				5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

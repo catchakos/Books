@@ -40,7 +40,8 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     // MARK: Passing data
     
     func passDataToDetail(source: ListDataStore, destination: inout DetailDataStore) {
-
+        destination.dependencies = source.dependencies
+        destination.listItem = source.selectedItem
     }
 }
 
