@@ -10,3 +10,9 @@
 ### List scene
 
 * Unit testing for VIP elements of List Scene
+
+
+### Workers & Stores
+
+* BookWorker protocol & implementation
+* BookRemoteStore protocol & implementations skeletons 

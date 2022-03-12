@@ -37,6 +37,7 @@ class ListInteractorTests: XCTestCase {
         var presentLoadCalled = false
         var presentClearCalled = false
         var presentItemSelectCalled = false
+        var presentAddCalled = false
         
         func presentLoad(_ request: List.Load.Response) {
             presentLoadCalled = true
@@ -48,6 +49,10 @@ class ListInteractorTests: XCTestCase {
         
         func presentItemSelect(_ request: List.Select.Response) {
             presentItemSelectCalled = true
+        }
+        
+        func presentAddItem(_ request: List.Add.Response) {
+            presentAddCalled = true
         }
     }
     

@@ -45,6 +45,14 @@
 		5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */; };
 		5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */; };
 		5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1F27DBDEE0001F8989 /* Books.swift */; };
+		5E57EE2227DC9961001F8989 /* BooksWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2127DC9961001F8989 /* BooksWorker.swift */; };
+		5E57EE2427DC9970001F8989 /* BooksWorkerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2327DC9970001F8989 /* BooksWorkerProtocol.swift */; };
+		5E57EE2627DC997D001F8989 /* BooksFakeryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2527DC997D001F8989 /* BooksFakeryStore.swift */; };
+		5E57EE2827DC9987001F8989 /* BooksRemoteStoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2727DC9987001F8989 /* BooksRemoteStoreProtocol.swift */; };
+		5E57EE2C27DC9AD8001F8989 /* BooksError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2B27DC9AD8001F8989 /* BooksError.swift */; };
+		5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2D27DC9C36001F8989 /* BooksAPIStore.swift */; };
+		5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */; };
+		5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3127DCAB0C001F8989 /* BookFakes.swift */; };
 		5EC7D39A27DBAF6B00FC0F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */; };
 		5EC7D3A327DBAF6C00FC0F7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */; };
 		5EC7D3A627DBAF6C00FC0F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */; };
@@ -106,6 +114,14 @@
 		5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractorTests.swift; sourceTree = "<group>"; };
 		5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenterTests.swift; sourceTree = "<group>"; };
 		5E57EE1F27DBDEE0001F8989 /* Books.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Books.swift; sourceTree = "<group>"; };
+		5E57EE2127DC9961001F8989 /* BooksWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorker.swift; sourceTree = "<group>"; };
+		5E57EE2327DC9970001F8989 /* BooksWorkerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerProtocol.swift; sourceTree = "<group>"; };
+		5E57EE2527DC997D001F8989 /* BooksFakeryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksFakeryStore.swift; sourceTree = "<group>"; };
+		5E57EE2727DC9987001F8989 /* BooksRemoteStoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksRemoteStoreProtocol.swift; sourceTree = "<group>"; };
+		5E57EE2B27DC9AD8001F8989 /* BooksError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksError.swift; sourceTree = "<group>"; };
+		5E57EE2D27DC9C36001F8989 /* BooksAPIStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksAPIStore.swift; sourceTree = "<group>"; };
+		5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerTests.swift; sourceTree = "<group>"; };
+		5E57EE3127DCAB0C001F8989 /* BookFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFakes.swift; sourceTree = "<group>"; };
 		5EC7D39627DBAF6B00FC0F7B /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -262,6 +278,27 @@
 			path = BooksList;
 			sourceTree = "<group>";
 		};
+		5E57EE2927DC998C001F8989 /* WorkersStores */ = {
+			isa = PBXGroup;
+			children = (
+				5E57EE2A27DC9994001F8989 /* Books */,
+			);
+			path = WorkersStores;
+			sourceTree = "<group>";
+		};
+		5E57EE2A27DC9994001F8989 /* Books */ = {
+			isa = PBXGroup;
+			children = (
+				5E57EE2B27DC9AD8001F8989 /* BooksError.swift */,
+				5E57EE2327DC9970001F8989 /* BooksWorkerProtocol.swift */,
+				5E57EE2127DC9961001F8989 /* BooksWorker.swift */,
+				5E57EE2727DC9987001F8989 /* BooksRemoteStoreProtocol.swift */,
+				5E57EE2527DC997D001F8989 /* BooksFakeryStore.swift */,
+				5E57EE2D27DC9C36001F8989 /* BooksAPIStore.swift */,
+			);
+			path = Books;
+			sourceTree = "<group>";
+		};
 		5EC7D38D27DBAF6B00FC0F7B = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +331,7 @@
 				5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */,
 				5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */,
 				5EC7D3A727DBAF6C00FC0F7B /* Info.plist */,
+				5E57EE2927DC998C001F8989 /* WorkersStores */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -302,6 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				5E57EE1C27DBDDEF001F8989 /* BooksList */,
+				5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */,
+				5E57EE3127DCAB0C001F8989 /* BookFakes.swift */,
 			);
 			path = BooksTests;
 			sourceTree = "<group>";
@@ -459,6 +499,7 @@
 				5E57EDF427DBB4F8001F8989 /* DetailInteractor.swift in Sources */,
 				5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */,
 				5E57EDE627DBB4A3001F8989 /* SplashRouter.swift in Sources */,
+				5E57EE2827DC9987001F8989 /* BooksRemoteStoreProtocol.swift in Sources */,
 				5E57EDCA27DBB308001F8989 /* DependentStore.swift in Sources */,
 				5E57EDE927DBB4A3001F8989 /* SplashInteractor.swift in Sources */,
 				5E57EDC427DBB2D1001F8989 /* DependenciesInterface.swift in Sources */,
@@ -468,6 +509,9 @@
 				5E57EDBF27DBB129001F8989 /* Router.swift in Sources */,
 				5E57EDF127DBB4F8001F8989 /* DetailRouter.swift in Sources */,
 				5E57EDE727DBB4A3001F8989 /* SplashModels.swift in Sources */,
+				5E57EE2C27DC9AD8001F8989 /* BooksError.swift in Sources */,
+				5E57EE2227DC9961001F8989 /* BooksWorker.swift in Sources */,
+				5E57EE2627DC997D001F8989 /* BooksFakeryStore.swift in Sources */,
 				5E57EDF327DBB4F8001F8989 /* DetailViewController.swift in Sources */,
 				5E57EDCC27DBB311001F8989 /* DependentViewController.swift in Sources */,
 				5E57EDD927DBB46F001F8989 /* ListRouter.swift in Sources */,
@@ -478,11 +522,13 @@
 				5E57EDF027DBB4F8001F8989 /* DetailPresenter.swift in Sources */,
 				5E57EDD827DBB46F001F8989 /* ListPresenter.swift in Sources */,
 				5E57EDC127DBB12C001F8989 /* Route.swift in Sources */,
+				5E57EE2427DC9970001F8989 /* BooksWorkerProtocol.swift in Sources */,
 				5E57EDDB27DBB46F001F8989 /* ListViewController.swift in Sources */,
 				5E57EDDC27DBB46F001F8989 /* ListInteractor.swift in Sources */,
 				5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */,
 				5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */,
 				5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */,
+				5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
 				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,
@@ -494,6 +540,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */,
+				5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */,
 				5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */,
 				5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */,
 				5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */,

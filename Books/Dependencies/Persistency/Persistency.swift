@@ -8,6 +8,10 @@
 import Foundation
 
 class Persistency: PersistencyInterface {
+    required init(completion: @escaping (() -> Void)) {
+        completion()
+    }
+    
     func startListeningToBooks(updateHandler: @escaping (() -> Void)) {
         
     }
@@ -16,11 +20,11 @@ class Persistency: PersistencyInterface {
         
     }
     
-    func persistBook() {
-        
+    func persist(book: Book) -> Bool {
+        return false
     }
     
-    required init(completion: @escaping (() -> Void)) {
-        completion()
+    func persistedBook(id: String) -> Book? {
+        return nil
     }
 }

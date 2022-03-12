@@ -37,6 +37,7 @@ class ListPresenterTests: XCTestCase {
         var displayLoadCalled = false
         var displayClearCalled = false
         var displaySelectItemCalled = false
+        var displayAddCalled = false
         
         func displayLoad(_ viewModel: List.Load.ViewModel) {
             displayLoadCalled = true
@@ -48,6 +49,10 @@ class ListPresenterTests: XCTestCase {
         
         func displaySelectListItem(_ viewModel: List.Select.ViewModel) {
             displaySelectItemCalled = true
+        }
+        
+        func displayAddListItem(_ viewModel: List.Add.ViewModel) {
+            displayAddCalled = true
         }
     }
     

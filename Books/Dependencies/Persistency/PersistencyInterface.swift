@@ -11,5 +11,6 @@ protocol PersistencyInterface: Dependency {
     func startListeningToBooks(updateHandler: @escaping ((/*[Book]*/) -> Void))
     func stopListeningToBooks()
 
-    func persistBook() // -> Book?
+    func persist(book: Book) -> Bool
+    func persistedBook(id: String) -> Book?
 }
