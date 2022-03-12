@@ -22,21 +22,28 @@ class BooksUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testListToDetail() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let table = app.tables["list_table"]
+        XCTAssert(table.exists)
+        
+        let spinner = app.otherElements["spinner"]
+        XCTAssertFalse(spinner.exists)
+        
+        table.swipeUp()
+        table.cells.firstMatch.tap()
+        
+        let price = app.staticTexts["price_label"]
+        XCTAssert(price.exists)
+        
+        let dimmedView = app.otherElements["dimmed_view"]
+        XCTAssert(dimmedView.exists)
+        
+        dimmedView.tap()
+        XCTAssert(table.exists)
+        XCTAssertFalse(price.exists)
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
 }

@@ -27,3 +27,4 @@
 
 * Unit testing for VIP scene elements
 * Snapshot testing for List & Detail scene states
+* UI testing 

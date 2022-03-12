@@ -30,6 +30,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.tableFooterView = UIView()
+        table.accessibilityLabel = "list_table"
         return table
     }()
     
@@ -42,12 +43,14 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
         label.textAlignment = .center
+        label.accessibilityLabel = "error_label"
         return label
     }()
     
     lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.hidesWhenStopped = true
+        spinner.accessibilityLabel = "spinner"
         return spinner
     }()
     

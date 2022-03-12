@@ -30,6 +30,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
 
+        view.accessibilityLabel = "dimmed_view"
+        
         return view
     }()
     
@@ -49,6 +51,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.textAlignment = .center
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
+        label.accessibilityLabel = "title_label"
         return label
     }()
     
@@ -57,6 +60,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
         label.textColor = .black
         label.textAlignment = .center
+        label.accessibilityLabel = "author_label"
         return label
     }()
     
@@ -65,6 +69,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.textColor = .black
         label.textAlignment = .right
+        label.accessibilityLabel = "price_label"
         return label
     }()
     
