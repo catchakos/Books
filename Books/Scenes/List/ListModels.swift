@@ -53,6 +53,7 @@ enum List {
         }
         struct ViewModel {
             let success: Bool
+            let errorMessage: String?
         }
     }
 }

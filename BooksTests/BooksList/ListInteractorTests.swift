@@ -277,7 +277,7 @@ class ListInteractorTests: XCTestCase {
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
         
-        let request = List.Select.Request(indexPath: IndexPath(item: 0, section: 0))
+        let request = List.Select.Request(indexPath: IndexPath(row: 0, section: 0))
         sut.selectListItem(request)
         
         XCTAssertTrue(spy.presentItemSelectCalled, "selectListItem(_:) should ask the presenter to format the result")
@@ -288,7 +288,7 @@ class ListInteractorTests: XCTestCase {
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
         
-        let request = List.Select.Request(indexPath: IndexPath(item: 0, section: 0))
+        let request = List.Select.Request(indexPath: IndexPath(row: 0, section: 0))
         sut.selectListItem(request)
         
         XCTAssertNotNil(spy.presentSelectResponsePassed?.book, "selectListItem(_:) should ask the presenter to format the item")
@@ -299,7 +299,7 @@ class ListInteractorTests: XCTestCase {
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
         
-        let request = List.Select.Request(indexPath: IndexPath(item: 2, section: 0))
+        let request = List.Select.Request(indexPath: IndexPath(row: 2, section: 0))
         sut.selectListItem(request)
         
         XCTAssertFalse(spy.presentItemSelectCalled, "selectListItem(_:) should not ask the presenter to format the item if out of range")

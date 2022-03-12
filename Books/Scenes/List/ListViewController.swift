@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol ListDisplayLogic: AnyObject {
     func displayLoad(_ viewModel: List.Load.ViewModel)
@@ -23,6 +24,45 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     var interactor: ListBusinessLogic?
     var router: (NSObjectProtocol & ListRoutingLogic & ListDataPassing)?
+    
+    // MARK: - UI Elements
+    
+    lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.tableFooterView = UIView()
+        return table
+    }()
+    
+    lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.textColor = .red
+        label.isHidden = true
+        label.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.hidesWhenStopped = true
+        return spinner
+    }()
+    
+    // MARK: - Table Handler
+    
+    lazy var tableHandler: ListTableHandler = {
+        let handler = ListTableHandler(table: tableView)
+        handler.onSelection = { indexPath in
+            self.selectListItem(indexPath)
+        }
+        handler.onScrolledToBottom = {
+            self.loadList()
+        }
+        return handler
+    }()
     
     // MARK: Object lifecycle
     
@@ -58,27 +98,58 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
      
         setupView()
         setupConstraints()
+        setupNavigationItem()
         
         loadList()
     }
     
     private func setupView() {
-        view.backgroundColor = .yellow
+        [tableView, errorLabel, spinner].forEach({
+            view.addSubview($0)
+        })
     }
     
     private func setupConstraints() {
+        tableView.snp.makeConstraints { make in
+            make.margins.equalToSuperview()
+        }
         
+        errorLabel.snp.makeConstraints { make in
+            make.bottomMargin.equalToSuperview().offset(-8)
+            make.leadingMargin.equalToSuperview().offset(32)
+            make.trailingMargin.equalToSuperview().offset(-32)
+        }
+        
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    private func setupNavigationItem() {
+        navigationItem.title = NSLocalizedString("Books", comment: "")
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didTapAdd))
     }
     
     // MARK: - Load
         
     func loadList() {
+        spinner.startAnimating()
+        
         let request = List.Load.Request()
         interactor?.loadList(request)
     }
     
     func displayLoad(_ viewModel: List.Load.ViewModel) {
+        tableHandler.add(newItems: viewModel.books)
         
+        errorLabel.text = viewModel.errorMessage
+        errorLabel.isHidden = viewModel.errorMessage == nil
+        
+        spinner.stopAnimating()
     }
     
     // MARK: - Clear
@@ -89,7 +160,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
     
     func displayClear(_ viewModel: List.Clear.ViewModel) {
-        
+        tableHandler.clear()
     }
     
     // MARK: - Select
@@ -100,10 +171,18 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
     
     func displaySelectListItem(_ viewModel: List.Select.ViewModel) {
-    
+        guard viewModel.success else {
+            return
+        }
+        
+        router?.routeToDetail()
     }
     
     // MARK: Add
+    
+    @objc func didTapAdd() {
+        addListItem()
+    }
     
     func addListItem() {
         let request = List.Add.Request()
@@ -111,6 +190,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
     
     func displayAddListItem(_ viewModel: List.Add.ViewModel) {
-        
+        errorLabel.text = viewModel.errorMessage
+        errorLabel.isHidden = viewModel.errorMessage == nil
     }
 }

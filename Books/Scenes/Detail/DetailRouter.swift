@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol DetailRoutingLogic {
-    //func routeToSomewhere()
+    func exitDetail()
 }
 
 protocol DetailDataPassing {
@@ -22,22 +22,12 @@ class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
     
     // MARK: Routing
     
-    //func routeToSomewhere() {
-    //    let destinationVC = SomewhereViewController()
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //}
+    func exitDetail() {
+        viewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
     
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: DetailViewController, destination: SomewhereViewController) {
-    //  source.show(destination, sender: nil)
-    //}
-    
     // MARK: Passing data
-    
-    //func passDataToSomewhere(source: DetailDataStore, destination: inout SomewhereDataStore) {
-    //  destination.name = source.name
-    //}
+
 }

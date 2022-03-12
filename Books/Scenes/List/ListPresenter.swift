@@ -44,7 +44,9 @@ class ListPresenter: ListPresentationLogic {
     // MARK: Add
     
     func presentAddItem(_ response: List.Add.Response) {
-        let vm = List.Add.ViewModel(success: response.book != nil)
+        let vm = List.Add.ViewModel(
+            success: response.book != nil,
+            errorMessage: response.book == nil ? NSLocalizedString("Cannot create book", comment: "") : nil)
         viewController?.displayAddListItem(vm)
     }
 }

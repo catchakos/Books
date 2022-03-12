@@ -33,6 +33,7 @@ class ListViewControllerTests: XCTestCase {
     func setupListViewController() {
         sut = ListViewController()
         sut.router?.dataStore?.dependencies = DependenciesFake()
+        sut.interactor = ListBusinessLogicSpy()
     }
     
     func loadView() {
@@ -65,6 +66,14 @@ class ListViewControllerTests: XCTestCase {
         }
     }
     
+    class ListRouterSpy: ListRouter {
+        var routeToDetailCalled = false
+        
+        override func routeToDetail() {
+            routeToDetailCalled = true
+        }
+    }
+    
     // MARK: Tests
     
     // MARK: - Load
@@ -78,46 +87,71 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertTrue(spy.loadListCalled, "viewDidLoad() should ask the interactor to load")
     }
     
-    func testDisplayLoad() {
-        let viewModel = List.Load.ViewModel(books: ListItems.none, errorMessage: nil)
+    func testDisplayLoad() {        
+        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
         
-        loadView()
-        sut.displayLoad(viewModel)
+        sut.displayLoad(vm)
         
-        XCTFail()
+        XCTAssert(sut.tableView.numberOfSections == 1)
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count)
     }
     
-    func testLoadsNextPageWhenReachingBottom() {
-        XCTFail()
-
-    }
-    
-    func testAddsItemsToExisting() {
-        XCTFail()
-
+    func testAppendsResults() {
+        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
+        
+        sut.displayLoad(vm)
+        sut.displayLoad(vm)
+        
+        XCTAssert(sut.tableView.numberOfSections == 1)
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count * 2)
     }
     
     func testDisplaysFetchErrorMessage() {
-        XCTFail()
-
+        let vm = List.Load.ViewModel(books: [], errorMessage: "Error")
+        
+        sut.displayLoad(vm)
+        
+        XCTAssert(sut.errorLabel.text == vm.errorMessage)
+        XCTAssertFalse(sut.errorLabel.isHidden)
     }
     
-    func testKeepsExistingItemsWhenDisplayingFetchErrorMessage() {
-        XCTFail()
-
+    func testHidesErrorMessageWithoutError() {
+        let vm = List.Load.ViewModel(books: [], errorMessage: nil)
+        
+        sut.displayLoad(vm)
+        
+        XCTAssertTrue(sut.errorLabel.isHidden)
     }
     
     func testSpinsWhileFetching() {
-        XCTFail()
-
+        loadView()
+        
+        sut.loadList()
+        
+        XCTAssert(sut.spinner.isAnimating)
     }
     
     func testStopsSpinningWhenFinishedFetching() {
-        XCTFail()
-
+        loadView()
+        sut.loadList()
+        
+        let vm = List.Load.ViewModel(books: [], errorMessage: nil)
+        sut.displayLoad(vm)
+        
+        XCTAssertFalse(sut.spinner.isAnimating)
     }
     
-    
+    func testLoadsNextPageWhenReachingBottom() {
+        let spy = ListBusinessLogicSpy()
+        sut.interactor = spy
+        loadView()
+        sut.displayLoad(List.Load.ViewModel(books: BookFakes.onePage, errorMessage: nil))
+        spy.loadListCalled = false
+        
+        sut.tableHandler.onScrolledToBottom?()
+        
+        XCTAssertTrue(spy.loadListCalled)
+    }
     // MARK: - Clear
     
     func testShouldClearList() {
@@ -136,7 +170,7 @@ class ListViewControllerTests: XCTestCase {
         loadView()
         sut.displayClear(viewModel)
         
-        XCTFail()
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == 0)
     }
     
     // MARK: - Select
@@ -147,31 +181,31 @@ class ListViewControllerTests: XCTestCase {
     
         loadView()
         //TODO: do it with UI
-        sut.selectListItem(IndexPath(item: 0, section: 0))
+        sut.selectListItem(IndexPath(row: 0, section: 0))
     
         XCTAssertTrue(spy.selectListItemCalled, "viewDidLoad() should ask the interactor to select")
     }
     
     func testDisplaySelect() {
-        let viewModel = List.Select.ViewModel(success: true)
-        
+        let routerSpy = ListRouterSpy()
+        sut.router = routerSpy
         loadView()
+        
+        let viewModel = List.Select.ViewModel(success: true)
         sut.displaySelectListItem(viewModel)
         
-        XCTFail()
+        XCTAssert(routerSpy.routeToDetailCalled)
     }
     
     func testDisplayNoSelectWithoutSuccess() {
-        let viewModel = List.Select.ViewModel(success: false)
-        
+        let routerSpy = ListRouterSpy()
+        sut.router = routerSpy
         loadView()
+        
+        let viewModel = List.Select.ViewModel(success: false)
         sut.displaySelectListItem(viewModel)
         
-        XCTFail()
-    }
-    
-    func testDisplayNoneSelectedAtLaunch() {
-        XCTFail()
+        XCTAssertFalse(routerSpy.routeToDetailCalled)
     }
     
     // MARK: - Add
@@ -187,16 +221,21 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertTrue(spy.addListItemCalled, "viewDidLoad() should ask the interactor to add")
     }
     
-    func testDisplayItemWithAddSuccess() {
-        let viewModel = List.Add.ViewModel(success: true)
+    func testDisplayNoErrorWithAddSuccess() {
+        let viewModel = List.Add.ViewModel(success: true, errorMessage: nil)
         
         loadView()
         sut.displayAddListItem(viewModel)
         
-        XCTFail()
+        XCTAssert(sut.errorLabel.isHidden)
     }
     
-    func testDisplayNoItemWithAddFailure() {
-        XCTFail()
+    func testDisplayErrorWithAddFailure() {
+        let viewModel = List.Add.ViewModel(success: false, errorMessage: "error")
+        
+        loadView()
+        sut.displayAddListItem(viewModel)
+        
+        XCTAssertFalse(sut.errorLabel.isHidden)
     }
 }

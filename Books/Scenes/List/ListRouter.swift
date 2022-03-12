@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol ListRoutingLogic {
-    //func routeToSomewhere()
+    func routeToDetail()
 }
 
 protocol ListDataPassing {
@@ -22,22 +22,42 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     
     // MARK: Routing
     
-    //func routeToSomewhere() {
-    //    let destinationVC = SomewhereViewController()
-    //    var destinationDS = destinationVC.router!.dataStore!
-    //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-    //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //}
+    func routeToDetail() {
+        let destinationVC = DetailViewController()
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToDetail(source: dataStore!, destination: &destinationDS)
+        navigateToDetail(source: viewController!, destination: destinationVC)
+    }
     
     // MARK: Navigation
     
-    //func navigateToSomewhere(source: ListViewController, destination: SomewhereViewController) {
-    //  source.show(destination, sender: nil)
-    //}
+    func navigateToDetail(source: ListViewController, destination: DetailViewController) {
+        destination.modalPresentationStyle = .overCurrentContext
+        destination.transitioningDelegate = self
+        viewController?.present(destination, animated: true, completion: nil)
+    }
     
     // MARK: Passing data
     
-    //func passDataToSomewhere(source: ListDataStore, destination: inout SomewhereDataStore) {
-    //  destination.name = source.name
-    //}
+    func passDataToDetail(source: ListDataStore, destination: inout DetailDataStore) {
+
+    }
+}
+
+extension ListRouter: UIViewControllerTransitioningDelegate {
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented is DetailViewController {
+            return BottomUpPresentation<DetailViewController>()
+        }
+        return nil
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed is DetailViewController {
+            return ToBottomDismissal<DetailViewController>()
+        }
+        return nil
+    }
+
 }

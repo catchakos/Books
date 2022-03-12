@@ -10,7 +10,11 @@
 ### List scene
 
 * Unit testing skeleton for VIP elements of List Scene
-* Testing & Imlementation for ListInteractor, ListPresenter
+* Testing & Imlementation for ListInteractor, ListPresenter, ListViewController halfways
+
+### Detail scene
+
+* Custom modal presentation
 
 ### Workers & Stores
 

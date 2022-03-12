@@ -23,4 +23,6 @@ struct BookFakes {
         title: "Book title")
     
     static let fakeList1 = [fakeListItem1]
+    
+    static let onePage = Array(repeating: fakeListItem1, count: ListInteractor.Constants.pageSize)
 }

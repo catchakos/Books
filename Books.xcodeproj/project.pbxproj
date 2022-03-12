@@ -54,6 +54,15 @@
 		5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */; };
 		5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3127DCAB0C001F8989 /* BookFakes.swift */; };
 		5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */; };
+		5EAC40D527DCDB9600B615CC /* ListTableHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D427DCDB9600B615CC /* ListTableHandler.swift */; };
+		5EAC40D727DCDBD500B615CC /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D627DCDBD500B615CC /* ListCell.swift */; };
+		5EAC40DA27DCDCB200B615CC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40D927DCDCB200B615CC /* UITableViewCell+.swift */; };
+		5EAC40DC27DCDCC100B615CC /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40DB27DCDCC100B615CC /* UITableView+.swift */; };
+		5EAC40DE27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40DD27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift */; };
+		5EAC40E027DCDE1D00B615CC /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40DF27DCDE1D00B615CC /* UIStackView+.swift */; };
+		5EAC40E327DCF23E00B615CC /* BottomUpPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40E227DCF23E00B615CC /* BottomUpPresentation.swift */; };
+		5EAC40E527DCF29900B615CC /* CustomPresentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40E427DCF29900B615CC /* CustomPresentedViewController.swift */; };
+		5EAC40E727DCF2D000B615CC /* ToBottomDismissal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAC40E627DCF2D000B615CC /* ToBottomDismissal.swift */; };
 		5EC7D39A27DBAF6B00FC0F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */; };
 		5EC7D3A327DBAF6C00FC0F7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */; };
 		5EC7D3A627DBAF6C00FC0F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */; };
@@ -124,6 +133,15 @@
 		5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerTests.swift; sourceTree = "<group>"; };
 		5E57EE3127DCAB0C001F8989 /* BookFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFakes.swift; sourceTree = "<group>"; };
 		5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesFake.swift; sourceTree = "<group>"; };
+		5EAC40D427DCDB9600B615CC /* ListTableHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableHandler.swift; sourceTree = "<group>"; };
+		5EAC40D627DCDBD500B615CC /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		5EAC40D927DCDCB200B615CC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		5EAC40DB27DCDCC100B615CC /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		5EAC40DD27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+.swift"; sourceTree = "<group>"; };
+		5EAC40DF27DCDE1D00B615CC /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		5EAC40E227DCF23E00B615CC /* BottomUpPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomUpPresentation.swift; sourceTree = "<group>"; };
+		5EAC40E427DCF29900B615CC /* CustomPresentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresentedViewController.swift; sourceTree = "<group>"; };
+		5EAC40E627DCF2D000B615CC /* ToBottomDismissal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToBottomDismissal.swift; sourceTree = "<group>"; };
 		5EC7D39627DBAF6B00FC0F7B /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -213,6 +231,7 @@
 				5E57EDD527DBB46F001F8989 /* ListModels.swift */,
 				5E57EDD627DBB46F001F8989 /* ListViewController.swift */,
 				5E57EDD727DBB46F001F8989 /* ListInteractor.swift */,
+				5EAC40D827DCDBDA00B615CC /* ListTable */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -255,6 +274,10 @@
 			isa = PBXGroup;
 			children = (
 				5E57EDFB27DBB8EE001F8989 /* Decodable+.swift */,
+				5EAC40D927DCDCB200B615CC /* UITableViewCell+.swift */,
+				5EAC40DB27DCDCC100B615CC /* UITableView+.swift */,
+				5EAC40DD27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift */,
+				5EAC40DF27DCDE1D00B615CC /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -310,6 +333,25 @@
 			path = Fakes;
 			sourceTree = "<group>";
 		};
+		5EAC40D827DCDBDA00B615CC /* ListTable */ = {
+			isa = PBXGroup;
+			children = (
+				5EAC40D427DCDB9600B615CC /* ListTableHandler.swift */,
+				5EAC40D627DCDBD500B615CC /* ListCell.swift */,
+			);
+			path = ListTable;
+			sourceTree = "<group>";
+		};
+		5EAC40E127DCF22F00B615CC /* Presentations */ = {
+			isa = PBXGroup;
+			children = (
+				5EAC40E427DCF29900B615CC /* CustomPresentedViewController.swift */,
+				5EAC40E227DCF23E00B615CC /* BottomUpPresentation.swift */,
+				5EAC40E627DCF2D000B615CC /* ToBottomDismissal.swift */,
+			);
+			path = Presentations;
+			sourceTree = "<group>";
+		};
 		5EC7D38D27DBAF6B00FC0F7B = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +381,7 @@
 				5E57EDC227DBB2C5001F8989 /* Dependencies */,
 				5E57EDF527DBB789001F8989 /* Model */,
 				5E57EDFA27DBB8E4001F8989 /* Extensions */,
+				5EAC40E127DCF22F00B615CC /* Presentations */,
 				5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */,
 				5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */,
 				5EC7D3A727DBAF6C00FC0F7B /* Info.plist */,
@@ -507,14 +550,18 @@
 				5E57EDDA27DBB46F001F8989 /* ListModels.swift in Sources */,
 				5E57EDCF27DBB3DB001F8989 /* PersistencyInterface.swift in Sources */,
 				5E57EDC627DBB2D7001F8989 /* Dependencies.swift in Sources */,
+				5EAC40D727DCDBD500B615CC /* ListCell.swift in Sources */,
 				5E57EDF427DBB4F8001F8989 /* DetailInteractor.swift in Sources */,
 				5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */,
 				5E57EDE627DBB4A3001F8989 /* SplashRouter.swift in Sources */,
+				5EAC40E527DCF29900B615CC /* CustomPresentedViewController.swift in Sources */,
 				5E57EE2827DC9987001F8989 /* BooksRemoteStoreProtocol.swift in Sources */,
 				5E57EDCA27DBB308001F8989 /* DependentStore.swift in Sources */,
+				5EAC40DE27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift in Sources */,
 				5E57EDE927DBB4A3001F8989 /* SplashInteractor.swift in Sources */,
 				5E57EDC427DBB2D1001F8989 /* DependenciesInterface.swift in Sources */,
 				5E57EDC827DBB2E0001F8989 /* Dependency.swift in Sources */,
+				5EAC40DA27DCDCB200B615CC /* UITableViewCell+.swift in Sources */,
 				5E57EDF927DBB7BB001F8989 /* ListItem.swift in Sources */,
 				5E57EE0D27DBBB30001F8989 /* FakeAPIClient.swift in Sources */,
 				5E57EDBF27DBB129001F8989 /* Router.swift in Sources */,
@@ -537,13 +584,18 @@
 				5E57EDDB27DBB46F001F8989 /* ListViewController.swift in Sources */,
 				5E57EDDC27DBB46F001F8989 /* ListInteractor.swift in Sources */,
 				5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */,
+				5EAC40D527DCDB9600B615CC /* ListTableHandler.swift in Sources */,
 				5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */,
+				5EAC40DC27DCDCC100B615CC /* UITableView+.swift in Sources */,
 				5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */,
 				5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
 				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,
+				5EAC40E727DCF2D000B615CC /* ToBottomDismissal.swift in Sources */,
+				5EAC40E327DCF23E00B615CC /* BottomUpPresentation.swift in Sources */,
 				5E57EDFC27DBB8EE001F8989 /* Decodable+.swift in Sources */,
+				5EAC40E027DCDE1D00B615CC /* UIStackView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
