@@ -15,8 +15,15 @@
 ### Detail scene
 
 * Custom modal presentation
+* Simple load use case
 
 ### Workers & Stores
 
 * BookWorker protocol & implementation
 * BookRemoteStore protocol & implementations skeletons 
+
+
+### Testing 
+
+* Unit testing for VIP scene elements
+* Snapshot testing for List & Detail scene states

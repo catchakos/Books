@@ -54,6 +54,9 @@
 		5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */; };
 		5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3127DCAB0C001F8989 /* BookFakes.swift */; };
 		5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */; };
+		5E6574A027DD1632002622F3 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 5E65749F27DD1632002622F3 /* SnapshotTesting */; };
+		5E6574A227DD1658002622F3 /* ListSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6574A127DD1658002622F3 /* ListSnapshots.swift */; };
+		5E6574A427DD18FB002622F3 /* DetailSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6574A327DD18FB002622F3 /* DetailSnapshots.swift */; };
 		5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */; };
 		5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */; };
 		5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */; };
@@ -136,6 +139,8 @@
 		5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerTests.swift; sourceTree = "<group>"; };
 		5E57EE3127DCAB0C001F8989 /* BookFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFakes.swift; sourceTree = "<group>"; };
 		5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesFake.swift; sourceTree = "<group>"; };
+		5E6574A127DD1658002622F3 /* ListSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSnapshots.swift; sourceTree = "<group>"; };
+		5E6574A327DD18FB002622F3 /* DetailSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshots.swift; sourceTree = "<group>"; };
 		5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
 		5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
@@ -173,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E6574A027DD1632002622F3 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +311,7 @@
 				5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */,
 				5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */,
 				5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */,
+				5E6574A127DD1658002622F3 /* ListSnapshots.swift */,
 			);
 			path = BooksList;
 			sourceTree = "<group>";
@@ -345,6 +352,7 @@
 				5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */,
 				5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */,
 				5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */,
+				5E6574A327DD18FB002622F3 /* DetailSnapshots.swift */,
 			);
 			path = BookDetail;
 			sourceTree = "<group>";
@@ -464,6 +472,9 @@
 				5EC7D3AE27DBAF6C00FC0F7B /* PBXTargetDependency */,
 			);
 			name = BooksTests;
+			packageProductDependencies = (
+				5E65749F27DD1632002622F3 /* SnapshotTesting */,
+			);
 			productName = BooksTests;
 			productReference = 5EC7D3AC27DBAF6C00FC0F7B /* BooksTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -521,6 +532,7 @@
 			packageReferences = (
 				5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */,
 				5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5E65749E27DD1632002622F3 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 5EC7D39727DBAF6B00FC0F7B /* Products */;
 			projectDirPath = "";
@@ -625,6 +637,8 @@
 				5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */,
 				5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */,
 				5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */,
+				5E6574A227DD1658002622F3 /* ListSnapshots.swift in Sources */,
+				5E6574A427DD18FB002622F3 /* DetailSnapshots.swift in Sources */,
 				5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */,
 				5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */,
 				5E57EE1A27DBDDD4001F8989 /* ListPresenterTests.swift in Sources */,
@@ -978,6 +992,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		5E65749E27DD1632002622F3 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -990,6 +1012,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		5E65749F27DD1632002622F3 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E65749E27DD1632002622F3 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
