@@ -7,8 +7,14 @@
 
 import Foundation
 
+typealias ListItems = [ListItem]
+
 struct ListItem: Codable {
     let id: String
     let link: String
     let title: String
+}
+
+extension ListItems {
+    static let none: ListItems = []
 }

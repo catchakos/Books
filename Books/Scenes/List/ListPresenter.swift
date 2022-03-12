@@ -9,10 +9,10 @@
 import UIKit
 
 protocol ListPresentationLogic {
-    func presentLoad(_ request: List.Load.Response)
-    func presentClear(_ request: List.Clear.Response)
-    func presentItemSelect(_ request: List.Select.Response)
-    func presentAddItem(_ request: List.Add.Response)
+    func presentLoad(_ response: List.Load.Response)
+    func presentClear(_ response: List.Clear.Response)
+    func presentItemSelect(_ response: List.Select.Response)
+    func presentAddItem(_ response: List.Add.Response)
 }
 
 class ListPresenter: ListPresentationLogic {
@@ -20,31 +20,31 @@ class ListPresenter: ListPresentationLogic {
     
     // MARK: Load
     
-    func presentLoad(_ request: List.Load.Response) {
-        let vm = List.Load.ViewModel(books: [])
+    func presentLoad(_ response: List.Load.Response) {
+        let vm = List.Load.ViewModel(
+            books: response.books ?? [],
+            errorMessage: response.error?.localizedDescription)
         viewController?.displayLoad(vm)
     }
     
     // MARK: Clear
     
-    func presentClear(_ request: List.Clear.Response) {
+    func presentClear(_ response: List.Clear.Response) {
         let vm = List.Clear.ViewModel()
         viewController?.displayClear(vm)
     }
     
     // MARK: Select
     
-    func presentItemSelect(_ request: List.Select.Response) {
-        // persist
-        // post
-        let vm = List.Select.ViewModel(success: true)
+    func presentItemSelect(_ response: List.Select.Response) {
+        let vm = List.Select.ViewModel(success: response.book != nil)
         viewController?.displaySelectListItem(vm)
     }
     
     // MARK: Add
     
-    func presentAddItem(_ request: List.Add.Response) {
-        let vm = List.Add.ViewModel(success: true)
+    func presentAddItem(_ response: List.Add.Response) {
+        let vm = List.Add.ViewModel(success: response.book != nil)
         viewController?.displayAddListItem(vm)
     }
 }

@@ -16,22 +16,58 @@ protocol ListBusinessLogic {
 }
 
 protocol ListDataStore: DependentStore {
+    var listItems: ListItems { get set }
 }
 
 class ListInteractor: ListBusinessLogic, ListDataStore {
     var dependencies: DependenciesInterface?
     var presenter: ListPresentationLogic?
+ 
+    var offset: Int = 0
+    var isLoading = false
+ 
+    var listItems: ListItems = []
+    
+    enum Constants {
+        static let pageSize = 20
+    }
+    
+    lazy var worker: BooksWorkerProtocol = BooksWorker(
+        store: BooksFakeryStore(),
+        persistency: dependencies!.persistency!)
     
     // MARK: Load
     
     func loadList(_ request: List.Load.Request) {
-        let response = List.Load.Response(books: [])
-        presenter?.presentLoad(response)
+        guard !isLoading else {
+            return
+        }
+        
+        isLoading = true
+        worker.fetchBooksList(
+            offset: offset,
+            count: Constants.pageSize) { result in
+                self.isLoading = false
+                
+                let response: List.Load.Response
+                switch result {
+                case let .success(items):
+                    self.offset += Constants.pageSize
+                    self.listItems.append(contentsOf: items)
+                    
+                    response = List.Load.Response(books: items, error: nil)
+                case let .failure(error):
+                    response = List.Load.Response(books: nil, error: error)
+                }
+                self.presenter?.presentLoad(response)
+            }
     }
     
     // MARK: Clear
     
     func clearList(_ request: List.Clear.Request) {
+        listItems.removeAll()
+        
         let response = List.Clear.Response()
         presenter?.presentClear(response)
     }
@@ -39,14 +75,27 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     // MARK: Select Item
     
     func selectListItem(_ request: List.Select.Request) {
-        let response = List.Select.Response(book: nil)
+        let itemIndex = request.indexPath.item
+        guard listItems.count > itemIndex else {
+            return
+        }
+        
+        let response = List.Select.Response(book: listItems[itemIndex])
         presenter?.presentItemSelect(response)
     }
     
     // MARK: Add
     
     func addItem(_ request: List.Add.Request) {
-        let response = List.Add.Response(book: nil)
-        presenter?.presentAddItem(response)
+        worker.addRandomBook { result in
+            let response: List.Add.Response
+            switch result {
+            case let .success(book):
+                response = List.Add.Response(book: book)
+            case .failure:
+                response = List.Add.Response(book: nil)
+            }
+            self.presenter?.presentAddItem(response)
+        }
     }
 }

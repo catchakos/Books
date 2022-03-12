@@ -53,6 +53,7 @@
 		5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2D27DC9C36001F8989 /* BooksAPIStore.swift */; };
 		5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */; };
 		5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3127DCAB0C001F8989 /* BookFakes.swift */; };
+		5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */; };
 		5EC7D39A27DBAF6B00FC0F7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */; };
 		5EC7D3A327DBAF6C00FC0F7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */; };
 		5EC7D3A627DBAF6C00FC0F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */; };
@@ -122,6 +123,7 @@
 		5E57EE2D27DC9C36001F8989 /* BooksAPIStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksAPIStore.swift; sourceTree = "<group>"; };
 		5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksWorkerTests.swift; sourceTree = "<group>"; };
 		5E57EE3127DCAB0C001F8989 /* BookFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookFakes.swift; sourceTree = "<group>"; };
+		5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesFake.swift; sourceTree = "<group>"; };
 		5EC7D39627DBAF6B00FC0F7B /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D39927DBAF6B00FC0F7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -299,6 +301,15 @@
 			path = Books;
 			sourceTree = "<group>";
 		};
+		5E57EE3527DCB8DC001F8989 /* Fakes */ = {
+			isa = PBXGroup;
+			children = (
+				5E57EE3127DCAB0C001F8989 /* BookFakes.swift */,
+				5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */,
+			);
+			path = Fakes;
+			sourceTree = "<group>";
+		};
 		5EC7D38D27DBAF6B00FC0F7B = {
 			isa = PBXGroup;
 			children = (
@@ -341,7 +352,7 @@
 			children = (
 				5E57EE1C27DBDDEF001F8989 /* BooksList */,
 				5E57EE2F27DCA9E4001F8989 /* BooksWorkerTests.swift */,
-				5E57EE3127DCAB0C001F8989 /* BookFakes.swift */,
+				5E57EE3527DCB8DC001F8989 /* Fakes */,
 			);
 			path = BooksTests;
 			sourceTree = "<group>";
@@ -541,6 +552,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */,
+				5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */,
 				5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */,
 				5E57EE1927DBDDD4001F8989 /* ListInteractorTests.swift in Sources */,
 				5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */,

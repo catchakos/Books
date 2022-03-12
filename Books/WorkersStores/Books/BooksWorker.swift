@@ -17,11 +17,11 @@ class BooksWorker: BooksWorkerProtocol {
         self.persistency = persistency
     }
 
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItem, BooksError>) -> Void)) {
+    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
         store.fetchBooksList(offset: offset, count: count) { result in
             switch result {
-            case let .success(item):
-                completion(.success(item))
+            case let .success(items):
+                completion(.success(items))
             case let .failure(error):
                 if let apiError = error as? APIClientError {
                     switch apiError {

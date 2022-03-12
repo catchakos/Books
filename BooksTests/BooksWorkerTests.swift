@@ -48,11 +48,11 @@ class BooksWorkerTests: XCTestCase {
         var fakeDetailReturnSuccess = true
         var fakePostReturnSuccess = true
         
-        func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItem, Error>) -> Void)) {
+        func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
             fetchListCalled = true
             fetchListOffsetPassed = offset
             
-            completion(fakeListReturnSuccess ? .success(BookFakes.fakeListItem1) : .failure(APIClientError.other))
+            completion(fakeListReturnSuccess ? .success(BookFakes.fakeList1) : .failure(APIClientError.other))
         }
         
         func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {

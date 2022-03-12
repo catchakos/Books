@@ -15,10 +15,12 @@ enum List {
         struct Request {
         }
         struct Response {
-            let books: Books
+            let books: ListItems?
+            let error: BooksError?
         }
         struct ViewModel {
-            let books: Books
+            let books: ListItems
+            let errorMessage: String?
         }
     }
     
@@ -36,7 +38,7 @@ enum List {
             let indexPath: IndexPath
         }
         struct Response {
-            let book: Book?
+            let book: ListItem?
         }
         struct ViewModel {
             let success: Bool

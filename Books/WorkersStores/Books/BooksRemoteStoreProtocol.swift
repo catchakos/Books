@@ -8,7 +8,7 @@
 import Foundation
 
 protocol BooksRemoteStoreProtocol {
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItem, Error>) -> Void))
+    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void))
     func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void))
     func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void))
 }

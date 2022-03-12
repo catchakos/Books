@@ -32,6 +32,7 @@ class ListViewControllerTests: XCTestCase {
     
     func setupListViewController() {
         sut = ListViewController()
+        sut.router?.dataStore?.dependencies = DependenciesFake()
     }
     
     func loadView() {
@@ -78,7 +79,7 @@ class ListViewControllerTests: XCTestCase {
     }
     
     func testDisplayLoad() {
-        let viewModel = List.Load.ViewModel(books: Books.none)
+        let viewModel = List.Load.ViewModel(books: ListItems.none, errorMessage: nil)
         
         loadView()
         sut.displayLoad(viewModel)

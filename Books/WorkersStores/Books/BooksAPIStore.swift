@@ -8,7 +8,7 @@
 import Foundation
 
 class BooksAPIStore: BooksRemoteStoreProtocol {
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItem, Error>) -> Void)) {
+    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
         
     }
     

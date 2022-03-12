@@ -21,4 +21,6 @@ struct BookFakes {
         id: "12",
         link: "www.link.com",
         title: "Book title")
+    
+    static let fakeList1 = [fakeListItem1]
 }
