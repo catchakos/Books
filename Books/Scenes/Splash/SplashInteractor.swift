@@ -12,16 +12,15 @@ protocol SplashBusinessLogic {
     func doSomething(_ request: Splash.Something.Request)
 }
 
-protocol SplashDataStore: DependentStore {
-}
+protocol SplashDataStore: DependentStore {}
 
 class SplashInteractor: SplashBusinessLogic, SplashDataStore {
     var dependencies: DependenciesInterface?
     var presenter: SplashPresentationLogic?
-    
+
     // MARK: Do something
-    
-    func doSomething(_ request: Splash.Something.Request) {
+
+    func doSomething(_: Splash.Something.Request) {
         let response = Splash.Something.Response()
         presenter?.presentSomething(response)
     }

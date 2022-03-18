@@ -10,13 +10,12 @@ import UIKit
 
 enum Splash {
     // MARK: Use cases
-    
+
     enum Something {
-        struct Request {
-        }
-        struct Response {
-        }
-        struct ViewModel {
-        }
+        struct Request {}
+
+        struct Response {}
+
+        struct ViewModel {}
     }
 }

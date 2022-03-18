@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol Endpoint {
-    
-}
+protocol Endpoint {}

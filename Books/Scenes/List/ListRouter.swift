@@ -19,26 +19,26 @@ protocol ListDataPassing {
 class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     weak var viewController: ListViewController?
     var dataStore: ListDataStore?
-    
+
     // MARK: Routing
-    
+
     func routeToDetail() {
         let destinationVC = DetailViewController()
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetail(source: dataStore!, destination: &destinationDS)
         navigateToDetail(source: viewController!, destination: destinationVC)
     }
-    
+
     // MARK: Navigation
-    
-    func navigateToDetail(source: ListViewController, destination: DetailViewController) {
+
+    func navigateToDetail(source _: ListViewController, destination: DetailViewController) {
         destination.modalPresentationStyle = .overCurrentContext
         destination.transitioningDelegate = self
         viewController?.present(destination, animated: true, completion: nil)
     }
-    
+
     // MARK: Passing data
-    
+
     func passDataToDetail(source: ListDataStore, destination: inout DetailDataStore) {
         destination.dependencies = source.dependencies
         destination.listItem = source.selectedItem
@@ -46,8 +46,7 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
 }
 
 extension ListRouter: UIViewControllerTransitioningDelegate {
-
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting _: UIViewController, source _: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented is DetailViewController {
             return BottomUpPresentation<DetailViewController>()
         }
@@ -60,5 +59,4 @@ extension ListRouter: UIViewControllerTransitioningDelegate {
         }
         return nil
     }
-
 }

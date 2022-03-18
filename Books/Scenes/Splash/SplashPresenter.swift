@@ -14,10 +14,10 @@ protocol SplashPresentationLogic {
 
 class SplashPresenter: SplashPresentationLogic {
     weak var viewController: SplashDisplayLogic?
-    
+
     // MARK: Do something
-    
-    func presentSomething(_ response: Splash.Something.Response) {
+
+    func presentSomething(_: Splash.Something.Response) {
         let viewModel = Splash.Something.ViewModel()
         viewController?.displaySomething(viewModel)
     }

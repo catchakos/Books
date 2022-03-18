@@ -19,15 +19,14 @@ protocol DetailDataPassing {
 class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
     weak var viewController: DetailViewController?
     var dataStore: DetailDataStore?
-    
+
     // MARK: Routing
-    
+
     func exitDetail() {
         viewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
-    // MARK: Navigation
-    
-    // MARK: Passing data
 
+    // MARK: Navigation
+
+    // MARK: Passing data
 }

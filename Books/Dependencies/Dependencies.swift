@@ -19,7 +19,7 @@ class Dependencies: DependenciesInterface {
         persistency = Persistency(completion: {
             group.leave()
         })
-        
+
         group.enter()
         apiClient = FakeAPIClient(completion: {
             group.leave()

@@ -8,16 +8,15 @@
 import Foundation
 
 class FakeAPIClient: APIClientInterface {
-    
     required init(completion: @escaping (() -> Void)) {
         completion()
     }
-    
-    func fetch(_ endpoint: Endpoint, completion: ((Data?, Error?, HTTPResponseCode?) -> Void)?) -> URLSessionDataTask? {
+
+    func fetch(_: Endpoint, completion _: ((Data?, Error?, HTTPResponseCode?) -> Void)?) -> URLSessionDataTask? {
         return nil
     }
-    
-    func fetch<T>(endpoint: Endpoint, responseType: T.Type, completion: @escaping (Result<T, APIClientError>) -> Void) -> URLSessionDataTask? where T : Decodable {
+
+    func fetch<T>(endpoint _: Endpoint, responseType _: T.Type, completion _: @escaping (Result<T, APIClientError>) -> Void) -> URLSessionDataTask? where T: Decodable {
         return nil
     }
 }

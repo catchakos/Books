@@ -5,59 +5,58 @@
 //  Created by Alexis Katsaprakakis on 12/3/22.
 //
 
-import Foundation
 import Fakery
+import Foundation
 
 class BooksFakeryStore: BooksRemoteStoreProtocol {
-    
     let faker = Faker()
-    
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
+
+    func fetchBooksList(offset _: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             var items = [ListItem]()
-            for _ in  0..<count  {
+            for _ in 0 ..< count {
                 items.append(self.generateListItem())
             }
-                
+
             completion(.success(items))
         }
     }
-    
-    func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
+
+    func fetchBookDetail(id _: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
         completion(.success(generateItemDetails()))
     }
-    
-    func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void)) {
-        
-    }
-    
+
+    func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
+
     // MARK: Generation
-    
+
     private func generateListItem() -> ListItem {
         return ListItem(
             id: UUID().uuidString,
             link: faker.internet.url(),
-            title: bookTitle())
+            title: bookTitle()
+        )
     }
-    
+
     private func generateItemDetails() -> ItemDetails {
         return ItemDetails(
             id: UUID().uuidString,
             image: faker.internet.image(),
             title: bookTitle(),
             author: faker.name.name(),
-            price: faker.commerce.price())
+            price: faker.commerce.price()
+        )
     }
-    
+
     private func bookTitle() -> String {
         var words = [String]()
-        for _ in  0..<((Int(arc4random()) % 6) + 1) {
+        for _ in 0 ..< ((Int(arc4random()) % 6) + 1) {
             words.append(bookTitleWord())
         }
-        
+
         return words.joined(separator: " ")
     }
-    
+
     private func bookTitleWord() -> String {
         switch arc4random() % 8 {
         case 0:

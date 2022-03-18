@@ -8,7 +8,6 @@
 import UIKit
 
 extension UITableView {
-    
     // MARK: Register cells
 
     func register<R: UITableViewCell>(cell _: R.Type) {

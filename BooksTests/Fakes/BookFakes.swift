@@ -5,8 +5,8 @@
 //  Created by Alexis Katsaprakakis on 12/3/22.
 //
 
-import Foundation
 @testable import Books
+import Foundation
 
 struct BookFakes {
     static let fakeBook1 = Book(
@@ -16,13 +16,14 @@ struct BookFakes {
         author: "Author",
         price: 4.99
     )
-    
+
     static let fakeListItem1 = ListItem(
         id: "12",
         link: "www.link.com",
-        title: "Book title")
-    
+        title: "Book title"
+    )
+
     static let fakeList1 = [fakeListItem1]
-    
+
     static let onePage = Array(repeating: fakeListItem1, count: ListInteractor.Constants.pageSize)
 }

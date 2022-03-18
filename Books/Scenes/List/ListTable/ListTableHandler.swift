@@ -28,7 +28,7 @@ class ListTableHandler: NSObject {
 
         tableView?.dataSource = self
         tableView?.delegate = self
-        
+
         tableView?.rowHeight = UITableView.automaticDimension
         tableView?.estimatedRowHeight = 120
 
@@ -42,11 +42,11 @@ class ListTableHandler: NSObject {
         guard newItems.count > 0 else {
             return
         }
-        
+
         items.append(contentsOf: newItems)
         tableView?.reloadData()
     }
-    
+
     func clear() {
         items.removeAll()
         tableView?.reloadData()
@@ -68,8 +68,8 @@ extension ListTableHandler: UITableViewDataSource {
 
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+    func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == items.count - 1 {
             onScrolledToBottom?()
         }
@@ -81,5 +81,3 @@ extension ListTableHandler: UITableViewDelegate {
         onSelection?(indexPath)
     }
 }
-
-

@@ -13,7 +13,7 @@ enum APIClientError: Error {
     case cannotMakeUrl
     case parsing
     case other
-    
+
     var message: String {
         return NSLocalizedString("Oooops...", comment: "")
     }

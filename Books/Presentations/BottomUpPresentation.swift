@@ -14,19 +14,19 @@ class BottomUpPresentation<R: UIViewController & CustomPresentedViewController>:
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toViewController = transitionContext.viewController(forKey: .to) as? CustomPresentedViewController & UIViewController else { return }
-        
+
         let contentView = toViewController.containerViewForCustomPresentation
         let backView = toViewController.backgroundViewForCustomPresentation
-        
+
         contentView.transform = CGAffineTransform(translationX: 0, y: 250)
         contentView.alpha = 0
 
         backView.alpha = 0
-        
+
         let containerView = transitionContext.containerView
         containerView.addSubview(toViewController.view)
         toViewController.view.isHidden = false
-        
+
         let duration = transitionDuration(using: transitionContext)
 
         UIView.animate(

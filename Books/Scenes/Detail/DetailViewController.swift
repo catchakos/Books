@@ -19,9 +19,9 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
     var interactor: DetailBusinessLogic?
     var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
-    
+
     // MARK: - UI Elements
-    
+
     lazy var dimmedView: UIView = {
         let view = UIView()
         let blurEffect = UIBlurEffect(style: .light)
@@ -31,10 +31,10 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         view.addSubview(blurEffectView)
 
         view.accessibilityLabel = "dimmed_view"
-        
+
         return view
     }()
-    
+
     lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -43,7 +43,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
         return view
     }()
-    
+
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -54,7 +54,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "title_label"
         return label
     }()
-    
+
     lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
@@ -63,7 +63,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "author_label"
         return label
     }()
-    
+
     lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
@@ -72,7 +72,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "price_label"
         return label
     }()
-    
+
     lazy var stack = UIStackView.vertical(
         with: [
             titleLabel,
@@ -80,21 +80,21 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
             priceLabel
         ]
     )
-    
+
     // MARK: Object lifecycle
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
+
     private func setup() {
         let viewController = self
         let interactor = DetailInteractor()
@@ -107,63 +107,63 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         router.viewController = viewController
         router.dataStore = interactor
     }
-    
+
     // MARK: View lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+
         setupView()
         setupConstraints()
         setupBackgroundTap()
-        
+
         doLoad()
     }
-    
+
     private func setupView() {
-        [dimmedView, contentView].forEach({
+        [dimmedView, contentView].forEach {
             view.addSubview($0)
-        })
-        
+        }
+
         contentView.addSubview(stack)
     }
-    
+
     private func setupConstraints() {
         dimmedView.snp.makeConstraints { make in
             make.left.top.bottom.right.equalToSuperview()
         }
-        
+
         contentView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(300)
         }
-        
+
         stack.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leadingMargin.trailingMargin.equalToSuperview()
         }
     }
-    
+
     private func setupBackgroundTap() {
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(didTap(_:)))
         dimmedView.addGestureRecognizer(tap)
     }
-    
+
     // MARK:
-    
+
     func doLoad() {
         let request = Detail.Load.Request()
         interactor?.doLoad(request)
     }
-    
+
     func displayLoad(_ viewModel: Detail.Load.ViewModel) {
         titleLabel.text = viewModel.title
         authorLabel.text = viewModel.author
         priceLabel.text = viewModel.price
     }
-    
-    @objc func didTap(_ tap: UITapGestureRecognizer) {
+
+    @objc func didTap(_: UITapGestureRecognizer) {
         router?.exitDetail()
     }
 }
@@ -172,7 +172,7 @@ extension DetailViewController: CustomPresentedViewController {
     var containerViewForCustomPresentation: UIView {
         return contentView
     }
-    
+
     var backgroundViewForCustomPresentation: UIView {
         return dimmedView
     }

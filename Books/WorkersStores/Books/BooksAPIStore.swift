@@ -8,15 +8,9 @@
 import Foundation
 
 class BooksAPIStore: BooksRemoteStoreProtocol {
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
-        
-    }
-    
-    func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
-        
-    }
-    
-    func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void)) {
-        
-    }
+    func fetchBooksList(offset _: Int, count _: Int, completion _: @escaping ((Result<ListItems, Error>) -> Void)) {}
+
+    func fetchBookDetail(id _: String, completion _: @escaping ((Result<ItemDetails, Error>) -> Void)) {}
+
+    func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
 }

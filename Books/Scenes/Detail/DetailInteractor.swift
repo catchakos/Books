@@ -19,18 +19,18 @@ protocol DetailDataStore: DependentStore {
 class DetailInteractor: DetailBusinessLogic, DetailDataStore {
     var dependencies: DependenciesInterface?
     var presenter: DetailPresentationLogic?
-    
+
     var listItem: ListItem?
-    
+
     lazy var worker: BooksWorkerProtocol = BooksWorker(store: BooksFakeryStore(), persistency: dependencies!.persistency!)
-    
+
     // MARK: Do Load
-    
-    func doLoad(_ request: Detail.Load.Request) {
+
+    func doLoad(_: Detail.Load.Request) {
         guard let listItem = listItem else {
             return
         }
-        
+
         worker.fetchBookDetail(id: listItem.id) { result in
             let response: Detail.Load.Response
             switch result {
@@ -43,9 +43,9 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
             self.presenter?.presentLoad(response)
         }
     }
-    
+
     // MARK: Aux
-    
+
     func book(from listItem: ListItem, detailItem: Book) -> Book {
         return Book(
             id: listItem.id,

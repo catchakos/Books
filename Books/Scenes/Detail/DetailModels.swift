@@ -10,14 +10,15 @@ import UIKit
 
 enum Detail {
     // MARK: Use cases
-    
+
     enum Load {
-        struct Request {
-        }
+        struct Request {}
+
         struct Response {
             let book: Book?
             let error: BooksError?
         }
+
         struct ViewModel {
             let title: String?
             let author: String?

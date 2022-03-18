@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol SplashRoutingLogic {
-    //func routeToSomewhere()
+    // func routeToSomewhere()
 }
 
 protocol SplashDataPassing {
@@ -19,25 +19,25 @@ protocol SplashDataPassing {
 class SplashRouter: NSObject, SplashRoutingLogic, SplashDataPassing {
     weak var viewController: SplashViewController?
     var dataStore: SplashDataStore?
-    
+
     // MARK: Routing
-    
-    //func routeToSomewhere() {
+
+    // func routeToSomewhere() {
     //    let destinationVC = SomewhereViewController()
     //    var destinationDS = destinationVC.router!.dataStore!
     //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
     //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-    //}
-    
+    // }
+
     // MARK: Navigation
-    
-    //func navigateToSomewhere(source: SplashViewController, destination: SomewhereViewController) {
+
+    // func navigateToSomewhere(source: SplashViewController, destination: SomewhereViewController) {
     //  source.show(destination, sender: nil)
-    //}
-    
+    // }
+
     // MARK: Passing data
-    
-    //func passDataToSomewhere(source: SplashDataStore, destination: inout SomewhereDataStore) {
+
+    // func passDataToSomewhere(source: SplashDataStore, destination: inout SomewhereDataStore) {
     //  destination.name = source.name
-    //}
+    // }
 }

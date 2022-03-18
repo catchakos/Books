@@ -9,12 +9,10 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var window: UIWindow?
     private lazy var router: Routing = Router(window)
 
     func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         if window == nil {
             window = UIWindow(frame: UIScreen.main.bounds)
         }
@@ -39,6 +37,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
-
 }
-

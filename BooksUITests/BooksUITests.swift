@@ -8,7 +8,6 @@
 import XCTest
 
 class BooksUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -28,22 +27,21 @@ class BooksUITests: XCTestCase {
 
         let table = app.tables["list_table"]
         XCTAssert(table.exists)
-        
+
         let spinner = app.otherElements["spinner"]
         XCTAssertFalse(spinner.exists)
-        
+
         table.swipeUp()
         table.cells.firstMatch.tap()
-        
+
         let price = app.staticTexts["price_label"]
         XCTAssert(price.exists)
-        
+
         let dimmedView = app.otherElements["dimmed_view"]
         XCTAssert(dimmedView.exists)
-        
+
         dimmedView.tap()
         XCTAssert(table.exists)
         XCTAssertFalse(price.exists)
     }
-
 }

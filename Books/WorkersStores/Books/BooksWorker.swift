@@ -8,10 +8,9 @@
 import Foundation
 
 class BooksWorker: BooksWorkerProtocol {
-   
     private var store: BooksRemoteStoreProtocol
     private var persistency: PersistencyInterface
-    
+
     init(store: BooksRemoteStoreProtocol, persistency: PersistencyInterface) {
         self.store = store
         self.persistency = persistency
@@ -25,7 +24,7 @@ class BooksWorker: BooksWorkerProtocol {
             case let .failure(error):
                 if let apiError = error as? APIClientError {
                     switch apiError {
-                    case .cannotMakeUrl , .other:
+                    case .cannotMakeUrl, .other:
                         completion(.failure(.cannotFetch))
                     case .decodeError, .parsing:
                         completion(.failure(.cannotParse))
@@ -38,7 +37,7 @@ class BooksWorker: BooksWorkerProtocol {
             }
         }
     }
-    
+
     func fetchBookDetail(id: String, completion: @escaping ((Result<Book, BooksError>) -> Void)) {
         store.fetchBookDetail(id: id) { result in
             switch result {
@@ -52,7 +51,7 @@ class BooksWorker: BooksWorkerProtocol {
             case let .failure(error):
                 if let apiError = error as? APIClientError {
                     switch apiError {
-                    case .cannotMakeUrl , .other:
+                    case .cannotMakeUrl, .other:
                         completion(.failure(.cannotFetch))
                     case .decodeError, .parsing:
                         completion(.failure(.cannotParse))
@@ -65,7 +64,7 @@ class BooksWorker: BooksWorkerProtocol {
             }
         }
     }
-    
+
     func addRandomBook(completion: @escaping ((Result<ItemDetails, BooksError>) -> Void)) {
         store.postRandomBook { result in
             switch result {
@@ -80,5 +79,4 @@ class BooksWorker: BooksWorkerProtocol {
             }
         }
     }
-    
 }

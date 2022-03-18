@@ -14,29 +14,30 @@ protocol DetailPresentationLogic {
 
 class DetailPresenter: DetailPresentationLogic {
     weak var viewController: DetailDisplayLogic?
-    
+
     private lazy var priceFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         return formatter
     }()
-    
+
     // MARK: Do Load
-    
+
     func presentLoad(_ response: Detail.Load.Response) {
         let book = response.book
         var priceString = ""
         if let price = book?.price,
-            let formattedPrice = priceFormatter.string(from: price as NSNumber) {
+           let formattedPrice = priceFormatter.string(from: price as NSNumber) {
             priceString = formattedPrice
         }
-        
+
         let viewModel = Detail.Load.ViewModel(
             title: book?.title.capitalized,
             author: book?.author,
             imageUrl: book?.image,
             price: priceString,
-            errorMessage: response.error?.localizedDescription)
+            errorMessage: response.error?.localizedDescription
+        )
         viewController?.displayLoad(viewModel)
     }
 }

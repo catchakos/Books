@@ -8,7 +8,6 @@
 import UIKit
 
 class ListCell: UITableViewCell {
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -33,7 +32,7 @@ class ListCell: UITableViewCell {
         alignment: .leading,
         spacing: 8
     )
-    
+
     private lazy var contentStack = UIStackView.horizontal(
         with: [
             bookImageView,
@@ -87,5 +86,4 @@ class ListCell: UITableViewCell {
     func configure(_ item: ListItem) {
         titleLabel.text = item.title.capitalized
     }
-
 }

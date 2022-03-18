@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PersistencyInterface: Dependency {
-    func startListeningToBooks(updateHandler: @escaping ((/*[Book]*/) -> Void))
+    func startListeningToBooks(updateHandler: @escaping (( /* [Book] */ ) -> Void))
     func stopListeningToBooks()
 
     func persist(book: Book) -> Bool

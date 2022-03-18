@@ -18,7 +18,7 @@ class ToBottomDismissal<R: UIViewController & CustomPresentedViewController>: NS
         let duration = transitionDuration(using: transitionContext)
         let containerView = fromViewController.containerViewForCustomPresentation
         let backView = fromViewController.backgroundViewForCustomPresentation
-        
+
         UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 10, initialSpringVelocity: 20, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
             containerView.transform = CGAffineTransform(translationX: 0, y: containerView.frame.height * 1.5)
             backView.alpha = 0

@@ -84,7 +84,7 @@ class Router: Routing {
         return false
     }
 
-    func handle(_ url: URL) {
+    func handle(_: URL) {
         //
     }
 
