@@ -1,6 +1,9 @@
 # Books
 
-### Skeleton for a basic project 
+### Architecture
+
+![CleanVIP](https://user-images.githubusercontent.com/1202386/160439487-c1a73443-486f-4f66-a3d2-0ba7c6ae8ea2.png)
+
 
 * Clean Swift templates for Splash, List, Detail scenes
 * Routing, Dependencies, Persistency protocols
