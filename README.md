@@ -10,15 +10,22 @@
 * Basic model objects 
 
 
-### List scene
+
+### Scenes
+
+![Scenes](https://user-images.githubusercontent.com/1202386/161102595-8f14235d-4077-4d7c-9343-344dde6503d5.png)
+
+
+#### List scene
 
 * Unit testing skeleton for VIP elements of List Scene
 * Testing & Imlementation for ListInteractor, ListPresenter, ListViewController halfways
 
-### Detail scene
+#### Detail scene
 
 * Custom modal presentation
 * Simple load use case
+
 
 ### Workers & Stores
 
