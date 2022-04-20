@@ -103,8 +103,8 @@ class ListViewControllerTests: XCTestCase {
         let vm2 = List.Load.ViewModel(books: BookFakes.fakeList2, errorMessage: nil)
         sut.displayLoad(vm2)
 
-        XCTAssert(sut.tableView.numberOfSections == 1)
-        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count * 2)
+        XCTAssert(sut.tableView.numberOfSections == 2)
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count)
     }
 
     func testDisplaysFetchErrorMessage() {
@@ -167,12 +167,14 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testDisplayClear() {
-        let viewModel = List.Clear.ViewModel()
-
         loadView()
+        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
+        sut.displayLoad(vm)
+        
+        let viewModel = List.Clear.ViewModel()
         sut.displayClear(viewModel)
 
-        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == 0)
+        XCTAssert(sut.tableView.numberOfSections == 0)
     }
 
     // MARK: - Select

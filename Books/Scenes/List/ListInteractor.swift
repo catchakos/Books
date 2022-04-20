@@ -16,7 +16,7 @@ protocol ListBusinessLogic {
 }
 
 protocol ListDataStore: DependentStore {
-    var listItems: ListItems { get set }
+    var listItems: [ListItems] { get set }
     var selectedItem: ListItem? { get set }
 }
 
@@ -27,7 +27,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     var offset: Int = 0
     var isLoading = false
 
-    var listItems: ListItems = []
+    var listItems: [ListItems] = []
     var selectedItem: ListItem?
 
     enum Constants {
@@ -57,7 +57,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
             switch result {
             case let .success(items):
                 self.offset += Constants.pageSize
-                self.listItems.append(contentsOf: items)
+                self.listItems.append(items)
 
                 response = List.Load.Response(books: items, error: nil)
             case let .failure(error):
@@ -79,13 +79,15 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     // MARK: Select Item
 
     func selectListItem(_ request: List.Select.Request) {
+        let itemPage = request.indexPath.section
         let itemIndex = request.indexPath.item
-        guard listItems.count > itemIndex else {
+        guard listItems.count > itemPage,
+            listItems[itemPage].count > itemIndex else {
             selectedItem = nil
             return
         }
 
-        let item = listItems[itemIndex]
+        let item = listItems[itemPage][itemIndex]
         selectedItem = item
 
         let response = List.Select.Response(book: selectedItem)

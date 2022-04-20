@@ -258,7 +258,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testDoesNotKeepBooksInMemoryAfterClear() {
-        sut.listItems = BookFakes.fakeList1
+        sut.listItems = [BookFakes.fakeList1]
 
         let request = List.Clear.Request()
         sut.clearList(request)
@@ -269,7 +269,7 @@ class ListInteractorTests: XCTestCase {
     // MARK: - Select
 
     func testSelectItem() {
-        sut.listItems = BookFakes.fakeList1
+        sut.listItems = [BookFakes.fakeList1]
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 
@@ -280,7 +280,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testSelectsBook() {
-        sut.listItems = BookFakes.fakeList1
+        sut.listItems = [BookFakes.fakeList1]
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 
@@ -291,7 +291,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testDoesNotSelectBookWhenPathOutOfRange() {
-        sut.listItems = BookFakes.fakeList1
+        sut.listItems = [BookFakes.fakeList1]
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 

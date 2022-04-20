@@ -9,7 +9,7 @@ import UIKit
 
 class ListTableHandler: NSObject {
     private weak var tableView: UITableView?
-    private var items = [ListItem]()
+    private var items = [ListItems]()
 
     var onSelection: ((IndexPath) -> Void)?
     var onScrolledToBottom: (() -> Void)?
@@ -52,7 +52,8 @@ class ListTableHandler: NSObject {
             
             let cell = tableView.dequeue(cell: ListCell.self, indexPath: indexPath)
             
-            let item = self.items[indexPath.row]
+            let page = self.items[indexPath.section]
+            let item = page[indexPath.row]
             cell.configure(item)
             
             return cell
@@ -62,8 +63,7 @@ class ListTableHandler: NSObject {
     }
 
     private func makeInitialTableSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<ListPage, ListItem>()
-        snapshot.appendSections([ListPage(number: 0)])
+        let snapshot = NSDiffableDataSourceSnapshot<ListPage, ListItem>()
         diffableDataSource?.apply(snapshot)
     }
     
@@ -72,16 +72,23 @@ class ListTableHandler: NSObject {
             return
         }
 
-        items.append(contentsOf: newItems)
+        items.append(newItems)
         
         var snapshot = diffableDataSource?.snapshot() ?? NSDiffableDataSourceSnapshot<ListPage, ListItem>()
-        snapshot.appendItems(newItems)
+        let page = ListPage(number: snapshot.sectionIdentifiers.count)
+        snapshot.appendSections([page])
+        snapshot.appendItems(newItems, toSection: page)
         diffableDataSource?.apply(snapshot)
     }
 
     func clear() {
         items.removeAll()
-        tableView?.reloadData()
+        
+        guard var snapshot = diffableDataSource?.snapshot() else {
+            return
+        }
+        snapshot.deleteAllItems()
+        diffableDataSource?.apply(snapshot)
     }
 }
 
@@ -91,7 +98,8 @@ extension ListTableHandler: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == items.count - 1 {
+        if indexPath.section == items.count - 1,
+           indexPath.row == (items.last?.count ?? 1) - 1 {
             onScrolledToBottom?()
         }
     }
