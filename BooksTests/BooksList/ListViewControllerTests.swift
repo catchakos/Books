@@ -98,9 +98,10 @@ class ListViewControllerTests: XCTestCase {
 
     func testAppendsResults() {
         let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
-
         sut.displayLoad(vm)
-        sut.displayLoad(vm)
+        
+        let vm2 = List.Load.ViewModel(books: BookFakes.fakeList2, errorMessage: nil)
+        sut.displayLoad(vm2)
 
         XCTAssert(sut.tableView.numberOfSections == 1)
         XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count * 2)

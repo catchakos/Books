@@ -9,12 +9,17 @@ import Foundation
 
 typealias ListItems = [ListItem]
 
-struct ListItem: Codable {
+struct ListItem: Codable, Hashable {
     let id: String
     let link: String
     let title: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 extension ListItems {
     static let none: ListItems = []
 }
+

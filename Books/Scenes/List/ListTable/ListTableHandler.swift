@@ -13,20 +13,22 @@ class ListTableHandler: NSObject {
 
     var onSelection: ((IndexPath) -> Void)?
     var onScrolledToBottom: (() -> Void)?
+    
+    private var diffableDataSource: UITableViewDiffableDataSource<ListPage, ListItem>?
 
     init(table: UITableView) {
         tableView = table
-
+        
         super.init()
 
         setupTable()
-        table.reloadData()
+        setupDiffableDataSource()
+        makeInitialTableSnapshot()
     }
 
     private func setupTable() {
         tableView?.register(cell: ListCell.self)
 
-        tableView?.dataSource = self
         tableView?.delegate = self
 
         tableView?.rowHeight = UITableView.automaticDimension
@@ -37,14 +39,44 @@ class ListTableHandler: NSObject {
             tableView?.tableHeaderView = UIView()
         }
     }
+    
+    private func setupDiffableDataSource() {
+        guard let tableView = tableView else {
+            return
+        }
 
+        diffableDataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [weak self] tableView, indexPath, itemIdentifier in
+            guard let self = self else {
+                return UITableViewCell()
+            }
+            
+            let cell = tableView.dequeue(cell: ListCell.self, indexPath: indexPath)
+            
+            let item = self.items[indexPath.row]
+            cell.configure(item)
+            
+            return cell
+        })
+
+        tableView.dataSource = diffableDataSource
+    }
+
+    private func makeInitialTableSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<ListPage, ListItem>()
+        snapshot.appendSections([ListPage(number: 0)])
+        diffableDataSource?.apply(snapshot)
+    }
+    
     func add(newItems: [ListItem]) {
         guard newItems.count > 0 else {
             return
         }
 
         items.append(contentsOf: newItems)
-        tableView?.reloadData()
+        
+        var snapshot = diffableDataSource?.snapshot() ?? NSDiffableDataSourceSnapshot<ListPage, ListItem>()
+        snapshot.appendItems(newItems)
+        diffableDataSource?.apply(snapshot)
     }
 
     func clear() {
@@ -53,31 +85,14 @@ class ListTableHandler: NSObject {
     }
 }
 
-extension ListTableHandler: UITableViewDataSource {
-    func numberOfSections(in _: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return items.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeue(cell: ListCell.self, indexPath: indexPath)
-        cell.configure(items[indexPath.row])
-
-        return cell
-    }
-
-    func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == items.count - 1 {
-            onScrolledToBottom?()
-        }
-    }
-}
-
 extension ListTableHandler: UITableViewDelegate {
     func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         onSelection?(indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == items.count - 1 {
+            onScrolledToBottom?()
+        }
     }
 }

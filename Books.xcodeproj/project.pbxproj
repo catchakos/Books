@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0A7276280FEEF9007D4704 /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A7275280FEEF9007D4704 /* ListSection.swift */; };
 		5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBC27DBB124001F8989 /* Routing.swift */; };
 		5E57EDBF27DBB129001F8989 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBE27DBB129001F8989 /* Router.swift */; };
 		5E57EDC127DBB12C001F8989 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDC027DBB12C001F8989 /* Route.swift */; };
@@ -93,6 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E0A7275280FEEF9007D4704 /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
 		5E57EDBC27DBB124001F8989 /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		5E57EDBE27DBB129001F8989 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		5E57EDC027DBB12C001F8989 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				5E57EDF827DBB7BB001F8989 /* ListItem.swift */,
+				5E0A7275280FEEF9007D4704 /* ListSection.swift */,
 				5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */,
 				5E57EE1F27DBDEE0001F8989 /* Books.swift */,
 			);
@@ -622,6 +625,7 @@
 				5EAC40E327DCF23E00B615CC /* BottomUpPresentation.swift in Sources */,
 				5E57EDFC27DBB8EE001F8989 /* Decodable+.swift in Sources */,
 				5EAC40E027DCDE1D00B615CC /* UIStackView+.swift in Sources */,
+				5E0A7276280FEEF9007D4704 /* ListSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

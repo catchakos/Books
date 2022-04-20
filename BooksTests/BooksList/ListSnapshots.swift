@@ -10,6 +10,7 @@ import SnapshotTesting
 import XCTest
 
 class ListSnapshots: XCTestCase {
+
     func testListControllerLoad() {
         let vc = ListViewController()
         vc.dataStore?.dependencies = DependenciesFake()
