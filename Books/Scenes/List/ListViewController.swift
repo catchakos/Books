@@ -61,7 +61,8 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
             self.selectListItem(indexPath)
         }
         handler.onScrolledToBottom = {
-            self.loadList()
+            // Disabling paging for now..
+//            self.loadList()
         }
         return handler
     }()
@@ -130,11 +131,12 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     private func setupNavigationItem() {
         navigationItem.title = NSLocalizedString("Books", comment: "")
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(didTapAdd)
-        )
+        // disabling add item for now..
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//            barButtonSystemItem: .add,
+//            target: self,
+//            action: #selector(didTapAdd)
+//        )
     }
 
     // MARK: - Load
