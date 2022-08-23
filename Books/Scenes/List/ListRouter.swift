@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 @objc protocol ListRoutingLogic {
     func routeToDetail()
@@ -20,9 +21,26 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     weak var viewController: ListViewController?
     var dataStore: ListDataStore?
 
+    private var useSwiftUIDetail = true
+    
     // MARK: Routing
 
     func routeToDetail() {
+        if useSwiftUIDetail {
+            routeToSwiftUIDetailView()
+        } else {
+            routeToDetailVC()
+        }
+    }
+    
+    private func routeToSwiftUIDetailView() {
+        let bookDetailVC = UIHostingController(rootView: BookDetailView(
+            viewModel: BookDetailVM(bookDetails: dataStore!.selectedItem!),
+            navigationController: viewController?.navigationController))
+        viewController?.navigationController?.pushViewController(bookDetailVC, animated: true)
+    }
+    
+    private func routeToDetailVC() {
         let destinationVC = DetailViewController()
         var destinationDS = destinationVC.router!.dataStore!
         passDataToDetail(source: dataStore!, destination: &destinationDS)

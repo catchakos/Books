@@ -20,6 +20,7 @@ struct NYTimesBooksAdaptor {
             link: bookItem.amazonURL,
             title: bookItem.title,
             author: bookItem.author,
+            bookDescription: bookItem.bookDescription,
             imageUrl: URL(string: bookItem.bookImage))
     }
 }

@@ -15,6 +15,8 @@
 		5E34F3B628B4D255007FE175 /* NYTimesBooksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B528B4D255007FE175 /* NYTimesBooksList.swift */; };
 		5E34F3B828B4D9A1007FE175 /* NYTimesBooksAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B728B4D9A1007FE175 /* NYTimesBooksAdaptor.swift */; };
 		5E34F3BE28B50E23007FE175 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5E34F3BD28B50E23007FE175 /* Kingfisher */; };
+		5E34F3C128B520FC007FE175 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3C028B520FC007FE175 /* BookDetailView.swift */; };
+		5E34F3C328B52213007FE175 /* BookDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3C228B52213007FE175 /* BookDetailVM.swift */; };
 		5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBC27DBB124001F8989 /* Routing.swift */; };
 		5E57EDBF27DBB129001F8989 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBE27DBB129001F8989 /* Router.swift */; };
 		5E57EDC127DBB12C001F8989 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDC027DBB12C001F8989 /* Route.swift */; };
@@ -108,6 +110,8 @@
 		5E34F3B328B4D1DF007FE175 /* NYTimesBooksListEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesBooksListEndpoint.swift; sourceTree = "<group>"; };
 		5E34F3B528B4D255007FE175 /* NYTimesBooksList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesBooksList.swift; sourceTree = "<group>"; };
 		5E34F3B728B4D9A1007FE175 /* NYTimesBooksAdaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesBooksAdaptor.swift; sourceTree = "<group>"; };
+		5E34F3C028B520FC007FE175 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		5E34F3C228B52213007FE175 /* BookDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailVM.swift; sourceTree = "<group>"; };
 		5E57EDBC27DBB124001F8989 /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		5E57EDBE27DBB129001F8989 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		5E57EDC027DBB12C001F8989 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -217,6 +221,15 @@
 			path = NYTimesService;
 			sourceTree = "<group>";
 		};
+		5E34F3BF28B520DF007FE175 /* Detail_SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				5E34F3C028B520FC007FE175 /* BookDetailView.swift */,
+				5E34F3C228B52213007FE175 /* BookDetailVM.swift */,
+			);
+			path = Detail_SwiftUI;
+			sourceTree = "<group>";
+		};
 		5E57EDBB27DBB10F001F8989 /* Routing */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +269,7 @@
 				5E57EDDF27DBB48B001F8989 /* Splash */,
 				5E57EDDE27DBB482001F8989 /* List */,
 				5E57EDEA27DBB4D6001F8989 /* Detail */,
+				5E34F3BF28B520DF007FE175 /* Detail_SwiftUI */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -610,6 +624,7 @@
 				5E57EDCF27DBB3DB001F8989 /* PersistencyInterface.swift in Sources */,
 				5E57EDC627DBB2D7001F8989 /* Dependencies.swift in Sources */,
 				5EAC40D727DCDBD500B615CC /* ListCell.swift in Sources */,
+				5E34F3C128B520FC007FE175 /* BookDetailView.swift in Sources */,
 				5E57EDF427DBB4F8001F8989 /* DetailInteractor.swift in Sources */,
 				5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */,
 				5E57EDE627DBB4A3001F8989 /* SplashRouter.swift in Sources */,
@@ -629,6 +644,7 @@
 				5E34F3B628B4D255007FE175 /* NYTimesBooksList.swift in Sources */,
 				5E57EDF127DBB4F8001F8989 /* DetailRouter.swift in Sources */,
 				5E57EDE727DBB4A3001F8989 /* SplashModels.swift in Sources */,
+				5E34F3C328B52213007FE175 /* BookDetailVM.swift in Sources */,
 				5E57EE2C27DC9AD8001F8989 /* BooksError.swift in Sources */,
 				5E57EE2227DC9961001F8989 /* BooksWorker.swift in Sources */,
 				5E57EE2627DC997D001F8989 /* BooksFakeryStore.swift in Sources */,

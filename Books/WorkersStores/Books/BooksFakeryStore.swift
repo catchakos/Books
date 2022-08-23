@@ -36,6 +36,7 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
             link: faker.internet.url(),
             title: bookTitle(),
             author: "",
+            bookDescription: faker.lorem.paragraph(),
             imageUrl: nil
         )
     }
