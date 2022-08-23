@@ -35,7 +35,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     }
 
     lazy var worker: BooksWorkerProtocol = BooksWorker(
-        store: BooksFakeryStore(),
+        store: BooksAPIStore(apiClient: dependencies!.apiClient!),
         persistency: dependencies!.persistency!
     )
 

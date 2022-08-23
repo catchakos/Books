@@ -13,7 +13,6 @@ protocol Endpoint {
     var cachePolicy: URLRequest.CachePolicy { get }
     var headers: [String: String]? { get }
     var host: String? { get }
-    var queryItems: [String: String]? { get }
     var path: String? { get }
 }
 
@@ -31,10 +30,6 @@ extension Endpoint {
     }
 
     var host: String? {
-        return nil
-    }
-    
-    var queryItems: [String: String]? {
         return nil
     }
 }
@@ -83,18 +78,24 @@ extension Endpoint {
             urlComponents.host = host ?? service.baseHost
             
             assert(endpointPath.first == "/", "paths should start with /")
-            urlComponents.path = endpointPath
+            let finalPath = [service.rootPath, endpointPath]
+                .compactMap({ $0 })
+                .joined(separator: "")
+            urlComponents.path = finalPath
             
             switch method {
             case let .get(parameters):
-                if let parameters = parameters,
-                   parameters.count > 0 {
-                    urlComponents.queryItems = parameters.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
+                if let parameters = parameters {
+                    var queryItems = parameters
+                    if let authItem = service.authenticationItem {
+                        queryItems = queryItems.merging(authItem, uniquingKeysWith: { _, new in
+                            new
+                        })
+                    }
+                    urlComponents.queryItems = queryItems.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
                 }
             case .post:
-                if let items = queryItems {
-                    urlComponents.queryItems = items.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
-                }
+                break
             }
             
             return urlComponents.url

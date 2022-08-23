@@ -10,5 +10,6 @@ import Foundation
 protocol APIService {
     var scheme: String { get }
     var baseHost: String { get }
-    var apiKey: String? { get }
+    var authenticationItem: [String: String]? { get }
+    var rootPath: String? { get }
 }
