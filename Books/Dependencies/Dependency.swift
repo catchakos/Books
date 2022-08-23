@@ -8,5 +8,5 @@
 import Foundation
 
 protocol Dependency {
-    init(completion: @escaping (() -> Void))
+    
 }

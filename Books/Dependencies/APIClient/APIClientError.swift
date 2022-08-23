@@ -12,7 +12,7 @@ enum APIClientError: LocalizedError {
     case decodeError
     case cannotMakeUrl
     case parsing
-    case other
+    case other(Error)
 }
 
 extension APIClientError {

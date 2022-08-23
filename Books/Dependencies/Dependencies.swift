@@ -21,7 +21,7 @@ class Dependencies: DependenciesInterface {
         })
 
         group.enter()
-        apiClient = FakeAPIClient(completion: {
+        apiClient = APIClient(service: NYTimesBookListService(), completion: {
             group.leave()
         })
 

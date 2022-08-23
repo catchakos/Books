@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5E0A7276280FEEF9007D4704 /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A7275280FEEF9007D4704 /* ListSection.swift */; };
+		5E34F3A828B4C0A5007FE175 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3A728B4C0A5007FE175 /* HTTPMethod.swift */; };
+		5E34F3AA28B4C0E9007FE175 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3A928B4C0E9007FE175 /* APIService.swift */; };
+		5E34F3B128B4C36A007FE175 /* NYTimesBooksListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B028B4C36A007FE175 /* NYTimesBooksListService.swift */; };
 		5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBC27DBB124001F8989 /* Routing.swift */; };
 		5E57EDBF27DBB129001F8989 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBE27DBB129001F8989 /* Router.swift */; };
 		5E57EDC127DBB12C001F8989 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDC027DBB12C001F8989 /* Route.swift */; };
@@ -39,7 +42,7 @@
 		5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */; };
 		5E57EE0527DBBA0A001F8989 /* APIClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0427DBBA0A001F8989 /* APIClientError.swift */; };
 		5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */; };
-		5E57EE0D27DBBB30001F8989 /* FakeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */; };
+		5E57EE0D27DBBB30001F8989 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0C27DBBB30001F8989 /* APIClient.swift */; };
 		5E57EE1027DBBECC001F8989 /* Fakery in Frameworks */ = {isa = PBXBuildFile; productRef = 5E57EE0F27DBBECC001F8989 /* Fakery */; };
 		5E57EE1327DBBEFC001F8989 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5E57EE1227DBBEFC001F8989 /* SnapKit */; };
 		5E57EE1827DBDDD4001F8989 /* ListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */; };
@@ -95,6 +98,9 @@
 
 /* Begin PBXFileReference section */
 		5E0A7275280FEEF9007D4704 /* ListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSection.swift; sourceTree = "<group>"; };
+		5E34F3A728B4C0A5007FE175 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		5E34F3A928B4C0E9007FE175 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		5E34F3B028B4C36A007FE175 /* NYTimesBooksListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTimesBooksListService.swift; sourceTree = "<group>"; };
 		5E57EDBC27DBB124001F8989 /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		5E57EDBE27DBB129001F8989 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		5E57EDC027DBB12C001F8989 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -126,7 +132,7 @@
 		5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientInterface.swift; sourceTree = "<group>"; };
 		5E57EE0427DBBA0A001F8989 /* APIClientError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientError.swift; sourceTree = "<group>"; };
 		5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeAPIClient.swift; sourceTree = "<group>"; };
+		5E57EE0C27DBBB30001F8989 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		5E57EE1527DBDDD4001F8989 /* ListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerTests.swift; sourceTree = "<group>"; };
 		5E57EE1627DBDDD4001F8989 /* ListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractorTests.swift; sourceTree = "<group>"; };
 		5E57EE1727DBDDD4001F8989 /* ListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenterTests.swift; sourceTree = "<group>"; };
@@ -299,9 +305,12 @@
 			isa = PBXGroup;
 			children = (
 				5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */,
+				5E34F3A928B4C0E9007FE175 /* APIService.swift */,
+				5E34F3B028B4C36A007FE175 /* NYTimesBooksListService.swift */,
 				5E57EE0427DBBA0A001F8989 /* APIClientError.swift */,
 				5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */,
-				5E57EE0C27DBBB30001F8989 /* FakeAPIClient.swift */,
+				5E34F3A728B4C0A5007FE175 /* HTTPMethod.swift */,
+				5E57EE0C27DBBB30001F8989 /* APIClient.swift */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -592,7 +601,7 @@
 				5E57EDC827DBB2E0001F8989 /* Dependency.swift in Sources */,
 				5EAC40DA27DCDCB200B615CC /* UITableViewCell+.swift in Sources */,
 				5E57EDF927DBB7BB001F8989 /* ListItem.swift in Sources */,
-				5E57EE0D27DBBB30001F8989 /* FakeAPIClient.swift in Sources */,
+				5E57EE0D27DBBB30001F8989 /* APIClient.swift in Sources */,
 				5E57EDBF27DBB129001F8989 /* Router.swift in Sources */,
 				5E57EDF127DBB4F8001F8989 /* DetailRouter.swift in Sources */,
 				5E57EDE727DBB4A3001F8989 /* SplashModels.swift in Sources */,
@@ -605,13 +614,16 @@
 				5E57EDE827DBB4A3001F8989 /* SplashViewController.swift in Sources */,
 				5E57EE0527DBBA0A001F8989 /* APIClientError.swift in Sources */,
 				5EC7D39A27DBAF6B00FC0F7B /* AppDelegate.swift in Sources */,
+				5E34F3A828B4C0A5007FE175 /* HTTPMethod.swift in Sources */,
 				5E57EDD127DBB3E4001F8989 /* Persistency.swift in Sources */,
 				5E57EDF027DBB4F8001F8989 /* DetailPresenter.swift in Sources */,
 				5E57EDD827DBB46F001F8989 /* ListPresenter.swift in Sources */,
 				5E57EDC127DBB12C001F8989 /* Route.swift in Sources */,
 				5E57EE2427DC9970001F8989 /* BooksWorkerProtocol.swift in Sources */,
+				5E34F3AA28B4C0E9007FE175 /* APIService.swift in Sources */,
 				5E57EDDB27DBB46F001F8989 /* ListViewController.swift in Sources */,
 				5E57EDDC27DBB46F001F8989 /* ListInteractor.swift in Sources */,
+				5E34F3B128B4C36A007FE175 /* NYTimesBooksListService.swift in Sources */,
 				5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */,
 				5EAC40D527DCDB9600B615CC /* ListTableHandler.swift in Sources */,
 				5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */,
