@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ListCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
@@ -15,10 +16,18 @@ class ListCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
+    
+    private lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.textColor = .black
+        label.numberOfLines = 0
+        return label
+    }()
 
     private lazy var bookImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .lightGray.withAlphaComponent(0.2)
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
@@ -27,7 +36,8 @@ class ListCell: UITableViewCell {
 
     private lazy var textsStack = UIStackView.vertical(
         with: [
-            titleLabel
+            titleLabel,
+            authorLabel
         ],
         alignment: .leading,
         spacing: 8
@@ -78,12 +88,13 @@ class ListCell: UITableViewCell {
         }
 
         bookImageView.snp.makeConstraints { make in
-            make.width.equalToSuperview().multipliedBy(0.25)
-            make.height.greaterThanOrEqualTo(80)
+            make.size.equalTo(CGSize(width: 80, height: 120))
         }
     }
 
     func configure(_ item: ListItem) {
         titleLabel.text = item.title.capitalized
+        authorLabel.text = item.author
+        bookImageView.kf.setImage(with: item.imageUrl)
     }
 }

@@ -18,6 +18,8 @@ struct NYTimesBooksAdaptor {
         return ListItem(
             id: bookItem.primaryISBN10,
             link: bookItem.amazonURL,
-            title: bookItem.title)
+            title: bookItem.title,
+            author: bookItem.author,
+            imageUrl: URL(string: bookItem.bookImage))
     }
 }

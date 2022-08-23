@@ -14,6 +14,7 @@
 		5E34F3B428B4D1DF007FE175 /* NYTimesBooksListEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B328B4D1DF007FE175 /* NYTimesBooksListEndpoint.swift */; };
 		5E34F3B628B4D255007FE175 /* NYTimesBooksList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B528B4D255007FE175 /* NYTimesBooksList.swift */; };
 		5E34F3B828B4D9A1007FE175 /* NYTimesBooksAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E34F3B728B4D9A1007FE175 /* NYTimesBooksAdaptor.swift */; };
+		5E34F3BE28B50E23007FE175 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 5E34F3BD28B50E23007FE175 /* Kingfisher */; };
 		5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBC27DBB124001F8989 /* Routing.swift */; };
 		5E57EDBF27DBB129001F8989 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDBE27DBB129001F8989 /* Router.swift */; };
 		5E57EDC127DBB12C001F8989 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDC027DBB12C001F8989 /* Route.swift */; };
@@ -181,6 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E34F3BE28B50E23007FE175 /* Kingfisher in Frameworks */,
 				5E57EE1027DBBECC001F8989 /* Fakery in Frameworks */,
 				5E57EE1327DBBEFC001F8989 /* SnapKit in Frameworks */,
 			);
@@ -479,6 +481,7 @@
 			packageProductDependencies = (
 				5E57EE0F27DBBECC001F8989 /* Fakery */,
 				5E57EE1227DBBEFC001F8989 /* SnapKit */,
+				5E34F3BD28B50E23007FE175 /* Kingfisher */,
 			);
 			productName = Books;
 			productReference = 5EC7D39627DBAF6B00FC0F7B /* Books.app */;
@@ -559,6 +562,7 @@
 				5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */,
 				5E57EE1127DBBEFC001F8989 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5E65749E27DD1632002622F3 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				5E34F3BC28B50E23007FE175 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 5EC7D39727DBAF6B00FC0F7B /* Products */;
 			projectDirPath = "";
@@ -1008,6 +1012,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5E34F3BC28B50E23007FE175 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vadymmarkov/Fakery";
@@ -1035,6 +1047,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5E34F3BD28B50E23007FE175 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E34F3BC28B50E23007FE175 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		5E57EE0F27DBBECC001F8989 /* Fakery */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E57EE0E27DBBECC001F8989 /* XCRemoteSwiftPackageReference "Fakery" */;

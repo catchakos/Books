@@ -13,6 +13,8 @@ struct ListItem: Codable, Hashable {
     let id: String
     let link: String?
     let title: String
+    let author: String
+    let imageUrl: URL?
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

@@ -34,7 +34,9 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
         return ListItem(
             id: UUID().uuidString,
             link: faker.internet.url(),
-            title: bookTitle()
+            title: bookTitle(),
+            author: "",
+            imageUrl: nil
         )
     }
 
