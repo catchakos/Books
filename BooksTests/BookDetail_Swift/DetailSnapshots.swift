@@ -10,7 +10,7 @@ import SnapshotTesting
 import XCTest
 
 class DetailSnapshots: XCTestCase {
-    
+        
     func testDetailControllerLoad() {
         let vc = DetailViewController()
         vc.dataStore?.dependencies = DependenciesFake()

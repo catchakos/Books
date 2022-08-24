@@ -23,7 +23,11 @@ struct BookFakes {
         title: "Book title",
         author: "Author",
         bookDescription: "descrigdfgadf",
-        imageUrl: nil
+        imageUrl: nil,
+        publisher: "Publisher",
+        primaryISBN10: "123412341234",
+        amazonURL: "",
+        reviewLink: ""
     )
 
     static let fakeList1 = [fakeListItem1]
@@ -50,7 +54,11 @@ struct BookFakes {
             title: "Book title \(id)",
             author: "Author",
             bookDescription: "descrigdfgadf",
-            imageUrl: nil
+            imageUrl: nil,
+            publisher: "Publisher",
+            primaryISBN10: "123412341234",
+            amazonURL: "",
+            reviewLink: ""
         )
     }
 }
