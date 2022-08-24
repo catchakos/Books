@@ -10,6 +10,7 @@ import SnapshotTesting
 import XCTest
 
 class DetailSnapshots: XCTestCase {
+    
     func testDetailControllerLoad() {
         let vc = DetailViewController()
         vc.dataStore?.dependencies = DependenciesFake()
@@ -25,8 +26,8 @@ class DetailSnapshots: XCTestCase {
 
         let devices: [String: ViewImageConfig] = [
             "iPhoneX": .iPhoneX,
-            "iPhone8": .iPhone8,
-            "iPhoneSe": .iPhoneSe
+            "iPhone8+": .iPhone8Plus
+//            "iPhoneSe": .iPhoneSe
         ]
 
         let results = devices.map { device in

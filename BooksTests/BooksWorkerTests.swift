@@ -51,20 +51,20 @@ class BooksWorkerTests: XCTestCase {
             fetchListCalled = true
             fetchListOffsetPassed = offset
 
-            completion(fakeListReturnSuccess ? .success(BookFakes.fakeList1) : .failure(APIClientError.other))
+            completion(fakeListReturnSuccess ? .success(BookFakes.fakeList1) : .failure(APIClientError.decodeError))
         }
 
         func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
             fetchDetailCalled = true
             fetchDetailIDPassed = id
 
-            completion(fakeDetailReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.other))
+            completion(fakeDetailReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.decodeError))
         }
 
         func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void)) {
             postBookCalled = true
 
-            completion(fakePostReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.other))
+            completion(fakePostReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.decodeError))
         }
     }
 

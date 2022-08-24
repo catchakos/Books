@@ -21,6 +21,11 @@ struct NYTimesBooksAdaptor {
             title: bookItem.title,
             author: bookItem.author,
             bookDescription: bookItem.bookDescription,
-            imageUrl: URL(string: bookItem.bookImage))
+            imageUrl: URL(string: bookItem.bookImage),
+            publisher: bookItem.publisher,
+            primaryISBN10: bookItem.primaryISBN10,
+            amazonURL: bookItem.amazonURL,
+            reviewLink: bookItem.bookReviewLink
+        )
     }
 }

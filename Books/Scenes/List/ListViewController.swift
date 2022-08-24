@@ -129,7 +129,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
 
     private func setupNavigationItem() {
-        navigationItem.title = NSLocalizedString("Books", comment: "")
+        navigationItem.title = NSLocalizedString("Fiction Books", comment: "")
 
         // disabling add item for now..
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(

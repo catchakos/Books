@@ -18,6 +18,8 @@ struct BookDetailView: View {
             ZStack {
                 if let url = viewModel.details.imageUrl {
                     imageContainer(url: url, height: geometry.size.height * 0.5)
+                    
+                    overlaidButtons(topMargin: geometry.size.height * 0.15)
                 }
 
                 textsStack(
@@ -40,21 +42,77 @@ struct BookDetailView: View {
             Spacer()
         }
     }
+    
+    func overlaidButtons(topMargin: CGFloat) -> some View {
+        return HStack {
+            Spacer()
+            
+            VStack(alignment: .trailing, spacing: 16) {
+                Spacer()
+                    .frame(height: topMargin)
+                
+                if let url = URL(string: viewModel.details.reviewLink) {
+                    Link(destination: url) {
+                        Text("Book Review")
+                            .font(.callout)
+                            .padding(8)
+                            .foregroundColor(.blue)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                    }
+                    .background(Color.white)
+                    .cornerRadius(10)
+                }
+                
+                if let url = URL(string: viewModel.details.amazonURL) {
+                    Link(destination: url) {
+                        Text("Amazon")
+                            .font(.callout)
+                            .padding(8)
+                            .foregroundColor(.blue)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                    }
+                    .background(Color.white)
+                    .cornerRadius(10)
+                }
+                
+                Spacer()
+            }
+            .padding(.trailing, 4)
+        }
+    }
 
     func textsStack(width: CGFloat, topMargin: CGFloat) -> some View {
         return VStack {
             Spacer(minLength: topMargin)
-            VStack {
+            VStack(alignment: .leading) {
                 Text(viewModel.details.title)
                     .font(.title)
                     .accessibilityLabel("movie_detail_title")
-                    .padding()
+                    .padding(.top, 8)
+                Text(viewModel.details.author)
+                    .font(.headline)
+                    .accessibilityLabel("movie_detail_title")
+                    
                 Text(viewModel.details.bookDescription)
                     .font(.body)
                     .accessibilityLabel("movie_detail_summary")
                     .padding()
                 Spacer()
+                
+                VStack(alignment: .leading) {
+                    Text("Publisher: " + viewModel.details.publisher)
+                        .font(.subheadline)
+                    Text("ISBN: " + viewModel.details.primaryISBN10)
+                        .font(.footnote)
+                }
             }
+            .padding()
             .frame(width: width)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 16))

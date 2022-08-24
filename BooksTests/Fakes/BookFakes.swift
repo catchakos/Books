@@ -20,7 +20,10 @@ struct BookFakes {
     static let fakeListItem1 = ListItem(
         id: "12",
         link: "www.link.com",
-        title: "Book title"
+        title: "Book title",
+        author: "Author",
+        bookDescription: "descrigdfgadf",
+        imageUrl: nil
     )
 
     static let fakeList1 = [fakeListItem1]
@@ -44,7 +47,10 @@ struct BookFakes {
         return ListItem(
             id: String(id),
             link: "www.link.com",
-            title: "Book title \(id)"
+            title: "Book title \(id)",
+            author: "Author",
+            bookDescription: "descrigdfgadf",
+            imageUrl: nil
         )
     }
 }

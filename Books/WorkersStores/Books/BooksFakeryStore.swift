@@ -37,7 +37,11 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
             title: bookTitle(),
             author: "",
             bookDescription: faker.lorem.paragraph(),
-            imageUrl: nil
+            imageUrl: nil,
+            publisher: faker.name.lastName(),
+            primaryISBN10: faker.bank.bban(),
+            amazonURL: faker.internet.url(),
+            reviewLink: faker.internet.url()
         )
     }
 

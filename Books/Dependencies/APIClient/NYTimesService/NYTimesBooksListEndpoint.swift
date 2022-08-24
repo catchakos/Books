@@ -13,6 +13,6 @@ struct NYTimesBooksListEndpoint: Endpoint {
     }
     
     var path: String? {
-        return "/lists/current/e-book-fiction.json"
+        return "/lists/current/combined-print-and-e-book-fiction.json"
     }
 }
