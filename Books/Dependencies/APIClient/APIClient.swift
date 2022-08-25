@@ -21,7 +21,7 @@ class APIClient: APIClientInterface {
         session.configuration.timeoutIntervalForRequest = 15
         return session
     }()
-    
+
     required init(service: APIService, completion: @escaping (() -> Void)) {
         self.service = service
         completion()
@@ -51,7 +51,8 @@ class APIClient: APIClientInterface {
 
         return dataTask
     }
-    func fetch<T>(endpoint: Endpoint, responseType: T.Type, completion: @escaping (Result<T, APIClientError>) -> Void) -> URLSessionDataTask? where T : Decodable {
+
+    func fetch<T>(endpoint: Endpoint, responseType: T.Type, completion: @escaping (Result<T, APIClientError>) -> Void) -> URLSessionDataTask? where T: Decodable {
         return fetch(endpoint) { data, error, _ in
             if let error = error {
                 DispatchQueue.main.async {

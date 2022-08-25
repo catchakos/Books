@@ -82,7 +82,8 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
         let itemPage = request.indexPath.section
         let itemIndex = request.indexPath.item
         guard listItems.count > itemPage,
-            listItems[itemPage].count > itemIndex else {
+              listItems[itemPage].count > itemIndex else
+        {
             selectedItem = nil
             return
         }

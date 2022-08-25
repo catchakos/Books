@@ -19,7 +19,7 @@ extension APIClientError {
     var errorDescription: String? {
         return localizedDescription
     }
-    
+
     var localizedDescription: String? {
         return NSLocalizedString("Oooops...", comment: "")
     }

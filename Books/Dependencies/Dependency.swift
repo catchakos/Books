@@ -7,6 +7,4 @@
 
 import Foundation
 
-protocol Dependency {
-    
-}
+protocol Dependency {}

@@ -5,8 +5,8 @@
 //  Created by Alexis Katsaprakakis on 12/3/22.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 class ListCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
@@ -16,7 +16,7 @@ class ListCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
-    
+
     private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)

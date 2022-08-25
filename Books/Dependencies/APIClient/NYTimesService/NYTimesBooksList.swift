@@ -11,7 +11,7 @@ struct NYTimesBooksList: Decodable {
     let copyright: String
     let resultsCount: Int
     let results: NYTimesBooksListItemsContainer
-    
+
     enum CodingKeys: String, CodingKey {
         case copyright, results
         case resultsCount = "num_results"
@@ -22,7 +22,7 @@ struct NYTimesBooksListItemsContainer: Decodable {
     let publishedDate: String
     let displayName: String
     let books: [NYTimesBooksListItem]
-    
+
     enum CodingKeys: String, CodingKey {
         case publishedDate = "published_date"
         case displayName = "display_name"
@@ -42,7 +42,7 @@ struct NYTimesBooksListItem: Decodable {
     let rankLastWeek: Int
     let amazonURL: String
     let bookReviewLink: String
-    
+
     enum CodingKeys: String, CodingKey {
         case rank, title, contributor, author, publisher
         case bookDescription = "description"

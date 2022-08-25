@@ -5,20 +5,19 @@
 //  Created by Alexis Katsaprakakis on 23/8/22.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct BookDetailView: View {
-    
     @ObservedObject var viewModel: BookDetailVM
     weak var navigationController: UINavigationController?
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 if let url = viewModel.details.imageUrl {
                     imageContainer(url: url, height: geometry.size.height * 0.5)
-                    
+
                     overlaidButtons(topMargin: geometry.size.height * 0.15)
                 }
 
@@ -42,15 +41,15 @@ struct BookDetailView: View {
             Spacer()
         }
     }
-    
+
     func overlaidButtons(topMargin: CGFloat) -> some View {
         return HStack {
             Spacer()
-            
+
             VStack(alignment: .trailing, spacing: 16) {
                 Spacer()
                     .frame(height: topMargin)
-                
+
                 if let url = URL(string: viewModel.details.reviewLink) {
                     Link(destination: url) {
                         Text("Book Review")
@@ -65,7 +64,7 @@ struct BookDetailView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                 }
-                
+
                 if let url = URL(string: viewModel.details.amazonURL) {
                     Link(destination: url) {
                         Text("Amazon")
@@ -80,7 +79,7 @@ struct BookDetailView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                 }
-                
+
                 Spacer()
             }
             .padding(.trailing, 4)
@@ -98,13 +97,13 @@ struct BookDetailView: View {
                 Text(viewModel.details.author)
                     .font(.headline)
                     .accessibilityLabel("movie_detail_title")
-                    
+
                 Text(viewModel.details.bookDescription)
                     .font(.body)
                     .accessibilityLabel("movie_detail_summary")
                     .padding()
                 Spacer()
-                
+
                 VStack(alignment: .leading) {
                     Text("Publisher: " + viewModel.details.publisher)
                         .font(.subheadline)
@@ -123,7 +122,7 @@ struct BookDetailView: View {
         let gradient = LinearGradient(
             gradient: Gradient(stops: [
                 .init(color: .clear, location: 0.6),
-                .init(color: .white, location: 1.0),
+                .init(color: .white, location: 1.0)
             ]),
             startPoint: .bottom,
             endPoint: .top
@@ -140,9 +139,9 @@ struct BookDetailView: View {
 }
 
 #if DEBUG
-struct BookDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookDetailView(viewModel: BookDetailVM(bookDetails: ListItem.mocked()))
+    struct BookDetailView_Previews: PreviewProvider {
+        static var previews: some View {
+            BookDetailView(viewModel: BookDetailVM(bookDetails: ListItem.mocked()))
+        }
     }
-}
 #endif

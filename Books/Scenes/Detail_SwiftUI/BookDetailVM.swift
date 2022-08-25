@@ -9,8 +9,8 @@ import Foundation
 
 class BookDetailVM: ObservableObject {
     @Published var details: ListItem
-    
+
     init(bookDetails: ListItem) {
-        self.details = bookDetails
+        details = bookDetails
     }
 }

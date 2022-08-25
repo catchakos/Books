@@ -6,8 +6,8 @@
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 @objc protocol ListRoutingLogic {
     func routeToDetail()
@@ -22,7 +22,7 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     var dataStore: ListDataStore?
 
     private var useSwiftUIDetail = true
-    
+
     // MARK: Routing
 
     func routeToDetail() {
@@ -32,14 +32,15 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
             routeToDetailVC()
         }
     }
-    
+
     private func routeToSwiftUIDetailView() {
         let bookDetailVC = UIHostingController(rootView: BookDetailView(
             viewModel: BookDetailVM(bookDetails: dataStore!.selectedItem!),
-            navigationController: viewController?.navigationController))
+            navigationController: viewController?.navigationController
+        ))
         viewController?.navigationController?.pushViewController(bookDetailVC, animated: true)
     }
-    
+
     private func routeToDetailVC() {
         let destinationVC = DetailViewController()
         var destinationDS = destinationVC.router!.dataStore!

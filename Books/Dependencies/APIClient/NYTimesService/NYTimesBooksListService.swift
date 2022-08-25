@@ -8,21 +8,20 @@
 import Foundation
 
 enum NYTimesBookListService: APIService {
-    
     case v3
-    
+
     var scheme: String {
         return "https"
     }
-    
+
     var baseHost: String {
         return "api.nytimes.com"
     }
-    
+
     var authenticationItem: [String: String]? {
         return ["api-key": "9NPlJGhJKii67War2dCC9ul8CB06kJfN"]
     }
-    
+
     var rootPath: String? {
         switch self {
         case .v3:

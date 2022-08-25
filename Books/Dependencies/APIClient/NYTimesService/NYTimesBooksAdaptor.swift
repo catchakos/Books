@@ -9,11 +9,11 @@ import Foundation
 
 struct NYTimesBooksAdaptor {
     static func toListItems(_ booksList: NYTimesBooksList) -> ListItems {
-        return booksList.results.books.compactMap({
+        return booksList.results.books.compactMap {
             toListItem($0)
-        })
+        }
     }
-    
+
     static func toListItem(_ bookItem: NYTimesBooksListItem) -> ListItem {
         return ListItem(
             id: bookItem.primaryISBN10,

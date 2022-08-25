@@ -27,7 +27,8 @@ class DetailPresenter: DetailPresentationLogic {
         let book = response.book
         var priceString = ""
         if let price = book?.price,
-           let formattedPrice = priceFormatter.string(from: price as NSNumber) {
+           let formattedPrice = priceFormatter.string(from: price as NSNumber)
+        {
             priceString = formattedPrice
         }
 

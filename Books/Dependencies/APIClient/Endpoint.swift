@@ -76,13 +76,13 @@ extension Endpoint {
             var urlComponents = URLComponents()
             urlComponents.scheme = service.scheme
             urlComponents.host = host ?? service.baseHost
-            
+
             assert(endpointPath.first == "/", "paths should start with /")
             let finalPath = [service.rootPath, endpointPath]
-                .compactMap({ $0 })
+                .compactMap { $0 }
                 .joined(separator: "")
             urlComponents.path = finalPath
-            
+
             switch method {
             case let .get(parameters):
                 if let parameters = parameters {
@@ -97,7 +97,7 @@ extension Endpoint {
             case .post:
                 break
             }
-            
+
             return urlComponents.url
         } else {
             assertionFailure("an endpoint should provide a relative path")

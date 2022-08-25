@@ -11,7 +11,7 @@ struct NYTimesBooksListEndpoint: Endpoint {
     var method: HTTPMethod<Body, Parameters> {
         return .get([:])
     }
-    
+
     var path: String? {
         return "/lists/current/combined-print-and-e-book-fiction.json"
     }
