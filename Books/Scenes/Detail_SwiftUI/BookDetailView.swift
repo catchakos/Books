@@ -96,7 +96,7 @@ struct BookDetailView: View {
                     .padding(.top, 8)
                 Text(viewModel.details.author)
                     .font(.headline)
-                    .accessibilityLabel("movie_detail_title")
+                    .accessibilityLabel("movie_detail_author")
 
                 Text(viewModel.details.bookDescription)
                     .font(.body)
@@ -107,8 +107,12 @@ struct BookDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Publisher: " + viewModel.details.publisher)
                         .font(.subheadline)
+                        .accessibilityLabel("movie_detail_publisher")
+
                     Text("ISBN: " + viewModel.details.primaryISBN10)
                         .font(.footnote)
+                        .accessibilityLabel("movie_detail_isbn")
+
                 }
             }
             .padding()

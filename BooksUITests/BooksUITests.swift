@@ -34,14 +34,22 @@ class BooksUITests: XCTestCase {
         table.swipeUp()
         table.cells.firstMatch.tap()
 
-        let price = app.staticTexts["price_label"]
-        XCTAssert(price.exists)
+        let title = app.staticTexts["movie_detail_title"]
+        XCTAssert(title.exists)
+        
+        let author = app.staticTexts["movie_detail_author"]
+        XCTAssert(author.exists)
+        
+        let summary = app.staticTexts["movie_detail_summary"]
+        XCTAssert(summary.exists)
 
-        let dimmedView = app.otherElements["dimmed_view"]
-        XCTAssert(dimmedView.exists)
-
-        dimmedView.tap()
-        XCTAssert(table.exists)
-        XCTAssertFalse(price.exists)
+        let publisher = app.staticTexts["movie_detail_publisher"]
+        XCTAssert(publisher.exists)
+        
+        let isbn = app.staticTexts["movie_detail_isbn"]
+        XCTAssert(isbn.exists)
+        
+        let image = app.images["movie_detail_image"]
+        XCTAssert(image.exists)
     }
 }
