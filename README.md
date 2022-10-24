@@ -7,11 +7,12 @@ Simple lightweight iOS app listing books. It consists of two basic scenes, one f
 ### App lifecycle
 No scene support, use of UIApplicationDelegate.
 The AppDelegate creates a window and a Router object.
-The Router then displays a dummy Splash scene while making the Dependencies container and initializing the objects shared between the different screens: APIClient, Persistency & Routing for now, all connected through their corresponding protocols for better decoupling and testing.
+The Router then displays a dummy Splash ViewController while making the Dependencies container and initializing the objects shared between the different screens: APIClient, Persistency & Routing for now, all connected through their corresponding protocols for better decoupling and testing.
+Dependency injection is done by initialization. After all dependencies are created, the dummy splash is dismissed and all VCs from now on are CleanSwift VIP ones. The dependency container is passed to each VC in its initialization method which configures all VIP parts using the container when needed.  
 
 
-### Dependencies
-External dependencies through SPM only:
+### External dependencies
+ SPM only:
 - SnapKit - for easy autolayout by code
 - Kingfisher - image async load & cache
 - SnapshotTesting

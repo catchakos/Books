@@ -22,7 +22,7 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
 
     var listItem: ListItem?
 
-    lazy var worker: BooksWorkerProtocol = BooksWorker(store: BooksFakeryStore(), persistency: dependencies.persistency!)
+    lazy var worker: BooksWorkerProtocol = BooksWorker(store: BooksFakeryStore(), persistency: dependencies.persistency)
 
     // MARK: Init
     

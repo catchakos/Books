@@ -9,13 +9,9 @@
 import Foundation
 
 class DependenciesFake: DependenciesInterface {
-    func make(completion: @escaping (() -> Void)) {
-        completion()
-    }
-
-    var persistency: PersistencyInterface? = PersistencyFake(completion: {})
+    var persistency: PersistencyInterface = PersistencyFake(completion: {})
+    var apiClient: APIClientInterface = APIClientFake(service: NYTimesBookListService.v3)
     var router: Routing?
-    var apiClient: APIClientInterface? = APIClientFake(service: NYTimesBookListService.v3)
 }
 
 class PersistencyFake: PersistencyInterface {
