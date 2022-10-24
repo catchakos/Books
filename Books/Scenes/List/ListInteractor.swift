@@ -21,8 +21,8 @@ protocol ListDataStore: DependentStore {
 }
 
 class ListInteractor: ListBusinessLogic, ListDataStore {
-    var dependencies: DependenciesInterface?
-    var presenter: ListPresentationLogic?
+    var dependencies: DependenciesInterface
+    var presenter: ListPresentationLogic
 
     var offset: Int = 0
     var isLoading = false
@@ -35,9 +35,15 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     }
 
     lazy var worker: BooksWorkerProtocol = BooksWorker(
-        store: BooksAPIStore(apiClient: dependencies!.apiClient!),
-        persistency: dependencies!.persistency!
+        store: BooksAPIStore(apiClient: dependencies.apiClient!),
+        persistency: dependencies.persistency!
     )
+    
+    // MARK: Init
+    required init(dependencies: DependenciesInterface, presenter: ListPresentationLogic) {
+        self.dependencies = dependencies
+        self.presenter = presenter
+    }
 
     // MARK: Load
 
@@ -63,7 +69,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
             case let .failure(error):
                 response = List.Load.Response(books: nil, error: error)
             }
-            self.presenter?.presentLoad(response)
+            self.presenter.presentLoad(response)
         }
     }
 
@@ -73,7 +79,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
         listItems.removeAll()
 
         let response = List.Clear.Response()
-        presenter?.presentClear(response)
+        presenter.presentClear(response)
     }
 
     // MARK: Select Item
@@ -92,7 +98,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
         selectedItem = item
 
         let response = List.Select.Response(book: selectedItem)
-        presenter?.presentItemSelect(response)
+        presenter.presentItemSelect(response)
     }
 
     // MARK: Add
@@ -106,7 +112,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
             case .failure:
                 response = List.Add.Response(book: nil)
             }
-            self.presenter?.presentAddItem(response)
+            self.presenter.presentAddItem(response)
         }
     }
 }

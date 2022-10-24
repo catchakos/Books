@@ -17,13 +17,13 @@ protocol ListDisplayLogic: AnyObject {
 }
 
 class ListViewController: UIViewController, ListDisplayLogic, DependentViewController {
-    var dataStore: DependentStore? {
-        return router?.dataStore
+    var dataStore: DependentStore {
+        return router.dataStore
     }
 
-    var interactor: ListBusinessLogic?
-    var router: (NSObjectProtocol & ListRoutingLogic & ListDataPassing)?
-
+    var interactor: ListBusinessLogic
+    var router: (NSObjectProtocol & ListRoutingLogic & ListDataPassing)
+    
     // MARK: - UI Elements
 
     lazy var tableView: UITableView = {
@@ -68,32 +68,24 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }()
 
     // MARK: Object lifecycle
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
-    // MARK: Setup
-
-    private func setup() {
-        let viewController = self
-        let interactor = ListInteractor()
+    
+    required init(dependencies: DependenciesInterface) {
         let presenter = ListPresenter()
-        let router = ListRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+        let interactorAndDataStore = ListInteractor(dependencies: dependencies, presenter: presenter)
+        let router = ListRouter(dataStore: interactorAndDataStore)
+        self.interactor = interactorAndDataStore
+        self.router = router
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        presenter.viewController = self
+        router.viewController = self
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: View lifecycle
 
     override func viewDidLoad() {
@@ -145,7 +137,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         spinner.startAnimating()
 
         let request = List.Load.Request()
-        interactor?.loadList(request)
+        interactor.loadList(request)
     }
 
     func displayLoad(_ viewModel: List.Load.ViewModel) {
@@ -161,7 +153,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     func clearList() {
         let request = List.Clear.Request()
-        interactor?.clearList(request)
+        interactor.clearList(request)
     }
 
     func displayClear(_: List.Clear.ViewModel) {
@@ -172,7 +164,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     func selectListItem(_ indexPath: IndexPath) {
         let request = List.Select.Request(indexPath: indexPath)
-        interactor?.selectListItem(request)
+        interactor.selectListItem(request)
     }
 
     func displaySelectListItem(_ viewModel: List.Select.ViewModel) {
@@ -180,7 +172,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
             return
         }
 
-        router?.routeToDetail()
+        router.routeToDetail()
     }
 
     // MARK: Add
@@ -191,7 +183,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     func addListItem() {
         let request = List.Add.Request()
-        interactor?.addItem(request)
+        interactor.addItem(request)
     }
 
     func displayAddListItem(_ viewModel: List.Add.ViewModel) {

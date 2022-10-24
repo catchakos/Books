@@ -13,14 +13,16 @@ import UIKit
 }
 
 protocol DetailDataPassing {
-    var dataStore: DetailDataStore? { get }
+    var dataStore: DetailDataStore { get }
 }
 
 class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
     weak var viewController: DetailViewController?
-    var dataStore: DetailDataStore?
+    var dataStore: DetailDataStore
 
-    // MARK: Routing
+    init(dataStore: DetailDataStore) {
+        self.dataStore = dataStore
+    }    // MARK: Routing
 
     func exitDetail() {
         viewController?.presentingViewController?.dismiss(animated: true, completion: nil)

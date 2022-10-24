@@ -10,7 +10,7 @@ import UIKit
 class Router: Routing {
     private weak var window: UIWindow?
 
-    private lazy var splash = SplashViewController()
+    private lazy var splash = SplashViewController(dependencies: dependencies)
 
     var dependencies: DependenciesInterface = Dependencies()
 
@@ -64,9 +64,9 @@ class Router: Routing {
     }
 
     private func moveToMainViewController() {
-        let viewController = ListViewController()
-        let ds = viewController.router?.dataStore
-        ds?.dependencies = dependencies
+        let viewController = ListViewController(dependencies: dependencies)
+        let ds = viewController.router.dataStore
+        ds.dependencies = dependencies
 
         let navigationController = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationController

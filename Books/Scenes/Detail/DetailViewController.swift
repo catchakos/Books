@@ -13,12 +13,12 @@ protocol DetailDisplayLogic: AnyObject {
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewController {
-    var dataStore: DependentStore? {
-        return router?.dataStore
+    var dataStore: DependentStore {
+        return router.dataStore
     }
 
-    var interactor: DetailBusinessLogic?
-    var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
+    var interactor: DetailBusinessLogic
+    var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)
 
     // MARK: - UI Elements
 
@@ -83,29 +83,21 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
     // MARK: Object lifecycle
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
-    // MARK: Setup
-
-    private func setup() {
-        let viewController = self
-        let interactor = DetailInteractor()
+    required init(dependencies: DependenciesInterface) {
         let presenter = DetailPresenter()
-        let router = DetailRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+        let interactorAndDataStore = DetailInteractor(dependencies: dependencies, presenter: presenter)
+        let router = DetailRouter(dataStore: interactorAndDataStore)
+        self.interactor = interactorAndDataStore
+        self.router = router
+        
+        super.init(nibName: nil, bundle: nil)
+        
+        presenter.viewController = self
+        router.viewController = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: View lifecycle
@@ -154,7 +146,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
     func doLoad() {
         let request = Detail.Load.Request()
-        interactor?.doLoad(request)
+        interactor.doLoad(request)
     }
 
     func displayLoad(_ viewModel: Detail.Load.ViewModel) {
@@ -164,7 +156,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
     }
 
     @objc func didTap(_: UITapGestureRecognizer) {
-        router?.exitDetail()
+        router.exitDetail()
     }
 }
 

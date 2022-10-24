@@ -13,6 +13,9 @@ class ListViewControllerTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: ListViewController!
+    var spyInteractor: ListBusinessLogicSpy!
+    var spyRouter: ListRouterSpy!
+    
     var window: UIWindow!
 
     // MARK: Test lifecycle
@@ -31,9 +34,12 @@ class ListViewControllerTests: XCTestCase {
     // MARK: Test setup
 
     func setupListViewController() {
-        sut = ListViewController()
-        sut.router?.dataStore?.dependencies = DependenciesFake()
-        sut.interactor = ListBusinessLogicSpy()
+        spyInteractor = ListBusinessLogicSpy()
+        sut = ListViewController(dependencies: DependenciesFake())
+        spyRouter = ListRouterSpy(dataStore: spyInteractor)
+        
+        sut.interactor = spyInteractor
+        sut.router = spyRouter
     }
 
     func loadView() {
@@ -43,7 +49,11 @@ class ListViewControllerTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class ListBusinessLogicSpy: ListBusinessLogic {
+    class ListBusinessLogicSpy: ListBusinessLogic, ListDataStore {
+        var listItems: [ListItems] = []
+        var selectedItem: ListItem?
+        var dependencies: DependenciesInterface = DependenciesFake()
+        
         var loadListCalled = false
         var clearListCalled = false
         var selectListItemCalled = false
@@ -79,12 +89,9 @@ class ListViewControllerTests: XCTestCase {
     // MARK: - Load
 
     func testShouldLoadListWhenViewIsLoaded() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
 
-        XCTAssertTrue(spy.loadListCalled, "viewDidLoad() should ask the interactor to load")
+        XCTAssertTrue(spyInteractor.loadListCalled, "viewDidLoad() should ask the interactor to load")
     }
 
     func testDisplayLoad() {
@@ -143,27 +150,22 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func DISABLEDtestLoadsNextPageWhenReachingBottom() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
         loadView()
         sut.displayLoad(List.Load.ViewModel(books: BookFakes.onePage, errorMessage: nil))
-        spy.loadListCalled = false
+        spyInteractor.loadListCalled = false
 
         sut.tableHandler.onScrolledToBottom?()
 
-        XCTAssertTrue(spy.loadListCalled)
+        XCTAssertTrue(spyInteractor.loadListCalled)
     }
 
     // MARK: - Clear
 
     func testShouldClearList() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
         sut.clearList()
 
-        XCTAssertTrue(spy.clearListCalled, "viewDidLoad() should ask the interactor to clear")
+        XCTAssertTrue(spyInteractor.clearListCalled, "viewDidLoad() should ask the interactor to clear")
     }
 
     func testDisplayClear() {
@@ -180,49 +182,39 @@ class ListViewControllerTests: XCTestCase {
     // MARK: - Select
 
     func testShouldSelectItem() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
         // TODO: do it with UI
         sut.selectListItem(IndexPath(row: 0, section: 0))
 
-        XCTAssertTrue(spy.selectListItemCalled, "viewDidLoad() should ask the interactor to select")
+        XCTAssertTrue(spyInteractor.selectListItemCalled, "viewDidLoad() should ask the interactor to select")
     }
 
     func testDisplaySelect() {
-        let routerSpy = ListRouterSpy()
-        sut.router = routerSpy
         loadView()
 
         let viewModel = List.Select.ViewModel(success: true)
         sut.displaySelectListItem(viewModel)
 
-        XCTAssert(routerSpy.routeToDetailCalled)
+        XCTAssert(spyRouter.routeToDetailCalled)
     }
 
     func testDisplayNoSelectWithoutSuccess() {
-        let routerSpy = ListRouterSpy()
-        sut.router = routerSpy
         loadView()
 
         let viewModel = List.Select.ViewModel(success: false)
         sut.displaySelectListItem(viewModel)
 
-        XCTAssertFalse(routerSpy.routeToDetailCalled)
+        XCTAssertFalse(spyRouter.routeToDetailCalled)
     }
 
     // MARK: - Add
 
     func testShouldAddItem() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
         // TODO: do it with UI
         sut.addListItem()
 
-        XCTAssertTrue(spy.addListItemCalled, "viewDidLoad() should ask the interactor to add")
+        XCTAssertTrue(spyInteractor.addListItemCalled, "viewDidLoad() should ask the interactor to add")
     }
 
     func testDisplayNoErrorWithAddSuccess() {

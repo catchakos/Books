@@ -17,13 +17,20 @@ protocol DetailDataStore: DependentStore {
 }
 
 class DetailInteractor: DetailBusinessLogic, DetailDataStore {
-    var dependencies: DependenciesInterface?
-    var presenter: DetailPresentationLogic?
+    var dependencies: DependenciesInterface
+    var presenter: DetailPresentationLogic
 
     var listItem: ListItem?
 
-    lazy var worker: BooksWorkerProtocol = BooksWorker(store: BooksFakeryStore(), persistency: dependencies!.persistency!)
+    lazy var worker: BooksWorkerProtocol = BooksWorker(store: BooksFakeryStore(), persistency: dependencies.persistency!)
 
+    // MARK: Init
+    
+    init(dependencies: DependenciesInterface, presenter: DetailPresentationLogic) {
+        self.dependencies = dependencies
+        self.presenter = presenter
+    }
+    
     // MARK: Do Load
 
     func doLoad(_: Detail.Load.Request) {
@@ -40,7 +47,7 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
             case let .failure(error):
                 response = Detail.Load.Response(book: nil, error: error)
             }
-            self.presenter?.presentLoad(response)
+            self.presenter.presentLoad(response)
         }
     }
 

@@ -15,13 +15,20 @@ protocol SplashBusinessLogic {
 protocol SplashDataStore: DependentStore {}
 
 class SplashInteractor: SplashBusinessLogic, SplashDataStore {
-    var dependencies: DependenciesInterface?
-    var presenter: SplashPresentationLogic?
+    var dependencies: DependenciesInterface
+    var presenter: SplashPresentationLogic
+    
+    // MARK: Init
+    
+    init(dependencies: DependenciesInterface, presenter: SplashPresentationLogic) {
+        self.dependencies = dependencies
+        self.presenter = presenter
+    }
 
     // MARK: Do something
 
     func doSomething(_: Splash.Something.Request) {
         let response = Splash.Something.Response()
-        presenter?.presentSomething(response)
+        presenter.presentSomething(response)
     }
 }

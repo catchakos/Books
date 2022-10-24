@@ -13,12 +13,17 @@ import UIKit
 }
 
 protocol SplashDataPassing {
-    var dataStore: SplashDataStore? { get }
+    var dataStore: SplashDataStore { get }
 }
 
 class SplashRouter: NSObject, SplashRoutingLogic, SplashDataPassing {
     weak var viewController: SplashViewController?
-    var dataStore: SplashDataStore?
+    var dataStore: SplashDataStore
+    
+    // MARK: Init
+    init(dataStore: SplashDataStore) {
+        self.dataStore = dataStore
+    }
 
     // MARK: Routing
 

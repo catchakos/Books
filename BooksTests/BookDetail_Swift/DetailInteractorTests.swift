@@ -13,6 +13,8 @@ class DetailInteractorTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: DetailInteractor!
+    var spyPresenter: DetailPresentationLogicSpy!
+    var spyWorker: BooksWorkerSpy!
 
     // MARK: Test lifecycle
 
@@ -28,8 +30,12 @@ class DetailInteractorTests: XCTestCase {
     // MARK: Test setup
 
     func setupDetailInteractor() {
-        sut = DetailInteractor()
+        spyPresenter = DetailPresentationLogicSpy()
+        spyWorker = BooksWorkerSpy()
+        
+        sut = DetailInteractor(dependencies: DependenciesFake(), presenter: spyPresenter)
         sut.listItem = BookFakes.fakeListItem1
+        sut.worker = spyWorker
     }
 
     // MARK: Test doubles
@@ -69,13 +75,10 @@ class DetailInteractorTests: XCTestCase {
 
     func testDoLoad() {
         let expect = XCTestExpectation(description: "loadCallsPresenter")
-        let spy = DetailPresentationLogicSpy()
-        spy.onLoadCalled = {
-            XCTAssertTrue(spy.presentLoadCalled, "doLoad(request:) should ask the presenter to format the result")
+        spyPresenter.onLoadCalled = {
+            XCTAssertTrue(self.spyPresenter.presentLoadCalled, "doLoad(request:) should ask the presenter to format the result")
             expect.fulfill()
         }
-        sut.presenter = spy
-        sut.worker = BooksWorkerSpy()
 
         let request = Detail.Load.Request()
         sut.doLoad(request)
@@ -84,14 +87,9 @@ class DetailInteractorTests: XCTestCase {
     }
 
     func testLoadCallsWorker() {
-        let spy = DetailPresentationLogicSpy()
-        sut.presenter = spy
-        let worker = BooksWorkerSpy()
-        sut.worker = worker
-
         let request = Detail.Load.Request()
         sut.doLoad(request)
 
-        XCTAssertTrue(worker.fetchDetailCalled, "doLoad(request:) should ask the presenter to format the result")
+        XCTAssertTrue(spyWorker.fetchDetailCalled, "doLoad(request:) should ask the presenter to format the result")
     }
 }

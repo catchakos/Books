@@ -14,15 +14,19 @@ import UIKit
 }
 
 protocol ListDataPassing {
-    var dataStore: ListDataStore? { get }
+    var dataStore: ListDataStore { get }
 }
 
 class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     weak var viewController: ListViewController?
-    var dataStore: ListDataStore?
+    var dataStore: ListDataStore
 
     private var useSwiftUIDetail = true
 
+    init(dataStore: ListDataStore) {
+        self.dataStore = dataStore
+    }
+    
     // MARK: Routing
 
     func routeToDetail() {
@@ -35,16 +39,16 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
 
     private func routeToSwiftUIDetailView() {
         let bookDetailVC = UIHostingController(rootView: BookDetailView(
-            viewModel: BookDetailVM(bookDetails: dataStore!.selectedItem!),
+            viewModel: BookDetailVM(bookDetails: dataStore.selectedItem!),
             navigationController: viewController?.navigationController
         ))
         viewController?.navigationController?.pushViewController(bookDetailVC, animated: true)
     }
 
     private func routeToDetailVC() {
-        let destinationVC = DetailViewController()
-        var destinationDS = destinationVC.router!.dataStore!
-        passDataToDetail(source: dataStore!, destination: &destinationDS)
+        let destinationVC = DetailViewController(dependencies: dataStore.dependencies)
+        var destinationDS = destinationVC.router.dataStore
+        passDataToDetail(source: dataStore, destination: &destinationDS)
         navigateToDetail(source: viewController!, destination: destinationVC)
     }
 

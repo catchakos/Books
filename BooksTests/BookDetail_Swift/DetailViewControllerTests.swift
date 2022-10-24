@@ -13,6 +13,8 @@ class DetailViewControllerTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: DetailViewController!
+    var spyInteractor: DetailBusinessLogicSpy!
+    
     var window: UIWindow!
 
     // MARK: Test lifecycle
@@ -31,7 +33,9 @@ class DetailViewControllerTests: XCTestCase {
     // MARK: Test setup
 
     func setupDetailViewController() {
-        sut = DetailViewController()
+        sut = DetailViewController(dependencies: DependenciesFake())
+        spyInteractor = DetailBusinessLogicSpy()
+        sut.interactor = spyInteractor
     }
 
     func loadView() {
