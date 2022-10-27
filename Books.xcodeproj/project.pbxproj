@@ -85,6 +85,7 @@
 		5EC7D3A327DBAF6C00FC0F7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */; };
 		5EC7D3A627DBAF6C00FC0F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */; };
 		5EC7D3BB27DBAF6C00FC0F7B /* BooksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC7D3BA27DBAF6C00FC0F7B /* BooksUITests.swift */; };
+		5ECFEB19290ADCEC00E2F97A /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECFEB18290ADCEC00E2F97A /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +184,7 @@
 		5EC7D3AC27DBAF6C00FC0F7B /* BooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D3B627DBAF6C00FC0F7B /* BooksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC7D3BA27DBAF6C00FC0F7B /* BooksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksUITests.swift; sourceTree = "<group>"; };
+		5ECFEB18290ADCEC00E2F97A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +464,7 @@
 				5E57EDF527DBB789001F8989 /* Model */,
 				5E57EDFA27DBB8E4001F8989 /* Extensions */,
 				5EAC40E127DCF22F00B615CC /* Presentations */,
+				5ECFEB18290ADCEC00E2F97A /* Logger.swift */,
 				5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */,
 				5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */,
 				5EC7D3A727DBAF6C00FC0F7B /* Info.plist */,
@@ -684,6 +687,7 @@
 				5EAC40DC27DCDCC100B615CC /* UITableView+.swift in Sources */,
 				5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */,
 				5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */,
+				5ECFEB19290ADCEC00E2F97A /* Logger.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
 				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,

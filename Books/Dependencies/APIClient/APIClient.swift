@@ -8,12 +8,6 @@
 import Foundation
 
 class APIClient: APIClientInterface {
-    enum LogLevel {
-        case none
-        case debug
-    }
-
-    private let logLevel: LogLevel = .debug
     internal let service: APIService
 
     lazy var session: URLSession = {
@@ -33,17 +27,13 @@ class APIClient: APIClientInterface {
             return nil
         }
 
-        if logLevel == .debug {
-            print("[APICLIENT] will Request: \(urlRequest)")
-        }
-
+        Logger.log("Request: \(urlRequest)")
+        
         let dataTask = session.dataTask(with: urlRequest) { data, response, error in
-            if self.logLevel == .debug {
-                if let httpResponse = response as? HTTPURLResponse {
-                    print("[APICLIENT] got Response: \(httpResponse.statusCode)")
-                }
-                print("[APICLIENT] got Error = \(String(describing: error))")
+            if let httpResponse = response as? HTTPURLResponse {
+                Logger.log("Response: \(httpResponse.statusCode)")
             }
+            Logger.log("Error = \(String(describing: error))")
 
             completion?(data, error, (response as? HTTPURLResponse)?.statusCode)
         }
@@ -81,3 +71,4 @@ class APIClient: APIClientInterface {
         }
     }
 }
+

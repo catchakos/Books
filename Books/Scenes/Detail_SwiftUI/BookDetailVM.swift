@@ -12,5 +12,7 @@ class BookDetailVM: ObservableObject {
 
     init(bookDetails: ListItem) {
         details = bookDetails
+        
+        Logger.log(bookDetails.title)
     }
 }
