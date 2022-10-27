@@ -344,12 +344,12 @@
 			isa = PBXGroup;
 			children = (
 				5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */,
+				5E57EE0C27DBBB30001F8989 /* APIClient.swift */,
 				5E34F3A928B4C0E9007FE175 /* APIService.swift */,
-				5E34F3B228B4D1CB007FE175 /* NYTimesService */,
 				5E57EE0427DBBA0A001F8989 /* APIClientError.swift */,
 				5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */,
 				5E34F3A728B4C0A5007FE175 /* HTTPMethod.swift */,
-				5E57EE0C27DBBB30001F8989 /* APIClient.swift */,
+				5E34F3B228B4D1CB007FE175 /* NYTimesService */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
