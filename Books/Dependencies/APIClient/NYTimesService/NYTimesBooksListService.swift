@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+  NYTimes Books API Integration
+ */
 enum NYTimesBookListService: APIService {
     case v3
 

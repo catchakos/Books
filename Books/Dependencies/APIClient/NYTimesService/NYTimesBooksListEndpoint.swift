@@ -8,11 +8,14 @@
 import Foundation
 
 struct NYTimesBooksListEndpoint: Endpoint {
+    
+    let service: APIService = NYTimesBookListService.v3
+    
     var method: HTTPMethod<Body, Parameters> {
         return .get([:])
     }
 
-    var path: String? {
-        return "/lists/current/combined-print-and-e-book-fiction.json"
+    var path: String {
+        return "/lists/2016-10-10/hardcover-fiction.json"
     }
 }

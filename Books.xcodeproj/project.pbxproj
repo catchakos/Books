@@ -69,6 +69,9 @@
 		5E6574A427DD18FB002622F3 /* DetailSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6574A327DD18FB002622F3 /* DetailSnapshots.swift */; };
 		5E846E4628B66DA600EAC080 /* BookDetailSnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E846E4528B66DA600EAC080 /* BookDetailSnapshots.swift */; };
 		5E846E4828B66F2D00EAC080 /* BookDetailVMFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E846E4728B66F2C00EAC080 /* BookDetailVMFakes.swift */; };
+		5E85A30A290D667700DAE7A4 /* OpenLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A309290D667700DAE7A4 /* OpenLibraryService.swift */; };
+		5E85A30C290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */; };
+		5E85A30E290D6C1100DAE7A4 /* PreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */; };
 		5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */; };
 		5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */; };
 		5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */; };
@@ -164,6 +167,9 @@
 		5E6574A327DD18FB002622F3 /* DetailSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSnapshots.swift; sourceTree = "<group>"; };
 		5E846E4528B66DA600EAC080 /* BookDetailSnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailSnapshots.swift; sourceTree = "<group>"; };
 		5E846E4728B66F2C00EAC080 /* BookDetailVMFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailVMFakes.swift; sourceTree = "<group>"; };
+		5E85A309290D667700DAE7A4 /* OpenLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryService.swift; sourceTree = "<group>"; };
+		5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryReviewEndpoint.swift; sourceTree = "<group>"; };
+		5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewInfo.swift; sourceTree = "<group>"; };
 		5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
 		5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
@@ -323,6 +329,7 @@
 				5E57EDF827DBB7BB001F8989 /* ListItem.swift */,
 				5E0A7275280FEEF9007D4704 /* ListSection.swift */,
 				5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */,
+				5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */,
 				5E57EE1F27DBDEE0001F8989 /* Books.swift */,
 			);
 			path = Model;
@@ -350,6 +357,7 @@
 				5E57EE0A27DBBB0A001F8989 /* Endpoint.swift */,
 				5E34F3A728B4C0A5007FE175 /* HTTPMethod.swift */,
 				5E34F3B228B4D1CB007FE175 /* NYTimesService */,
+				5E85A308290D665000DAE7A4 /* OpenLibraryService */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
@@ -402,6 +410,15 @@
 				5E846E4728B66F2C00EAC080 /* BookDetailVMFakes.swift */,
 			);
 			path = BookDetail_SwiftUI;
+			sourceTree = "<group>";
+		};
+		5E85A308290D665000DAE7A4 /* OpenLibraryService */ = {
+			isa = PBXGroup;
+			children = (
+				5E85A309290D667700DAE7A4 /* OpenLibraryService.swift */,
+				5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */,
+			);
+			path = OpenLibraryService;
 			sourceTree = "<group>";
 		};
 		5EA5708227DD0FEA00942DB3 /* BookDetail_Swift */ = {
@@ -648,6 +665,7 @@
 				5EAC40E527DCF29900B615CC /* CustomPresentedViewController.swift in Sources */,
 				5E57EE2827DC9987001F8989 /* BooksRemoteStoreProtocol.swift in Sources */,
 				5E57EDCA27DBB308001F8989 /* DependentStore.swift in Sources */,
+				5E85A30A290D667700DAE7A4 /* OpenLibraryService.swift in Sources */,
 				5EAC40DE27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift in Sources */,
 				5E57EDE927DBB4A3001F8989 /* SplashInteractor.swift in Sources */,
 				5E57EDC427DBB2D1001F8989 /* DependenciesInterface.swift in Sources */,
@@ -656,6 +674,7 @@
 				5E57EDC827DBB2E0001F8989 /* Dependency.swift in Sources */,
 				5EAC40DA27DCDCB200B615CC /* UITableViewCell+.swift in Sources */,
 				5E57EDF927DBB7BB001F8989 /* ListItem.swift in Sources */,
+				5E85A30C290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift in Sources */,
 				5E57EE0D27DBBB30001F8989 /* APIClient.swift in Sources */,
 				5E57EDBF27DBB129001F8989 /* Router.swift in Sources */,
 				5E34F3B628B4D255007FE175 /* NYTimesBooksList.swift in Sources */,
@@ -693,6 +712,7 @@
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,
 				5EAC40E727DCF2D000B615CC /* ToBottomDismissal.swift in Sources */,
 				5EAC40E327DCF23E00B615CC /* BottomUpPresentation.swift in Sources */,
+				5E85A30E290D6C1100DAE7A4 /* PreviewInfo.swift in Sources */,
 				5E57EDFC27DBB8EE001F8989 /* Decodable+.swift in Sources */,
 				5EAC40E027DCDE1D00B615CC /* UIStackView+.swift in Sources */,
 				5E0A7276280FEEF9007D4704 /* ListSection.swift in Sources */,

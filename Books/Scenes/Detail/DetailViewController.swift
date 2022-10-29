@@ -10,6 +10,7 @@ import UIKit
 
 protocol DetailDisplayLogic: AnyObject {
     func displayLoad(_ viewModel: Detail.Load.ViewModel)
+    func displayPreview(_ viewModel: Detail.Preview.ViewModel)
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewController {
@@ -72,12 +73,26 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "price_label"
         return label
     }()
+    
+    lazy var previewButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.black.cgColor
+        button.setTitleColor(.blue, for: .normal)
+        button.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
+        button.accessibilityLabel = "preview_button"
+        button.isHidden = true
+        button.addTarget(self, action: #selector(didTapPreview), for: .touchUpInside)
+        return button
+    }()
 
     lazy var stack = UIStackView.vertical(
         with: [
             titleLabel,
             authorLabel,
-            priceLabel
+            priceLabel,
+            previewButton
         ]
     )
 
@@ -118,6 +133,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         setupBackgroundTap()
 
         doLoad()
+        loadBookPreview()
     }
 
     private func setupView() {
@@ -149,8 +165,8 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         tap.addTarget(self, action: #selector(didTap(_:)))
         dimmedView.addGestureRecognizer(tap)
     }
-
-    // MARK:
+ 
+    // MARK: - Load Use Case
 
     func doLoad() {
         let request = Detail.Load.Request()
@@ -162,9 +178,25 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         authorLabel.text = viewModel.author
         priceLabel.text = viewModel.price
     }
+    
+    // MARK: - Preview Use Case
 
+    func loadBookPreview() {
+        let request = Detail.Preview.Request()
+        interactor?.loadPreview(request)
+    }
+    
+    func displayPreview(_ viewModel: Detail.Preview.ViewModel) {
+        previewButton.isHidden = !viewModel.hasPreview
+    }
+    
+    // MARK: - Actions
     @objc func didTap(_: UITapGestureRecognizer) {
         router?.exitDetail()
+    }
+    
+    @objc func didTapPreview() {
+        router?.routeToPreview()
     }
 }
 

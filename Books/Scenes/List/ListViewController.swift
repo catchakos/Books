@@ -13,7 +13,6 @@ protocol ListDisplayLogic: AnyObject {
     func displayLoad(_ viewModel: List.Load.ViewModel)
     func displayClear(_ viewModel: List.Clear.ViewModel)
     func displaySelectListItem(_ viewModel: List.Select.ViewModel)
-    func displayAddListItem(_ viewModel: List.Add.ViewModel)
 }
 
 class ListViewController: UIViewController, ListDisplayLogic, DependentViewController {
@@ -51,6 +50,14 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         spinner.hidesWhenStopped = true
         spinner.accessibilityLabel = "spinner"
         return spinner
+    }()
+    
+    lazy var dateField: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.date = Date()
+        picker.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)
+        return picker
     }()
 
     // MARK: - Table Handler
@@ -107,14 +114,19 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
 
     private func setupView() {
-        [tableView, errorLabel, spinner].forEach {
+        [dateField, tableView, errorLabel, spinner].forEach {
             view.addSubview($0)
         }
     }
 
     private func setupConstraints() {
         tableView.snp.makeConstraints { make in
-            make.margins.equalToSuperview()
+            make.left.right.bottomMargin.equalToSuperview()
+            make.top.equalTo(dateField.snp.bottom)
+        }
+        
+        dateField.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
         }
 
         errorLabel.snp.makeConstraints { make in
@@ -130,13 +142,6 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     private func setupNavigationItem() {
         navigationItem.title = NSLocalizedString("Fiction Books", comment: "")
-
-        // disabling add item for now..
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(
-//            barButtonSystemItem: .add,
-//            target: self,
-//            action: #selector(didTapAdd)
-//        )
     }
 
     // MARK: - Load
@@ -144,7 +149,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     func loadList() {
         spinner.startAnimating()
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: dateField.date)
         interactor?.loadList(request)
     }
 
@@ -182,20 +187,10 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
         router?.routeToDetail()
     }
-
-    // MARK: Add
-
-    @objc func didTapAdd() {
-        addListItem()
-    }
-
-    func addListItem() {
-        let request = List.Add.Request()
-        interactor?.addItem(request)
-    }
-
-    func displayAddListItem(_ viewModel: List.Add.ViewModel) {
-        errorLabel.text = viewModel.errorMessage
-        errorLabel.isHidden = viewModel.errorMessage == nil
+    
+    // MARK: Date
+    
+    @objc func datePickerChanged(_ picker: UIDatePicker) {
+        loadList()
     }
 }

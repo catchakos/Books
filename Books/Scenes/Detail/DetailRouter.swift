@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SafariServices
 
 @objc protocol DetailRoutingLogic {
     func exitDetail()
+    func routeToPreview()
 }
 
 protocol DetailDataPassing {
@@ -24,6 +26,16 @@ class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
 
     func exitDetail() {
         viewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func routeToPreview() {
+        guard let urlString = dataStore?.previewURLString,
+              let url = URL(string: urlString) else {
+            return
+        }
+        
+        let safari = SFSafariViewController(url: url)
+        viewController?.present(safari, animated: true)
     }
 
     // MARK: Navigation

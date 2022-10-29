@@ -27,4 +27,16 @@ enum Detail {
             let errorMessage: String?
         }
     }
+    
+    enum Preview {
+        struct Request {}
+        
+        struct Response {
+            let hasPreview: Bool
+        }
+
+        struct ViewModel {
+            let hasPreview: Bool
+        }
+    }
 }

@@ -31,6 +31,25 @@ class BooksAPIStore: BooksRemoteStoreProtocol {
     }
 
     func fetchBookDetail(id _: String, completion _: @escaping ((Result<ItemDetails, Error>) -> Void)) {}
+    
+    func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
+        let endpoint = OpenLibraryReviewEndpoint(isbn: isbn)
+        _ = apiClient.fetch(
+            endpoint: endpoint,
+            responseType: [String: PreviewInfo].self,
+            completion: { result in
+                switch result {
+                case .success(let info):
+                    if let previewInfo = info.values.first {
+                        completion(.success(previewInfo))
+                    } else {
+                        completion(.failure(NSError(domain: "openLibraryResponseError", code: 500)))
+                    }
+                case .failure(let failure):
+                    completion(.failure(failure))
+                }
+            })
+    }
 
     func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
 }

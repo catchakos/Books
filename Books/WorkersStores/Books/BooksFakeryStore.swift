@@ -25,6 +25,10 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
     func fetchBookDetail(id _: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
         completion(.success(generateItemDetails()))
     }
+    
+    func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
+        completion(.failure(NSError(domain: "fakery", code: 400)))
+    }
 
     func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
 

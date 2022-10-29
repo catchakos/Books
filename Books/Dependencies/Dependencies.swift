@@ -21,7 +21,7 @@ class Dependencies: DependenciesInterface {
         })
 
         group.enter()
-        apiClient = APIClient(service: NYTimesBookListService.v3, completion: {
+        apiClient = APIClient(completion: {
             group.leave()
         })
 

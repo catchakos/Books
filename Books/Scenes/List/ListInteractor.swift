@@ -12,7 +12,6 @@ protocol ListBusinessLogic {
     func loadList(_ request: List.Load.Request)
     func clearList(_ request: List.Clear.Request)
     func selectListItem(_ request: List.Select.Request)
-    func addItem(_ request: List.Add.Request)
 }
 
 protocol ListDataStore: DependentStore {
@@ -59,7 +58,7 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
                 self.offset += Constants.pageSize
                 self.listItems.append(items)
 
-                response = List.Load.Response(books: items, error: nil)
+                response = List.Load.Response(date: <#Date#>, books: items, error: nil)
             case let .failure(error):
                 response = List.Load.Response(books: nil, error: error)
             }
@@ -87,26 +86,11 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
             selectedItem = nil
             return
         }
-
+        
         let item = listItems[itemPage][itemIndex]
         selectedItem = item
-
+        
         let response = List.Select.Response(book: selectedItem)
         presenter?.presentItemSelect(response)
-    }
-
-    // MARK: Add
-
-    func addItem(_: List.Add.Request) {
-        worker.addRandomBook { result in
-            let response: List.Add.Response
-            switch result {
-            case let .success(book):
-                response = List.Add.Response(book: book)
-            case .failure:
-                response = List.Add.Response(book: nil)
-            }
-            self.presenter?.presentAddItem(response)
-        }
     }
 }

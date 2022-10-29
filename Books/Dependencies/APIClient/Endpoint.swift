@@ -8,12 +8,13 @@
 import Foundation
 
 protocol Endpoint {
+    var service: APIService { get }
     var method: HTTPMethod<Body, Parameters> { get }
     var timeout: TimeInterval { get }
     var cachePolicy: URLRequest.CachePolicy { get }
     var headers: [String: String]? { get }
     var host: String? { get }
-    var path: String? { get }
+    var path: String { get }
 }
 
 extension Endpoint {
@@ -68,40 +69,33 @@ extension Endpoint {
 
         return urlRequest
     }
-
+    
     func url(for service: APIService) -> URL? {
-        assert(path != nil)
-
-        if let endpointPath = path {
-            var urlComponents = URLComponents()
-            urlComponents.scheme = service.scheme
-            urlComponents.host = host ?? service.baseHost
-
-            assert(endpointPath.first == "/", "paths should start with /")
-            let finalPath = [service.rootPath, endpointPath]
-                .compactMap { $0 }
-                .joined(separator: "")
-            urlComponents.path = finalPath
-
-            switch method {
-            case let .get(parameters):
-                if let parameters = parameters {
-                    var queryItems = parameters
-                    if let authItem = service.authenticationItem {
-                        queryItems = queryItems.merging(authItem, uniquingKeysWith: { _, new in
-                            new
-                        })
-                    }
-                    urlComponents.queryItems = queryItems.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
+        var urlComponents = URLComponents()
+        urlComponents.scheme = service.scheme
+        urlComponents.host = host ?? service.baseHost
+        
+        assert(path.first == "/", "paths should start with /")
+        let finalPath = [service.rootPath, path]
+            .compactMap { $0 }
+            .joined(separator: "")
+        urlComponents.path = finalPath
+        
+        switch method {
+        case let .get(parameters):
+            if let parameters = parameters {
+                var queryItems = parameters
+                if let authItem = service.authenticationItem {
+                    queryItems = queryItems.merging(authItem, uniquingKeysWith: { _, new in
+                        new
+                    })
                 }
-            case .post:
-                break
+                urlComponents.queryItems = queryItems.compactMap { URLQueryItem(name: $0.key, value: $0.value) }
             }
-
-            return urlComponents.url
-        } else {
-            assertionFailure("an endpoint should provide a relative path")
-            return nil
+        case .post:
+            break
         }
+        
+        return urlComponents.url
     }
 }

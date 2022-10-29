@@ -21,7 +21,7 @@ class ListRouter: NSObject, ListRoutingLogic, ListDataPassing {
     weak var viewController: ListViewController?
     var dataStore: ListDataStore?
 
-    private var useSwiftUIDetail = true
+    private var useSwiftUIDetail = false
 
     // MARK: Routing
 

@@ -8,16 +8,13 @@
 import Foundation
 
 class APIClient: APIClientInterface {
-    internal let service: APIService
-
     private lazy var session: URLSession = {
         let session = URLSession.shared
         session.configuration.timeoutIntervalForRequest = 15
         return session
     }()
 
-    required init(service: APIService, completion: @escaping (() -> Void)) {
-        self.service = service
+    required init(completion: @escaping (() -> Void)) {
         completion()
     }
 
@@ -51,7 +48,7 @@ class APIClient: APIClientInterface {
     }
     
     private func fetch(_ endpoint: Endpoint, completion: ((Data?, Error?, HTTPResponseCode?) -> Void)?) -> URLSessionDataTask? {
-        guard let urlRequest = endpoint.urlRequest(for: service) else {
+        guard let urlRequest = endpoint.urlRequest(for: endpoint.service) else {
             completion?(nil, APIClientError.cannotMakeUrl, nil)
             return nil
         }

@@ -12,14 +12,18 @@ enum List {
     // MARK: Use cases
 
     enum Load {
-        struct Request {}
+        struct Request {
+            let date: Date
+        }
 
         struct Response {
+            let date: Date
             let books: ListItems?
             let error: BooksError?
         }
 
         struct ViewModel {
+            let dateText: String
             let books: ListItems
             let errorMessage: String?
         }
@@ -44,19 +48,6 @@ enum List {
 
         struct ViewModel {
             let success: Bool
-        }
-    }
-
-    enum Add {
-        struct Request {}
-
-        struct Response {
-            let book: Book?
-        }
-
-        struct ViewModel {
-            let success: Bool
-            let errorMessage: String?
         }
     }
 }
