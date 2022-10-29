@@ -7,9 +7,5 @@
 
 import Foundation
 
-typealias Book = ItemDetails
+typealias Book = ListItem
 typealias Books = [Book]
-
-extension Books {
-    static let none: Books = []
-}

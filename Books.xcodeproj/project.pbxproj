@@ -42,7 +42,6 @@
 		5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDED27DBB4F8001F8989 /* DetailModels.swift */; };
 		5E57EDF327DBB4F8001F8989 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDEE27DBB4F8001F8989 /* DetailViewController.swift */; };
 		5E57EDF427DBB4F8001F8989 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDEF27DBB4F8001F8989 /* DetailInteractor.swift */; };
-		5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */; };
 		5E57EDF927DBB7BB001F8989 /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDF827DBB7BB001F8989 /* ListItem.swift */; };
 		5E57EDFC27DBB8EE001F8989 /* Decodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDFB27DBB8EE001F8989 /* Decodable+.swift */; };
 		5E57EE0127DBB9FC001F8989 /* APIClientInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */; };
@@ -72,6 +71,7 @@
 		5E85A30A290D667700DAE7A4 /* OpenLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A309290D667700DAE7A4 /* OpenLibraryService.swift */; };
 		5E85A30C290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */; };
 		5E85A30E290D6C1100DAE7A4 /* PreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */; };
+		5E85A310290DC31700DAE7A4 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30F290DC31700DAE7A4 /* ListHeaderView.swift */; };
 		5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */; };
 		5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */; };
 		5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */; };
@@ -143,7 +143,6 @@
 		5E57EDED27DBB4F8001F8989 /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
 		5E57EDEE27DBB4F8001F8989 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5E57EDEF27DBB4F8001F8989 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
-		5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetails.swift; sourceTree = "<group>"; };
 		5E57EDF827DBB7BB001F8989 /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		5E57EDFB27DBB8EE001F8989 /* Decodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+.swift"; sourceTree = "<group>"; };
 		5E57EE0027DBB9FC001F8989 /* APIClientInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientInterface.swift; sourceTree = "<group>"; };
@@ -170,6 +169,7 @@
 		5E85A309290D667700DAE7A4 /* OpenLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryService.swift; sourceTree = "<group>"; };
 		5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryReviewEndpoint.swift; sourceTree = "<group>"; };
 		5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewInfo.swift; sourceTree = "<group>"; };
+		5E85A30F290DC31700DAE7A4 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
 		5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
 		5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
@@ -294,6 +294,7 @@
 				5E57EDD527DBB46F001F8989 /* ListModels.swift */,
 				5E57EDD627DBB46F001F8989 /* ListViewController.swift */,
 				5E57EDD727DBB46F001F8989 /* ListInteractor.swift */,
+				5E85A30F290DC31700DAE7A4 /* ListHeaderView.swift */,
 				5EAC40D827DCDBDA00B615CC /* ListTable */,
 			);
 			path = List;
@@ -328,7 +329,6 @@
 			children = (
 				5E57EDF827DBB7BB001F8989 /* ListItem.swift */,
 				5E0A7275280FEEF9007D4704 /* ListSection.swift */,
-				5E57EDF627DBB7AF001F8989 /* ItemDetails.swift */,
 				5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */,
 				5E57EE1F27DBDEE0001F8989 /* Books.swift */,
 			);
@@ -704,12 +704,12 @@
 				5EAC40D527DCDB9600B615CC /* ListTableHandler.swift in Sources */,
 				5E57EE2027DBDEE0001F8989 /* Books.swift in Sources */,
 				5EAC40DC27DCDCC100B615CC /* UITableView+.swift in Sources */,
-				5E57EDF727DBB7AF001F8989 /* ItemDetails.swift in Sources */,
 				5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */,
 				5ECFEB19290ADCEC00E2F97A /* Logger.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
 				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,
+				5E85A310290DC31700DAE7A4 /* ListHeaderView.swift in Sources */,
 				5EAC40E727DCF2D000B615CC /* ToBottomDismissal.swift in Sources */,
 				5EAC40E327DCF23E00B615CC /* BottomUpPresentation.swift in Sources */,
 				5E85A30E290D6C1100DAE7A4 /* PreviewInfo.swift in Sources */,

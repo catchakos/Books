@@ -37,21 +37,8 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
             return
         }
 
-        worker.fetchBookDetail(id: listItem.id) { [weak self] result in
-            guard let self else {
-                return
-            }
-            
-            let response: Detail.Load.Response
-            switch result {
-            case let .success(book):
-                let finalBook = self.book(from: listItem, detailItem: book)
-                response = Detail.Load.Response(book: finalBook, error: nil)
-            case let .failure(error):
-                response = Detail.Load.Response(book: nil, error: error)
-            }
-            self.presenter?.presentLoad(response)
-        }
+        let response = Detail.Load.Response(book: listItem, error: nil)
+        presenter?.presentLoad(response)
     }
     
     // MARK: Load Preview
@@ -76,17 +63,5 @@ class DetailInteractor: DetailBusinessLogic, DetailDataStore {
             let response = Detail.Preview.Response(hasPreview: self.previewURLString != nil)
             self.presenter?.presentPreview(response)
         }
-    }
-    
-    // MARK: Aux
-
-    func book(from listItem: ListItem, detailItem: Book) -> Book {
-        return Book(
-            id: listItem.id,
-            image: detailItem.image,
-            title: listItem.title,
-            author: detailItem.author,
-            price: detailItem.price
-        )
     }
 }

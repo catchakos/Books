@@ -78,11 +78,9 @@ class ListInteractorTests: XCTestCase {
     class BooksWorkerSpy: BooksWorkerProtocol {
         var fetchListCalled = false
         var fetchDetailCalled = false
-        var addBookCalled = false
 
         var fakeListSuccess = true
         var fakeDetailSuccess = true
-        var fakeAddBookSuccess = true
 
         func fetchBooksList(offset _: Int, count _: Int, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
             fetchListCalled = true
@@ -94,12 +92,6 @@ class ListInteractorTests: XCTestCase {
             fetchDetailCalled = true
 
             completion(fakeDetailSuccess ? .success(BookFakes.fakeBook1) : .failure(.other))
-        }
-
-        func addRandomBook(completion: @escaping ((Result<Book, BooksError>) -> Void)) {
-            addBookCalled = true
-
-            completion(fakeAddBookSuccess ? .success(BookFakes.fakeBook1) : .failure(.other))
         }
     }
 

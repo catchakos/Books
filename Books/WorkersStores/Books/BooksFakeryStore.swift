@@ -11,10 +11,10 @@ import Foundation
 class BooksFakeryStore: BooksRemoteStoreProtocol {
     let faker = Faker()
 
-    func fetchBooksList(offset _: Int, count: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
+    func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             var items = [ListItem]()
-            for _ in 0 ..< count {
+            for _ in 0 ..< 20 {
                 items.append(self.generateListItem())
             }
 
@@ -22,15 +22,9 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
         }
     }
 
-    func fetchBookDetail(id _: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
-        completion(.success(generateItemDetails()))
-    }
-    
-    func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
+   func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
         completion(.failure(NSError(domain: "fakery", code: 400)))
     }
-
-    func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
 
     // MARK: Generation
 
@@ -46,16 +40,6 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
             primaryISBN10: faker.bank.bban(),
             amazonURL: faker.internet.url(),
             reviewLink: faker.internet.url()
-        )
-    }
-
-    private func generateItemDetails() -> ItemDetails {
-        return ItemDetails(
-            id: UUID().uuidString,
-            image: faker.internet.image(),
-            title: bookTitle(),
-            author: faker.name.name(),
-            price: faker.commerce.price()
         )
     }
 

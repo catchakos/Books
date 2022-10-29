@@ -8,8 +8,6 @@
 import Foundation
 
 protocol BooksWorkerProtocol {
-    func fetchBooksList(offset: Int, count: Int, completion: @escaping ((Result<ListItems, BooksError>) -> Void))
-    func fetchBookDetail(id: String, completion: @escaping ((Result<Book, BooksError>) -> Void))
+    func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, BooksError>) -> Void))
     func fetchBookPreviewURL(isbn: String, completion: @escaping ((Result<String, BooksError>) -> Void))
-    func addRandomBook(completion: @escaping ((Result<Book, BooksError>) -> Void))
 }

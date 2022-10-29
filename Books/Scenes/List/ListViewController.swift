@@ -52,12 +52,10 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         return spinner
     }()
     
-    lazy var dateField: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .date
-        picker.date = Date()
-        picker.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)
-        return picker
+    lazy var header: ListHeaderView = {
+        let header = ListHeaderView()
+        header.dateField.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)
+        return header
     }()
 
     // MARK: - Table Handler
@@ -114,7 +112,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
 
     private func setupView() {
-        [dateField, tableView, errorLabel, spinner].forEach {
+        [header, tableView, errorLabel, spinner].forEach {
             view.addSubview($0)
         }
     }
@@ -122,11 +120,12 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.left.right.bottomMargin.equalToSuperview()
-            make.top.equalTo(dateField.snp.bottom)
+            make.top.equalTo(header.snp.bottom)
         }
         
-        dateField.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+        header.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(view.snp.topMargin)
         }
 
         errorLabel.snp.makeConstraints { make in
@@ -149,12 +148,12 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     func loadList() {
         spinner.startAnimating()
 
-        let request = List.Load.Request(date: dateField.date)
+        let request = List.Load.Request(date: header.dateField.date)
         interactor?.loadList(request)
     }
 
     func displayLoad(_ viewModel: List.Load.ViewModel) {
-        tableHandler.add(newItems: viewModel.books)
+        tableHandler.configure(viewModel.books)
 
         errorLabel.text = viewModel.errorMessage
         errorLabel.isHidden = viewModel.errorMessage == nil
@@ -192,5 +191,6 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     
     @objc func datePickerChanged(_ picker: UIDatePicker) {
         loadList()
+        dismiss(animated: true)
     }
 }

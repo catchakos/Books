@@ -22,9 +22,11 @@ enum Detail {
         struct ViewModel {
             let title: String?
             let author: String?
-            let imageUrl: String?
-            let price: String?
+            let imageUrl: URL?
             let errorMessage: String?
+            let publisher: String?
+            let isbn: String?
+            let descriptionText: String?
         }
     }
     

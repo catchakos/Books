@@ -14,8 +14,8 @@ class BooksAPIStore: BooksRemoteStoreProtocol {
         self.apiClient = apiClient
     }
 
-    func fetchBooksList(offset _: Int, count _: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
-        let endpoint = NYTimesBooksListEndpoint()
+    func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
+        let endpoint = NYTimesBooksListEndpoint(date: date)
         _ = apiClient.fetch(
             endpoint: endpoint,
             responseType: NYTimesBooksList.self
@@ -30,8 +30,6 @@ class BooksAPIStore: BooksRemoteStoreProtocol {
         }
     }
 
-    func fetchBookDetail(id _: String, completion _: @escaping ((Result<ItemDetails, Error>) -> Void)) {}
-    
     func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
         let endpoint = OpenLibraryReviewEndpoint(isbn: isbn)
         _ = apiClient.fetch(
@@ -50,6 +48,4 @@ class BooksAPIStore: BooksRemoteStoreProtocol {
                 }
             })
     }
-
-    func postRandomBook(completion _: @escaping ((Result<Book, Error>) -> Void)) {}
 }
