@@ -13,6 +13,8 @@ class ListInteractorTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: ListInteractor!
+    var workerSpy: BooksWorkerSpy!
+    var presenterSpy: ListPresentationLogicSpy!
 
     // MARK: Test lifecycle
 
@@ -30,6 +32,12 @@ class ListInteractorTests: XCTestCase {
     func setupListInteractor() {
         sut = ListInteractor()
         sut.dependencies = DependenciesFake()
+        
+        workerSpy = BooksWorkerSpy()
+        sut.worker = workerSpy
+        
+        presenterSpy = ListPresentationLogicSpy()
+        sut.presenter = presenterSpy
     }
 
     // MARK: Test doubles
@@ -92,9 +100,6 @@ class ListInteractorTests: XCTestCase {
     // MARK: - Load
 
     func testCallsWorkerForLoading() {
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-
         let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
@@ -102,8 +107,6 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testDoesNotLoadIfAlreadyLoading() {
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
         sut.isLoading = true
 
         let request = List.Load.Request(date: Date())
@@ -114,14 +117,10 @@ class ListInteractorTests: XCTestCase {
     
     func testPresentsLoad() {
         let expect = XCTestExpectation(description: "loadListPresents")
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-        let spy = ListPresentationLogicSpy()
-        spy.onPresentLoad = {
-            XCTAssertTrue(spy.presentLoadCalled, "loadList(_:) should ask the presenter to format the result")
+        presenterSpy.onPresentLoad = {
+            XCTAssertTrue(self.presenterSpy.presentLoadCalled, "loadList(_:) should ask the presenter to format the result")
             expect.fulfill()
         }
-        sut.presenter = spy
 
         let request = List.Load.Request(date: Date())
         sut.loadList(request)
@@ -131,14 +130,10 @@ class ListInteractorTests: XCTestCase {
 
     func testPresentsBooks() {
         let expect = XCTestExpectation(description: "loadListPresents")
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-        let spy = ListPresentationLogicSpy()
-        spy.onPresentLoad = {
-            XCTAssertTrue(spy.presentLoadResponsePassed!.books!.count > 0, "loadList(_:) should ask the presenter to format books result")
+        presenterSpy.onPresentLoad = {
+            XCTAssertTrue(self.presenterSpy.presentLoadResponsePassed!.books!.count > 0, "loadList(_:) should ask the presenter to format books result")
             expect.fulfill()
         }
-        sut.presenter = spy
 
         let request = List.Load.Request(date: Date())
         sut.loadList(request)
@@ -146,17 +141,20 @@ class ListInteractorTests: XCTestCase {
         wait(for: [expect], timeout: 1)
     }
 
+    func testStoresDate() {
+        let request = List.Load.Request(date: Date())
+        sut.loadList(request)
+        
+        XCTAssertNotNil(sut.dateRequested)
+    }
+    
     func testPresentsErrorMessage() {
         let expect = XCTestExpectation(description: "loadListPresents")
-        let workerSpy = BooksWorkerSpy()
         workerSpy.fakeListSuccess = false
-        sut.worker = workerSpy
-        let spy = ListPresentationLogicSpy()
-        spy.onPresentLoad = {
-            XCTAssertTrue(spy.presentLoadResponsePassed!.error != nil, "loadList(_:) should ask the presenter to format books result")
+        presenterSpy.onPresentLoad = {
+            XCTAssertTrue(self.presenterSpy.presentLoadResponsePassed!.error != nil, "loadList(_:) should ask the presenter to format books result")
             expect.fulfill()
         }
-        sut.presenter = spy
 
         let request = List.Load.Request(date: Date())
         sut.loadList(request)
@@ -167,13 +165,11 @@ class ListInteractorTests: XCTestCase {
     // MARK: - Clear
 
     func testClearList() {
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
         let request = List.Clear.Request()
 
         sut.clearList(request)
 
-        XCTAssertTrue(spy.presentClearCalled, "clearList(_:) should ask the presenter to format the result")
+        XCTAssertTrue(presenterSpy.presentClearCalled, "clearList(_:) should ask the presenter to format the result")
     }
 
     func testDoesNotKeepBooksInMemoryAfterClear() {
@@ -189,34 +185,25 @@ class ListInteractorTests: XCTestCase {
 
     func testSelectItem() {
         sut.listItems = BookFakes.fakeList1
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
-
         let request = List.Select.Request(indexPath: IndexPath(row: 0, section: 0))
         sut.selectListItem(request)
 
-        XCTAssertTrue(spy.presentItemSelectCalled, "selectListItem(_:) should ask the presenter to format the result")
+        XCTAssertTrue(presenterSpy.presentItemSelectCalled, "selectListItem(_:) should ask the presenter to format the result")
     }
 
     func testSelectsBook() {
         sut.listItems = BookFakes.fakeList1
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
-
         let request = List.Select.Request(indexPath: IndexPath(row: 0, section: 0))
         sut.selectListItem(request)
 
-        XCTAssertNotNil(spy.presentSelectResponsePassed?.book, "selectListItem(_:) should ask the presenter to format the item")
+        XCTAssertNotNil(presenterSpy.presentSelectResponsePassed?.book, "selectListItem(_:) should ask the presenter to format the item")
     }
 
     func testDoesNotSelectBookWhenPathOutOfRange() {
         sut.listItems = BookFakes.fakeList1
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
-
         let request = List.Select.Request(indexPath: IndexPath(row: 2, section: 0))
         sut.selectListItem(request)
 
-        XCTAssertFalse(spy.presentItemSelectCalled, "selectListItem(_:) should not ask the presenter to format the item if out of range")
+        XCTAssertFalse(presenterSpy.presentItemSelectCalled, "selectListItem(_:) should not ask the presenter to format the item if out of range")
     }
 }

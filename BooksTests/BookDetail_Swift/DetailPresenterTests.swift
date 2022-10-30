@@ -13,7 +13,8 @@ class DetailPresenterTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: DetailPresenter!
-
+    var spyVC: DetailDisplayLogicSpy!
+    
     // MARK: Test lifecycle
 
     override func setUp() {
@@ -29,6 +30,9 @@ class DetailPresenterTests: XCTestCase {
 
     func setupDetailPresenter() {
         sut = DetailPresenter()
+        
+        spyVC = DetailDisplayLogicSpy()
+        sut.viewController = spyVC
     }
 
     // MARK: Test doubles
@@ -48,19 +52,33 @@ class DetailPresenterTests: XCTestCase {
 
     // MARK: Tests
 
-    func testPresentLoad() {
-        // Given
-        let spy = DetailDisplayLogicSpy()
-        sut.viewController = spy
+    func testPresentBookLoad() {
         let response = Detail.Load.Response(
             book: BookFakes.fakeBook1,
             error: nil
         )
 
-        // When
         sut.presentLoad(response)
 
-        // Then
-        XCTAssertTrue(spy.displayLoadCalled, "presentLoad(response:) should ask the view controller to display the result")
+        XCTAssertTrue(spyVC.displayLoadCalled, "presentLoad(response:) should ask the view controller to display the result")
+    }
+    
+    func testPresentLoadError() {
+        let response = Detail.Load.Response(
+            book: nil,
+            error: .cannotFetch
+        )
+
+        sut.presentLoad(response)
+
+        XCTAssertTrue(spyVC.displayLoadCalled, "presentLoad(response:) error should ask the view controller to display the result")
+    }
+    
+    func testPresentPreview() {
+        let response = Detail.Preview.Response(hasPreview: false)
+        
+        sut.presentPreview(response)
+        
+        XCTAssertTrue(spyVC.displayPreviewCalled, "presentPreview(response:) should ask the view controller to display the result")
     }
 }

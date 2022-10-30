@@ -14,7 +14,7 @@ class ListSnapshots: XCTestCase {
     func testListControllerLoad() {
         let vc = ListViewController()
         vc.dataStore?.dependencies = DependenciesFake()
-
+        
         let vm = List.Load.ViewModel(
             dateText: "date",
             books: BookFakes.onePage,
@@ -43,7 +43,7 @@ class ListSnapshots: XCTestCase {
     func testListControllerError() {
         let vc = ListViewController()
         vc.dataStore?.dependencies = DependenciesFake()
-
+        
         let vm = List.Load.ViewModel(
             dateText: "date",
             books: [],

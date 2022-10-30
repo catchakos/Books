@@ -57,15 +57,15 @@ class ListHeaderView: UIView {
     }
     
     private func setup() {
-        backgroundColor = .lightGray.withAlphaComponent(0.2)
+        backgroundColor = .lightGray.withAlphaComponent(0.1)
         addSubview(stack)
     }
     
     private func setupConstraints() {
         stack.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.left.greaterThanOrEqualToSuperview().offset(16)
+//            make.right.equalToSuperview().offset(-16)
         }
     }
 

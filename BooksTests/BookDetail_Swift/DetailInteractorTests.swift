@@ -65,12 +65,18 @@ class DetailInteractorTests: XCTestCase {
         var fetchListCalled = false
         var fetchPreviewCalled = false
         
+        var forcedPreviewReturn: Result<String, BooksError>?
+        
         func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
             fetchListCalled = true
         }
         
         func fetchBookPreviewURL(isbn: String, completion: @escaping ((Result<String, BooksError>) -> Void)) {
             fetchPreviewCalled = true
+            
+            if let forcedPreviewReturn {
+                completion(forcedPreviewReturn)
+            }
         }
     }
     
@@ -90,20 +96,40 @@ class DetailInteractorTests: XCTestCase {
         XCTAssert(spyWorker.fetchPreviewCalled)
     }
     
-    // TODO:
-//    func testPreviewSuccessPresents() {
-//        XCTFail()
-//    }
-//    
-//    func testPreviewFailurePresents() {
-//        XCTFail()
-//    }
-//    
-//    func testPreviewSuccessInDataStore() {
-//        XCTFail()
-//    }
-//    
-//    func testPreviewFailureInDataStore() {
-//        XCTFail()
-//    }
+    func testPreviewSuccessPresents() {
+        spyWorker.forcedPreviewReturn = .success("www.google.com")
+        
+        let request = Detail.Preview.Request()
+        sut.loadPreview(request)
+        
+        XCTAssert(spyPresenter.presentPreviewCalled)
+    }
+    
+    func testPreviewFailurePresents() {
+        spyWorker.forcedPreviewReturn = .failure(.cannotFetch)
+        
+        let request = Detail.Preview.Request()
+        sut.loadPreview(request)
+        
+        XCTAssert(spyPresenter.presentPreviewCalled)
+    }
+    
+    func testPreviewSuccessInDataStore() {
+        let urlString = "www.google.com"
+        spyWorker.forcedPreviewReturn = .success(urlString)
+        
+        let request = Detail.Preview.Request()
+        sut.loadPreview(request)
+        
+        XCTAssertEqual(sut.previewURLString, urlString)
+    }
+    
+    func testPreviewFailureInDataStore() {
+        spyWorker.forcedPreviewReturn = .failure(.cannotFetch)
+        
+        let request = Detail.Preview.Request()
+        sut.loadPreview(request)
+        
+        XCTAssertNil(sut.previewURLString)
+    }
 }

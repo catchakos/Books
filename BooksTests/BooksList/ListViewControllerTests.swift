@@ -13,6 +13,9 @@ class ListViewControllerTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: ListViewController!
+    var interactorSpy: ListBusinessLogicSpy!
+    var routerSpy: ListRouterSpy!
+    
     var window: UIWindow!
 
     // MARK: Test lifecycle
@@ -33,7 +36,12 @@ class ListViewControllerTests: XCTestCase {
     func setupListViewController() {
         sut = ListViewController()
         sut.router?.dataStore?.dependencies = DependenciesFake()
-        sut.interactor = ListBusinessLogicSpy()
+        
+        interactorSpy = ListBusinessLogicSpy()
+        sut.interactor = interactorSpy
+        
+        routerSpy = ListRouterSpy()
+        sut.router = routerSpy
     }
 
     func loadView() {
@@ -69,22 +77,20 @@ class ListViewControllerTests: XCTestCase {
         }
     }
 
-    // MARK: Tests
+    // MARK: - Tests
 
     // MARK: - Load
 
     func testShouldLoadListWhenViewIsLoaded() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
 
-        XCTAssertTrue(spy.loadListCalled, "viewDidLoad() should ask the interactor to load")
+        XCTAssertTrue(interactorSpy.loadListCalled, "viewDidLoad() should ask the interactor to load")
     }
 
     func testDisplayLoad() {
+        loadView()
+        
         let vm = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList1, errorMessage: nil)
-
         sut.displayLoad(vm)
 
         XCTAssert(sut.tableView.numberOfSections == 1)
@@ -92,6 +98,8 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testDoesNotAppendResults() {
+        loadView()
+
         let vm = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList1, errorMessage: nil)
         sut.displayLoad(vm)
         
@@ -103,8 +111,9 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testDisplaysFetchErrorMessage() {
-        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: "Error")
+        loadView()
 
+        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: "Error")
         sut.displayLoad(vm)
 
         XCTAssert(sut.errorLabel.text == vm.errorMessage)
@@ -112,8 +121,9 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testHidesErrorMessageWithoutError() {
-        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: nil)
+        loadView()
 
+        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: nil)
         sut.displayLoad(vm)
 
         XCTAssertTrue(sut.errorLabel.isHidden)
@@ -121,7 +131,6 @@ class ListViewControllerTests: XCTestCase {
 
     func testSpinsWhileFetching() {
         loadView()
-
         sut.loadList()
 
         XCTAssert(sut.spinner.isAnimating)
@@ -138,27 +147,44 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func DISABLEDtestLoadsNextPageWhenReachingBottom() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
         loadView()
         sut.displayLoad(List.Load.ViewModel(dateText: "the date", books: BookFakes.onePage, errorMessage: nil))
-        spy.loadListCalled = false
+        interactorSpy.loadListCalled = false
 
         sut.tableHandler.onScrolledToBottom?()
 
-        XCTAssertTrue(spy.loadListCalled)
+        XCTAssertTrue(interactorSpy.loadListCalled)
     }
+    
+    func testLoadsCurrentDateByDefault() {
+        loadView()
+        
+        XCTAssert(Date().timeIntervalSince1970 - sut.header.dateField.date.timeIntervalSince1970 < 1)
+    }
+    
+    func testClearsListWhenDateChanges() {
+        loadView()
 
+        sut.header.dateField.sendActions(for: .valueChanged)
+        
+        XCTAssert(interactorSpy.clearListCalled)
+    }
+    
+    func testLoadsWhenDateChanges() {
+        loadView()
+        
+        sut.header.dateField.sendActions(for: .valueChanged)
+        
+        XCTAssert(interactorSpy.loadListCalled)
+    }
+    
     // MARK: - Clear
 
     func testShouldClearList() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
         sut.clearList()
 
-        XCTAssertTrue(spy.clearListCalled, "viewDidLoad() should ask the interactor to clear")
+        XCTAssertTrue(interactorSpy.clearListCalled, "viewDidLoad() should ask the interactor to clear")
     }
 
     func testDisplayClear() {
@@ -176,19 +202,13 @@ class ListViewControllerTests: XCTestCase {
     // MARK: - Select
 
     func testShouldSelectItem() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
-        // TODO: do it with UI
         sut.selectListItem(IndexPath(row: 0, section: 0))
 
-        XCTAssertTrue(spy.selectListItemCalled, "viewDidLoad() should ask the interactor to select")
+        XCTAssertTrue(interactorSpy.selectListItemCalled, "viewDidLoad() should ask the interactor to select")
     }
 
     func testDisplaySelect() {
-        let routerSpy = ListRouterSpy()
-        sut.router = routerSpy
         loadView()
 
         let viewModel = List.Select.ViewModel(success: true)
@@ -198,8 +218,6 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testDisplayNoSelectWithoutSuccess() {
-        let routerSpy = ListRouterSpy()
-        sut.router = routerSpy
         loadView()
 
         let viewModel = List.Select.ViewModel(success: false)

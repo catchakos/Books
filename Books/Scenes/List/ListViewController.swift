@@ -29,15 +29,17 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         let table = UITableView()
         table.tableFooterView = UIView()
         table.accessibilityLabel = "list_table"
+        table.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 16, right: 0)
+        table.separatorStyle = .none
         return table
     }()
 
     lazy var errorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .red
         label.isHidden = true
-        label.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
+        label.backgroundColor = UIColor.lightGray.withAlphaComponent(0.25)
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
         label.textAlignment = .center
@@ -126,12 +128,14 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         header.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.topMargin)
+            make.height.equalTo(60)
         }
 
         errorLabel.snp.makeConstraints { make in
-            make.bottomMargin.equalToSuperview().offset(-8)
+            make.center.equalToSuperview()
             make.leadingMargin.equalToSuperview().offset(32)
             make.trailingMargin.equalToSuperview().offset(-32)
+            make.height.greaterThanOrEqualTo(60)
         }
 
         spinner.snp.makeConstraints { make in
@@ -190,6 +194,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     // MARK: Date
     
     @objc func datePickerChanged(_ picker: UIDatePicker) {
+        clearList()
         loadList()
         dismiss(animated: true)
     }

@@ -51,5 +51,7 @@ class BooksUITests: XCTestCase {
         
         let image = app.images["movie_detail_image"]
         XCTAssert(image.exists)
+        
+        XCTFail("Should exit dETAIL!")
     }
 }

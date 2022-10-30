@@ -13,6 +13,8 @@ class DetailViewControllerTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: DetailViewController!
+    var routerSpy: DetailRouterSpy!
+    var interactorSpy: DetailBusinessLogicSpy!
     var window: UIWindow!
 
     // MARK: Test lifecycle
@@ -32,6 +34,10 @@ class DetailViewControllerTests: XCTestCase {
 
     func setupDetailViewController() {
         sut = DetailViewController()
+        routerSpy = DetailRouterSpy()
+        sut.router = routerSpy
+        interactorSpy = DetailBusinessLogicSpy()
+        sut.interactor = interactorSpy
     }
 
     func loadView() {
@@ -53,49 +59,134 @@ class DetailViewControllerTests: XCTestCase {
             loadPreviewCalled = true
         }
     }
+    
+    class DetailRouterSpy: NSObject, DetailRoutingLogic, DetailDataPassing {
+        var dataStore: DetailDataStore?
+        
+        var exitDetailCalled = false
+        var onExitCalled: (() -> Void)?
+        var routeToPreviewCalled = false
+        var onRouteToPreviewCalled: (() -> Void)?
+        
+        func exitDetail() {
+            exitDetailCalled = true
+            onExitCalled?()
+        }
+        
+        func routeToPreview() {
+            routeToPreviewCalled = true
+            onRouteToPreviewCalled?()
+        }
+    }
+    
+    let fakeLoadVM = Detail.Load.ViewModel(
+        title: "title",
+        author: "author",
+        imageUrl: nil,
+        errorMessage: nil,
+        publisher: "publi",
+        isbn: "1112223331",
+        descriptionText: "blah blah blah"
+    )
 
     // MARK: Tests
 
     func testShouldDoLoadWhenViewIsLoaded() {
-        let spy = DetailBusinessLogicSpy()
-        sut.interactor = spy
-
         loadView()
 
-        XCTAssertTrue(spy.doLoadCalled, "viewDidLoad() should ask the interactor to do Load")
+        XCTAssertTrue(interactorSpy.doLoadCalled, "viewDidLoad() should ask the interactor to do Load")
     }
 
-    func testDisplayLoadTitle() {
-        let viewModel = Detail.Load.ViewModel(
-            title: "title",
-            author: "author",
-            imageUrl: nil,
-            errorMessage: nil,
-            publisher: "publi",
-            isbn: "1112223331",
-            descriptionText: "blah blah blah"
-        )
-
+    func testLoadDisplaysTitle() {
         loadView()
-        sut.displayLoad(viewModel)
+        sut.displayLoad(fakeLoadVM)
 
-        XCTAssertEqual(sut.titleLabel.text, viewModel.title)
+        XCTAssertEqual(sut.titleLabel.text, fakeLoadVM.title)
     }
-
-    func testDisplayLoadAuthor() {
-        let viewModel = Detail.Load.ViewModel(
-            title: "title",
-            author: "author",
-            imageUrl: nil,
-            errorMessage: nil,
-            publisher: "publi",
-            isbn: "1112223331",
-            descriptionText: "blah blah blah"
-        )
-
+    
+    func testLoadDisplaysAuthor() {
         loadView()
-        sut.displayLoad(viewModel)
+        sut.displayLoad(fakeLoadVM)
 
-        XCTAssertEqual(sut.authorLabel.text, viewModel.author)
+        XCTAssertEqual(sut.authorLabel.text, fakeLoadVM.author)
+    }
+    
+    func testLoadDisplaysPublisher() {
+        loadView()
+        sut.displayLoad(fakeLoadVM)
+
+        XCTAssertEqual(sut.publisherLabel.text, fakeLoadVM.publisher)
+    }
+    
+    func testLoadDisplaysISBN() {
+        loadView()
+        sut.displayLoad(fakeLoadVM)
+
+        XCTAssertEqual(sut.isbnLabel.text, fakeLoadVM.isbn)
+    }
+    
+    func testLoadDisplaysDescription() {
+        loadView()
+        sut.displayLoad(fakeLoadVM)
+
+        XCTAssertEqual(sut.descriptionLabel.text, fakeLoadVM.descriptionText)
+    }
+    
+    func testDismissesWithTapOnDimmedView() {
+        let expect = XCTestExpectation(description: "exit called")
+        loadView()
+        
+        routerSpy.onExitCalled = {
+            expect.fulfill()
+        }
+        
+        let tapGestureRecognizer = sut.dimmedView.gestureRecognizers?.first as? UITapGestureRecognizer
+        XCTAssertNotNil(tapGestureRecognizer, "Missing tap gesture")
+                
+        tapGestureRecognizer?.state = .ended
+        
+        wait(for: [expect], timeout: 1)
+    }
+    
+    func testLoadsPreviewWhenViewIsLoaded() {
+        loadView()
+
+        XCTAssertTrue(interactorSpy.loadPreviewCalled, "viewDidLoad() should ask the interactor to fetch the preview")
+    }
+    
+    func testDisplaysPreviewButtonWithPreview() {
+        loadView()
+        
+        let vm = Detail.Preview.ViewModel(hasPreview: true)
+        sut.displayPreview(vm)
+        
+        XCTAssertFalse(sut.previewButton.isHidden)
+    }
+    
+    func testHidesPreviewButtonWithoutPreview() {
+        loadView()
+        
+        let vm = Detail.Preview.ViewModel(hasPreview: false)
+        sut.displayPreview(vm)
+        
+        XCTAssert(sut.previewButton.isHidden)
+    }
+    
+    func testDisplaysMessageWithoutPreview() {
+        loadView()
+        
+        let vm = Detail.Preview.ViewModel(hasPreview: false)
+        sut.displayPreview(vm)
+        
+        XCTAssertFalse((sut.previewLabel.text ?? "").isEmpty)
+        XCTAssertFalse(sut.previewLabel.isHidden)
+    }
+    
+    func testRoutesToPreview() {
+        loadView()
+        
+        sut.previewButton.sendActions(for: .touchUpInside)
+        
+        XCTAssert(routerSpy.routeToPreviewCalled)
     }
 }

@@ -15,7 +15,7 @@ protocol DetailBusinessLogic {
 
 protocol DetailDataStore: DependentStore {
     var listItem: ListItem? { get set }
-    var previewURLString: String? { get }
+    var previewURLString: String? { get set }
 }
 
 class DetailInteractor: DetailBusinessLogic, DetailDataStore {

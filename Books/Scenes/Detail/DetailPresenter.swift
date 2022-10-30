@@ -22,7 +22,7 @@ class DetailPresenter: DetailPresentationLogic {
         let book = response.book
 
         let viewModel = Detail.Load.ViewModel(
-            title: book?.title.capitalized,
+            title: book?.title.uppercased(),
             author: book?.author,
             imageUrl: book?.imageUrl,
             errorMessage: response.error?.localizedDescription,

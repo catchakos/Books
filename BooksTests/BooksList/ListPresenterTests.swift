@@ -13,7 +13,7 @@ class ListPresenterTests: XCTestCase {
     // MARK: Subject under test
 
     var sut: ListPresenter!
-
+    var vcSpy: ListDisplayLogicSpy!
     // MARK: Test lifecycle
 
     override func setUp() {
@@ -29,6 +29,9 @@ class ListPresenterTests: XCTestCase {
 
     func setupListPresenter() {
         sut = ListPresenter()
+        
+        vcSpy = ListDisplayLogicSpy()
+        sut.viewController = vcSpy
     }
 
     // MARK: Test doubles
@@ -59,55 +62,61 @@ class ListPresenterTests: XCTestCase {
     // MARK: Tests
 
     func testPresentLoad() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
         let response = List.Load.Response(date: Date(), books: ListItems.none, error: nil)
 
         sut.presentLoad(response)
 
-        XCTAssertTrue(spy.displayLoadCalled, "presentLoad(_response:) should ask the view controller to display")
+        XCTAssertTrue(vcSpy.displayLoadCalled, "presentLoad(_response:) should ask the view controller to display")
     }
 
     func testPresentsNoErrorMessageWithLoadSuccess() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
         let response = List.Load.Response(date: Date(), books: ListItems.none, error: nil)
 
         sut.presentLoad(response)
 
-        XCTAssertNil(spy.displayLoadVMPassed?.errorMessage, "presentLoad(_response:) should not present error message")
+        XCTAssertNil(vcSpy.displayLoadVMPassed?.errorMessage, "presentLoad(_response:) should not present error message")
     }
 
     func testPresentsBooksWithLoadSuccess() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
         let response = List.Load.Response(date: Date(), books: BookFakes.fakeList1, error: nil)
 
         sut.presentLoad(response)
 
-        XCTAssertNotNil(spy.displayLoadVMPassed?.books, "presentLoad(_response:) should present books")
+        XCTAssertNotNil(vcSpy.displayLoadVMPassed?.books, "presentLoad(_response:) should present books")
     }
 
     func testPresentsNoItemsWithLoadFailure() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
         let response = List.Load.Response(date: Date(), books: nil, error: .other)
 
         sut.presentLoad(response)
 
-        XCTAssert(spy.displayLoadVMPassed?.books.count == 0, "presentLoad(_response:) should not present books")
+        XCTAssert(vcSpy.displayLoadVMPassed?.books.count == 0, "presentLoad(_response:) should not present books")
     }
 
     func testPresentsErrorMessageWithLoadFailure() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
         let response = List.Load.Response(date: Date(), books: nil, error: .other)
 
         sut.presentLoad(response)
 
-        XCTAssertNotNil(spy.displayLoadVMPassed?.errorMessage, "presentLoad(_response:) should present error message")
+        XCTAssertNotNil(vcSpy.displayLoadVMPassed?.errorMessage, "presentLoad(_response:) should present error message")
     }
 
+    func testPresentsFormattedDate() {
+        let day = 1
+        let month = 8
+        let year = 2022
+        let date = DateComponents(calendar: .current, year: year, month: month, day: day).date!
+        let response = List.Load.Response(date: date, books: nil, error: .other)
+        sut.presentLoad(response)
+
+        let text = vcSpy.displayLoadVMPassed?.dateText ?? ""
+        XCTAssert([day, year] // true for english or latin-related but..
+            .map( { String($0) })
+            .filter({ text.contains($0) })
+            .count == 2
+        )
+    }
+    
     func testPresentClear() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy

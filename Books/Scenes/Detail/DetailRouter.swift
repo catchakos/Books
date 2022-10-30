@@ -37,8 +37,4 @@ class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
         let safari = SFSafariViewController(url: url)
         viewController?.present(safari, animated: true)
     }
-
-    // MARK: Navigation
-
-    // MARK: Passing data
 }
