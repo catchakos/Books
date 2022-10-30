@@ -8,7 +8,7 @@
 import Foundation
 
 class APIClient: APIClientInterface {
-    private lazy var session: URLSession = {
+    lazy var session: URLSessionInterface = {
         let session = URLSession.shared
         session.configuration.timeoutIntervalForRequest = 15
         return session
@@ -69,3 +69,4 @@ class APIClient: APIClientInterface {
     }
 }
 
+extension URLSession: URLSessionInterface {}

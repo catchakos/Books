@@ -52,6 +52,11 @@ class BooksUITests: XCTestCase {
         let image = app.images["movie_detail_image"]
         XCTAssert(image.exists)
         
-        XCTFail("Should exit dETAIL!")
+        XCTAssertFalse(app.cells.firstMatch.isHittable)
+        
+        let dimmedView = app.otherElements["dimmed_view"]
+        dimmedView.tap()
+        
+        XCTAssert(app.cells.firstMatch.isHittable)
     }
 }
