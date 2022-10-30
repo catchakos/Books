@@ -37,11 +37,9 @@ class ListPresenterTests: XCTestCase {
         var displayLoadCalled = false
         var displayClearCalled = false
         var displaySelectItemCalled = false
-        var displayAddCalled = false
 
         var displayLoadVMPassed: List.Load.ViewModel?
         var displaySelectVMPassed: List.Select.ViewModel?
-        var displayAddVMPassed: List.Add.ViewModel?
 
         func displayLoad(_ viewModel: List.Load.ViewModel) {
             displayLoadCalled = true
@@ -56,11 +54,6 @@ class ListPresenterTests: XCTestCase {
             displaySelectItemCalled = true
             displaySelectVMPassed = viewModel
         }
-
-        func displayAddListItem(_ viewModel: List.Add.ViewModel) {
-            displayAddCalled = true
-            displayAddVMPassed = viewModel
-        }
     }
 
     // MARK: Tests
@@ -68,7 +61,7 @@ class ListPresenterTests: XCTestCase {
     func testPresentLoad() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy
-        let response = List.Load.Response(books: ListItems.none, error: nil)
+        let response = List.Load.Response(date: Date(), books: ListItems.none, error: nil)
 
         sut.presentLoad(response)
 
@@ -78,7 +71,7 @@ class ListPresenterTests: XCTestCase {
     func testPresentsNoErrorMessageWithLoadSuccess() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy
-        let response = List.Load.Response(books: ListItems.none, error: nil)
+        let response = List.Load.Response(date: Date(), books: ListItems.none, error: nil)
 
         sut.presentLoad(response)
 
@@ -88,7 +81,7 @@ class ListPresenterTests: XCTestCase {
     func testPresentsBooksWithLoadSuccess() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy
-        let response = List.Load.Response(books: BookFakes.fakeList1, error: nil)
+        let response = List.Load.Response(date: Date(), books: BookFakes.fakeList1, error: nil)
 
         sut.presentLoad(response)
 
@@ -98,7 +91,7 @@ class ListPresenterTests: XCTestCase {
     func testPresentsNoItemsWithLoadFailure() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy
-        let response = List.Load.Response(books: nil, error: .other)
+        let response = List.Load.Response(date: Date(), books: nil, error: .other)
 
         sut.presentLoad(response)
 
@@ -108,7 +101,7 @@ class ListPresenterTests: XCTestCase {
     func testPresentsErrorMessageWithLoadFailure() {
         let spy = ListDisplayLogicSpy()
         sut.viewController = spy
-        let response = List.Load.Response(books: nil, error: .other)
+        let response = List.Load.Response(date: Date(), books: nil, error: .other)
 
         sut.presentLoad(response)
 
@@ -153,25 +146,5 @@ class ListPresenterTests: XCTestCase {
         sut.presentItemSelect(response)
 
         XCTAssertFalse(spy.displaySelectVMPassed?.success ?? true, "presentItemSelect(_:) should ask the view controller to display failure")
-    }
-
-    func testPresentsAddingBook() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
-        let response = List.Add.Response(book: BookFakes.fakeBook1)
-
-        sut.presentAddItem(response)
-
-        XCTAssertTrue(spy.displayAddVMPassed?.success ?? false, "presentAddItem(_:) should ask the view controller to display success")
-    }
-
-    func testPresentsAddingNoBook() {
-        let spy = ListDisplayLogicSpy()
-        sut.viewController = spy
-        let response = List.Add.Response(book: nil)
-
-        sut.presentAddItem(response)
-
-        XCTAssertFalse(spy.displayAddVMPassed?.success ?? true, "presentAddItem(_:) should ask the view controller to display failure")
     }
 }

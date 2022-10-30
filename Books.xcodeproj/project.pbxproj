@@ -72,6 +72,7 @@
 		5E85A30C290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */; };
 		5E85A30E290D6C1100DAE7A4 /* PreviewInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */; };
 		5E85A310290DC31700DAE7A4 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A30F290DC31700DAE7A4 /* ListHeaderView.swift */; };
+		5E85A316290DDDAD00DAE7A4 /* PreviewFakes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E85A315290DDDAD00DAE7A4 /* PreviewFakes.swift */; };
 		5EA5708627DD0FFF00942DB3 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */; };
 		5EA5708727DD0FFF00942DB3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */; };
 		5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */; };
@@ -170,6 +171,7 @@
 		5E85A30B290D668C00DAE7A4 /* OpenLibraryReviewEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLibraryReviewEndpoint.swift; sourceTree = "<group>"; };
 		5E85A30D290D6C1100DAE7A4 /* PreviewInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewInfo.swift; sourceTree = "<group>"; };
 		5E85A30F290DC31700DAE7A4 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
+		5E85A315290DDDAD00DAE7A4 /* PreviewFakes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFakes.swift; sourceTree = "<group>"; };
 		5EA5708327DD0FFF00942DB3 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		5EA5708427DD0FFF00942DB3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
 		5EA5708527DD0FFF00942DB3 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				5E57EE3127DCAB0C001F8989 /* BookFakes.swift */,
+				5E85A315290DDDAD00DAE7A4 /* PreviewFakes.swift */,
 				5E57EE3327DCB8D4001F8989 /* DependenciesFake.swift */,
 			);
 			path = Fakes;
@@ -726,6 +729,7 @@
 				5E846E4828B66F2D00EAC080 /* BookDetailVMFakes.swift in Sources */,
 				5E846E4628B66DA600EAC080 /* BookDetailSnapshots.swift in Sources */,
 				5EA5708827DD0FFF00942DB3 /* DetailPresenterTests.swift in Sources */,
+				5E85A316290DDDAD00DAE7A4 /* PreviewFakes.swift in Sources */,
 				5E57EE3027DCA9E4001F8989 /* BooksWorkerTests.swift in Sources */,
 				5E57EE3427DCB8D4001F8989 /* DependenciesFake.swift in Sources */,
 				5E57EE3227DCAB0C001F8989 /* BookFakes.swift in Sources */,

@@ -11,7 +11,7 @@ import XCTest
 import SwiftUI
 
 class BookDetailSnapshots: XCTestCase {
-        
+    
     let devices: [String: ViewImageConfig] = [
         "iPhoneX": .iPhoneX,
         "iPhone8+": .iPhone8Plus
@@ -46,7 +46,7 @@ class BookDetailSnapshots: XCTestCase {
             viewModel: vm,
             navigationController: nil)
         let hostVC = UIHostingController(rootView: view)
-
+        
         devices.map { device in
             verifySnapshot(
                 matching: hostVC,

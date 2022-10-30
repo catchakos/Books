@@ -52,7 +52,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.textColor = .black
         label.textAlignment = .natural
         label.numberOfLines = 0
-        label.accessibilityLabel = "title_label"
+        label.accessibilityLabel = "movie_detail_title"
         return label
     }()
 
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
         label.textColor = .black
         label.textAlignment = .natural
-        label.accessibilityLabel = "author_label"
+        label.accessibilityLabel = "movie_detail_author"
         return label
     }()
     
@@ -70,7 +70,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = .black
         label.textAlignment = .natural
-        label.accessibilityLabel = "description_label"
+        label.accessibilityLabel = "movie_detail_summary"
         label.numberOfLines = 0
         return label
     }()
@@ -80,7 +80,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
         label.textColor = .black
         label.textAlignment = .natural
-        label.accessibilityLabel = "publisher_label"
+        label.accessibilityLabel = "movie_detail_publisher"
         return label
     }()
     
@@ -89,7 +89,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
         label.textColor = .black
         label.textAlignment = .natural
-        label.accessibilityLabel = "isbn_label"
+        label.accessibilityLabel = "movie_detail_isbn"
         return label
     }()
     
@@ -98,7 +98,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.accessibilityLabel = "fetching_preview"
+        label.accessibilityLabel = "movie_detail_fetching_preview"
         label.text = NSLocalizedString("Fetching preview..", comment: "")
         return label
     }()
@@ -110,7 +110,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         button.layer.borderColor = UIColor.black.cgColor
         button.setTitleColor(.blue, for: .normal)
         button.setTitle(NSLocalizedString("Preview", comment: ""), for: .normal)
-        button.accessibilityLabel = "preview_button"
+        button.accessibilityLabel = "movie_detail_preview_button"
         button.isHidden = true
         button.addTarget(self, action: #selector(didTapPreview), for: .touchUpInside)
         return button
@@ -120,6 +120,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.accessibilityLabel = "movie_detail_image"
         return imageView
     }()
     

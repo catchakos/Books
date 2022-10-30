@@ -24,7 +24,7 @@ class ListHeaderView: UIView {
         label.textColor = .black
         label.numberOfLines = 0
         label.textAlignment = .right
-        label.text = NSLocalizedString("NYT Best sellers", comment: "")
+        label.text = NSLocalizedString("Select date", comment: "")
         return label
     }()
 

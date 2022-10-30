@@ -9,13 +9,7 @@
 import Foundation
 
 struct BookFakes {
-    static let fakeBook1 = Book(
-        id: "12",
-        image: nil,
-        title: "Book title",
-        author: "Author",
-        price: 4.99
-    )
+    static let fakeBook1 = fakeListItem1
 
     static let fakeListItem1 = ListItem(
         id: "12",
@@ -31,20 +25,14 @@ struct BookFakes {
     )
 
     static let fakeList1 = [fakeListItem1]
-    static let fakeList2 = [makeFakeListItem(id: 2)]
+    static let fakeList2 = [makeFakeListItem(id: 2), makeFakeListItem(id: 3)]
 
-    static let onePage = (0...ListInteractor.Constants.pageSize-1).map({
+    static let onePage = (0..<20).map({
         makeFakeListItem(id: $0)
     })
     
     static func makeFakeBook(id: Int) -> Book {
-        return Book(
-            id: String(id),
-            image: nil,
-            title: "Book title \(id)",
-            author: "Author",
-            price: 4.99
-        )
+        return makeFakeListItem(id: id)
     }
     
     static func makeFakeListItem(id: Int) -> ListItem {

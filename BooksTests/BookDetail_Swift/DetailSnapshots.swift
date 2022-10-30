@@ -19,8 +19,10 @@ class DetailSnapshots: XCTestCase {
             title: "title",
             author: "author",
             imageUrl: nil,
-            price: "1€",
-            errorMessage: nil
+            errorMessage: nil,
+            publisher: "publisher",
+            isbn: "111133334",
+            descriptionText: "bla blah blah"
         )
         vc.displayLoad(vm)
 
@@ -50,8 +52,10 @@ class DetailSnapshots: XCTestCase {
             title: nil,
             author: nil,
             imageUrl: nil,
-            price: nil,
-            errorMessage: "error"
+            errorMessage: "error",
+            publisher: nil,
+            isbn: nil,
+            descriptionText: nil
         )
         vc.displayLoad(vm)
 

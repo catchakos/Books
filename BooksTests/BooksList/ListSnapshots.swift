@@ -16,6 +16,7 @@ class ListSnapshots: XCTestCase {
         vc.dataStore?.dependencies = DependenciesFake()
 
         let vm = List.Load.ViewModel(
+            dateText: "date",
             books: BookFakes.onePage,
             errorMessage: nil
         )
@@ -44,6 +45,7 @@ class ListSnapshots: XCTestCase {
         vc.dataStore?.dependencies = DependenciesFake()
 
         let vm = List.Load.ViewModel(
+            dateText: "date",
             books: [],
             errorMessage: "error"
         )

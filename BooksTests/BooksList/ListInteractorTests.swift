@@ -43,12 +43,10 @@ class ListInteractorTests: XCTestCase {
         var presentLoadResponsePassed: List.Load.Response?
         var presentClearResponsePassed: List.Clear.Response?
         var presentSelectResponsePassed: List.Select.Response?
-        var presentAddResponsePassed: List.Add.Response?
 
         var onPresentLoad: (() -> Void)?
         var onPresentClear: (() -> Void)?
         var onPresentItemSelect: (() -> Void)?
-        var onPresentAdd: (() -> Void)?
 
         func presentLoad(_ response: List.Load.Response) {
             presentLoadCalled = true
@@ -67,31 +65,25 @@ class ListInteractorTests: XCTestCase {
             presentSelectResponsePassed = response
             onPresentItemSelect?()
         }
-
-        func presentAddItem(_ response: List.Add.Response) {
-            presentAddCalled = true
-            presentAddResponsePassed = response
-            onPresentAdd?()
-        }
     }
 
     class BooksWorkerSpy: BooksWorkerProtocol {
         var fetchListCalled = false
-        var fetchDetailCalled = false
+        var fetchPreviewCalled = false
 
         var fakeListSuccess = true
-        var fakeDetailSuccess = true
+        var fakePreviewSuccess = true
 
-        func fetchBooksList(offset _: Int, count _: Int, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
+        func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
             fetchListCalled = true
 
             completion(fakeListSuccess ? .success(BookFakes.fakeList1) : .failure(.other))
         }
 
-        func fetchBookDetail(id _: String, completion: @escaping ((Result<Book, BooksError>) -> Void)) {
-            fetchDetailCalled = true
+        func fetchBookPreviewURL(isbn: String, completion: @escaping ((Result<String, BooksError>) -> Void)) {
+            fetchPreviewCalled = true
 
-            completion(fakeDetailSuccess ? .success(BookFakes.fakeBook1) : .failure(.other))
+            completion(fakePreviewSuccess ? .success("www.url.com") : .failure(.other))
         }
     }
 
@@ -103,7 +95,7 @@ class ListInteractorTests: XCTestCase {
         let workerSpy = BooksWorkerSpy()
         sut.worker = workerSpy
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
         XCTAssert(workerSpy.fetchListCalled, "should call booksWorker to load")
@@ -114,77 +106,12 @@ class ListInteractorTests: XCTestCase {
         sut.worker = workerSpy
         sut.isLoading = true
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
         XCTAssertFalse(workerSpy.fetchListCalled, "should not load a page if already loading")
     }
-
-    func testLoadsNextOffset() {
-        sut.offset = 0
-
-        let expect = XCTestExpectation(description: "loadNextOffset")
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
-        var firstLoadDone = false
-        spy.onPresentLoad = {
-            if !firstLoadDone {
-                firstLoadDone = true
-                let request = List.Load.Request()
-                self.sut.loadList(request)
-            } else {
-                XCTAssertEqual(self.sut.offset, 2 * ListInteractor.Constants.pageSize, "should have raised the offset")
-                expect.fulfill()
-            }
-        }
-
-        let request = List.Load.Request()
-        sut.loadList(request)
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testAppendsItemsOfConsequentLoads() {
-        let expect = XCTestExpectation(description: "appendsConsequentLoadsItems")
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-
-        let spy = ListPresentationLogicSpy()
-        sut.presenter = spy
-        var firstLoadDone = false
-        var count = 0
-        spy.onPresentLoad = {
-            if !firstLoadDone {
-                firstLoadDone = true
-                count = self.sut.listItems.count
-
-                let request = List.Load.Request()
-                self.sut.loadList(request)
-            } else {
-                XCTAssertGreaterThan(self.sut.listItems.count, count, "should have appended the items")
-                expect.fulfill()
-            }
-        }
-
-        let request = List.Load.Request()
-        sut.loadList(request)
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testDoesNotChangeOffsetIfAlreadyLoading() {
-        sut.isLoading = true
-        let offset = sut.offset
-
-        let request = List.Load.Request()
-        sut.loadList(request)
-
-        XCTAssertEqual(offset, sut.offset, "should change offset if already loading")
-    }
-
+    
     func testPresentsLoad() {
         let expect = XCTestExpectation(description: "loadListPresents")
         let workerSpy = BooksWorkerSpy()
@@ -196,7 +123,7 @@ class ListInteractorTests: XCTestCase {
         }
         sut.presenter = spy
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
         wait(for: [expect], timeout: 1)
@@ -213,7 +140,7 @@ class ListInteractorTests: XCTestCase {
         }
         sut.presenter = spy
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
         wait(for: [expect], timeout: 1)
@@ -231,7 +158,7 @@ class ListInteractorTests: XCTestCase {
         }
         sut.presenter = spy
 
-        let request = List.Load.Request()
+        let request = List.Load.Request(date: Date())
         sut.loadList(request)
 
         wait(for: [expect], timeout: 1)
@@ -250,7 +177,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testDoesNotKeepBooksInMemoryAfterClear() {
-        sut.listItems = [BookFakes.fakeList1]
+        sut.listItems = BookFakes.fakeList1
 
         let request = List.Clear.Request()
         sut.clearList(request)
@@ -261,7 +188,7 @@ class ListInteractorTests: XCTestCase {
     // MARK: - Select
 
     func testSelectItem() {
-        sut.listItems = [BookFakes.fakeList1]
+        sut.listItems = BookFakes.fakeList1
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 
@@ -272,7 +199,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testSelectsBook() {
-        sut.listItems = [BookFakes.fakeList1]
+        sut.listItems = BookFakes.fakeList1
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 
@@ -283,7 +210,7 @@ class ListInteractorTests: XCTestCase {
     }
 
     func testDoesNotSelectBookWhenPathOutOfRange() {
-        sut.listItems = [BookFakes.fakeList1]
+        sut.listItems = BookFakes.fakeList1
         let spy = ListPresentationLogicSpy()
         sut.presenter = spy
 
@@ -291,52 +218,5 @@ class ListInteractorTests: XCTestCase {
         sut.selectListItem(request)
 
         XCTAssertFalse(spy.presentItemSelectCalled, "selectListItem(_:) should not ask the presenter to format the item if out of range")
-    }
-
-    // MARK: - Add
-
-    func testAddItem() {
-        let expect = XCTestExpectation(description: "addItemCallsPresenter")
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-        let spy = ListPresentationLogicSpy()
-        spy.onPresentAdd = {
-            XCTAssertNotNil(spy.presentAddResponsePassed?.book)
-            expect.fulfill()
-        }
-        sut.presenter = spy
-
-        let request = List.Add.Request()
-        sut.addItem(request)
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testAddItemFailure() {
-        let expect = XCTestExpectation(description: "addItemFailureCallsPresenter")
-        let spy = ListPresentationLogicSpy()
-        spy.onPresentAdd = {
-            XCTAssertNil(spy.presentAddResponsePassed?.book)
-            expect.fulfill()
-        }
-        sut.presenter = spy
-        let workerSpy = BooksWorkerSpy()
-        workerSpy.fakeAddBookSuccess = false
-        sut.worker = workerSpy
-
-        let request = List.Add.Request()
-        sut.addItem(request)
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testCallsWorkerForAdding() {
-        let workerSpy = BooksWorkerSpy()
-        sut.worker = workerSpy
-
-        let request = List.Add.Request()
-        sut.addItem(request)
-
-        XCTAssert(workerSpy.addBookCalled, "should have called worker to add")
     }
 }

@@ -11,87 +11,99 @@ import XCTest
 
 class DetailInteractorTests: XCTestCase {
     // MARK: Subject under test
-
+    
     var sut: DetailInteractor!
-
+    var spyPresenter: DetailPresentationLogicSpy!
+    var spyWorker: BooksWorkerSpy!
+    
     // MARK: Test lifecycle
-
+    
     override func setUp() {
         super.setUp()
+        
         setupDetailInteractor()
+        setupDoubles()
     }
-
+    
     override func tearDown() {
         super.tearDown()
     }
-
+    
     // MARK: Test setup
-
+    
     func setupDetailInteractor() {
         sut = DetailInteractor()
         sut.listItem = BookFakes.fakeListItem1
     }
-
+    
+    func setupDoubles() {
+        spyPresenter = DetailPresentationLogicSpy()
+        sut.presenter = spyPresenter
+        spyWorker = BooksWorkerSpy()
+        sut.worker = spyWorker
+    }
+    
     // MARK: Test doubles
-
+    
     class DetailPresentationLogicSpy: DetailPresentationLogic {
         var presentLoadCalled = false
-
+        var presentPreviewCalled = false
+        
         var onLoadCalled: (() -> Void)?
-
+        
         func presentLoad(_: Detail.Load.Response) {
             presentLoadCalled = true
             onLoadCalled?()
         }
+        
+        func presentPreview(_ response: Detail.Preview.Response) {
+            presentPreviewCalled = true
+        }
     }
-
+    
     class BooksWorkerSpy: BooksWorkerProtocol {
-        var fetchDetailCalled = false
-
-        var fakeDetailSuccess = false
-
-        func fetchBooksList(offset _: Int, count _: Int, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
-            completion(.success(BookFakes.fakeList1))
+        var fetchListCalled = false
+        var fetchPreviewCalled = false
+        
+        func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, BooksError>) -> Void)) {
+            fetchListCalled = true
         }
-
-        func fetchBookDetail(id _: String, completion: @escaping ((Result<Book, BooksError>) -> Void)) {
-            fetchDetailCalled = true
-
-            completion(fakeDetailSuccess ? .success(BookFakes.fakeBook1) : .failure(.other))
-        }
-
-        func addRandomBook(completion: @escaping ((Result<Book, BooksError>) -> Void)) {
-            completion(.success(BookFakes.fakeBook1))
+        
+        func fetchBookPreviewURL(isbn: String, completion: @escaping ((Result<String, BooksError>) -> Void)) {
+            fetchPreviewCalled = true
         }
     }
-
+    
     // MARK: Tests
-
+    
     func testDoLoad() {
-        let expect = XCTestExpectation(description: "loadCallsPresenter")
-        let spy = DetailPresentationLogicSpy()
-        spy.onLoadCalled = {
-            XCTAssertTrue(spy.presentLoadCalled, "doLoad(request:) should ask the presenter to format the result")
-            expect.fulfill()
-        }
-        sut.presenter = spy
-        sut.worker = BooksWorkerSpy()
-
         let request = Detail.Load.Request()
         sut.doLoad(request)
-
-        wait(for: [expect], timeout: 1)
+        
+        XCTAssert(spyPresenter.presentLoadCalled)
     }
-
-    func testLoadCallsWorker() {
-        let spy = DetailPresentationLogicSpy()
-        sut.presenter = spy
-        let worker = BooksWorkerSpy()
-        sut.worker = worker
-
-        let request = Detail.Load.Request()
-        sut.doLoad(request)
-
-        XCTAssertTrue(worker.fetchDetailCalled, "doLoad(request:) should ask the presenter to format the result")
+    
+    func testPreviewCallsWorker() {
+        let request = Detail.Preview.Request()
+        sut.loadPreview(request)
+        
+        XCTAssert(spyWorker.fetchPreviewCalled)
     }
+    
+    // TODO:
+//    func testPreviewSuccessPresents() {
+//        XCTFail()
+//    }
+//    
+//    func testPreviewFailurePresents() {
+//        XCTFail()
+//    }
+//    
+//    func testPreviewSuccessInDataStore() {
+//        XCTFail()
+//    }
+//    
+//    func testPreviewFailureInDataStore() {
+//        XCTFail()
+//    }
 }

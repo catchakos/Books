@@ -14,7 +14,7 @@ class BooksWorkerTests: XCTestCase {
     var sut: BooksWorker!
     var remoteStoreSpy: BooksStoreSpy!
     var persistencySpy: PersistencySpy!
-
+    
     // MARK: Test lifecycle
 
     override func setUp() {
@@ -35,36 +35,30 @@ class BooksWorkerTests: XCTestCase {
     }
 
     // MARK: Test doubles
+    
+    let fakeISBN = "1112223334"
 
     class BooksStoreSpy: BooksRemoteStoreProtocol {
         var fetchListCalled = false
-        var fetchListOffsetPassed: Int?
-        var fetchDetailCalled = false
-        var fetchDetailIDPassed: String?
-        var postBookCalled = false
+        var fetchListDatePassed: Date?
+        var fetchPreviewCalled = false
+        var fetchISBNPassed: String?
 
         var fakeListReturnSuccess = true
-        var fakeDetailReturnSuccess = true
-        var fakePostReturnSuccess = true
+        var fakePreviewReturnSuccess = true
 
-        func fetchBooksList(offset: Int, count _: Int, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
+        func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
             fetchListCalled = true
-            fetchListOffsetPassed = offset
+            fetchListDatePassed = date
 
             completion(fakeListReturnSuccess ? .success(BookFakes.fakeList1) : .failure(APIClientError.decodeError))
         }
 
-        func fetchBookDetail(id: String, completion: @escaping ((Result<ItemDetails, Error>) -> Void)) {
-            fetchDetailCalled = true
-            fetchDetailIDPassed = id
+        func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
+            fetchPreviewCalled = true
+            fetchISBNPassed = isbn
 
-            completion(fakeDetailReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.decodeError))
-        }
-
-        func postRandomBook(completion: @escaping ((Result<Book, Error>) -> Void)) {
-            postBookCalled = true
-
-            completion(fakePostReturnSuccess ? .success(BookFakes.fakeBook1) : .failure(APIClientError.decodeError))
+            completion(fakePreviewReturnSuccess ? .success(PreviewFakes.preview1) : .failure(APIClientError.decodeError))
         }
     }
 
@@ -105,7 +99,7 @@ class BooksWorkerTests: XCTestCase {
     // MARK: Tests
 
     func testFetchListCallsRemoteStore() {
-        sut.fetchBooksList(offset: 0, count: 10) { _ in }
+        sut.fetchBooksList(date: Date()) { _ in }
 
         XCTAssert(remoteStoreSpy.fetchListCalled)
     }
@@ -114,7 +108,7 @@ class BooksWorkerTests: XCTestCase {
         let expect = XCTestExpectation(description: "fetchListSuccessCompletion")
         remoteStoreSpy.fakeListReturnSuccess = true
 
-        sut.fetchBooksList(offset: 0, count: 10) { result in
+        sut.fetchBooksList(date: Date()) { result in
             if case Result.success = result {
                 expect.fulfill()
             }
@@ -127,7 +121,7 @@ class BooksWorkerTests: XCTestCase {
         let expect = XCTestExpectation(description: "fetchListFailureCompletion")
         remoteStoreSpy.fakeListReturnSuccess = false
 
-        sut.fetchBooksList(offset: 0, count: 10) { result in
+        sut.fetchBooksList(date: Date()) { result in
             if case Result.failure = result {
                 expect.fulfill()
             }
@@ -136,18 +130,18 @@ class BooksWorkerTests: XCTestCase {
         wait(for: [expect], timeout: 1)
     }
 
-    func testFetchDetailCallsRemoteStore() {
-        sut.fetchBookDetail(id: "1", completion: { _ in })
+    func testFetchPreviewCallsRemoteStore() {
+        sut.fetchBookPreviewURL(isbn: fakeISBN, completion: {_ in })
 
-        XCTAssert(remoteStoreSpy.fetchDetailCalled)
+        XCTAssert(remoteStoreSpy.fetchPreviewCalled)
     }
 
-    func testFetchDetailSuccess() {
+    func testFetchPreviewSuccess() {
         let expect = XCTestExpectation(description: "fetchDetailSuccessCompletion")
-        remoteStoreSpy.fakeDetailReturnSuccess = true
+        remoteStoreSpy.fakePreviewReturnSuccess = true
         persistencySpy.fakePersistBookResult = true
 
-        sut.fetchBookDetail(id: "1") { result in
+        sut.fetchBookPreviewURL(isbn: fakeISBN) { result in
             if case Result.success = result {
                 expect.fulfill()
             }
@@ -156,11 +150,11 @@ class BooksWorkerTests: XCTestCase {
         wait(for: [expect], timeout: 1)
     }
 
-    func testFetchDetailFailure() {
+    func testFetchPreviewFailure() {
         let expect = XCTestExpectation(description: "fetchDetailFailureCompletion")
-        remoteStoreSpy.fakeDetailReturnSuccess = false
+        remoteStoreSpy.fakePreviewReturnSuccess = false
 
-        sut.fetchBookDetail(id: "1") { result in
+        sut.fetchBookPreviewURL(isbn: fakeISBN) { result in
             if case Result.failure = result {
                 expect.fulfill()
             }
@@ -169,88 +163,14 @@ class BooksWorkerTests: XCTestCase {
         wait(for: [expect], timeout: 1)
     }
 
-    func testFetchDetailSuccessPersistsItem() {
-        let expect = XCTestExpectation(description: "fetchDetailSuccessPersists")
-        remoteStoreSpy.fakeDetailReturnSuccess = true
-
-        sut.fetchBookDetail(id: "1") { _ in
-            if self.persistencySpy.persistBookCalled {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
+    
+    /*
+    func testSuccessPersistsItem() {
+     XCTFail()
     }
 
-    func testFetchDetailFailurePersistsNoItem() {
-        let expect = XCTestExpectation(description: "fetchDetailSuccessPersists")
-        remoteStoreSpy.fakeDetailReturnSuccess = false
-
-        sut.fetchBookDetail(id: "1") { _ in
-            if !self.persistencySpy.persistBookCalled {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
+    func testFetchFailurePersistsNoItem() {
+        XCTFail()
     }
-
-    func testAddBookCallsRemoteStore() {
-        sut.addRandomBook(completion: { _ in })
-
-        XCTAssert(remoteStoreSpy.postBookCalled)
-    }
-
-    func testAddBookSuccess() {
-        let expect = XCTestExpectation(description: "addBookSuccess")
-        remoteStoreSpy.fakePostReturnSuccess = true
-        persistencySpy.fakePersistBookResult = true
-
-        sut.addRandomBook { result in
-            if case Result.success = result {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testAddBookFailure() {
-        let expect = XCTestExpectation(description: "addBookFailure")
-        remoteStoreSpy.fakePostReturnSuccess = false
-
-        sut.addRandomBook { result in
-            if case Result.failure = result {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testAddBookSuccessPersistsItem() {
-        let expect = XCTestExpectation(description: "addBookSuccessPersists")
-        remoteStoreSpy.fakePostReturnSuccess = true
-
-        sut.addRandomBook { _ in
-            if self.persistencySpy.persistBookCalled {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
-    }
-
-    func testAddBookFailurePersistsNoItem() {
-        let expect = XCTestExpectation(description: "addBookFailurePersistsNoItem")
-        remoteStoreSpy.fakePostReturnSuccess = false
-
-        sut.addRandomBook { _ in
-            if !self.persistencySpy.persistBookCalled {
-                expect.fulfill()
-            }
-        }
-
-        wait(for: [expect], timeout: 1)
-    }
+     */
 }

@@ -47,7 +47,6 @@ class ListViewControllerTests: XCTestCase {
         var loadListCalled = false
         var clearListCalled = false
         var selectListItemCalled = false
-        var addListItemCalled = false
 
         func loadList(_: List.Load.Request) {
             loadListCalled = true
@@ -59,10 +58,6 @@ class ListViewControllerTests: XCTestCase {
 
         func selectListItem(_: List.Select.Request) {
             selectListItemCalled = true
-        }
-
-        func addItem(_: List.Add.Request) {
-            addListItemCalled = true
         }
     }
 
@@ -88,7 +83,7 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testDisplayLoad() {
-        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
+        let vm = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList1, errorMessage: nil)
 
         sut.displayLoad(vm)
 
@@ -96,19 +91,19 @@ class ListViewControllerTests: XCTestCase {
         XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count)
     }
 
-    func testAppendsResults() {
-        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
+    func testDoesNotAppendResults() {
+        let vm = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList1, errorMessage: nil)
         sut.displayLoad(vm)
         
-        let vm2 = List.Load.ViewModel(books: BookFakes.fakeList2, errorMessage: nil)
+        let vm2 = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList2, errorMessage: nil)
         sut.displayLoad(vm2)
 
-        XCTAssert(sut.tableView.numberOfSections == 2)
-        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList1.count)
+        XCTAssert(sut.tableView.numberOfSections == 1)
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == BookFakes.fakeList2.count)
     }
 
     func testDisplaysFetchErrorMessage() {
-        let vm = List.Load.ViewModel(books: [], errorMessage: "Error")
+        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: "Error")
 
         sut.displayLoad(vm)
 
@@ -117,7 +112,7 @@ class ListViewControllerTests: XCTestCase {
     }
 
     func testHidesErrorMessageWithoutError() {
-        let vm = List.Load.ViewModel(books: [], errorMessage: nil)
+        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: nil)
 
         sut.displayLoad(vm)
 
@@ -136,7 +131,7 @@ class ListViewControllerTests: XCTestCase {
         loadView()
         sut.loadList()
 
-        let vm = List.Load.ViewModel(books: [], errorMessage: nil)
+        let vm = List.Load.ViewModel(dateText: "the date", books: [], errorMessage: nil)
         sut.displayLoad(vm)
 
         XCTAssertFalse(sut.spinner.isAnimating)
@@ -146,7 +141,7 @@ class ListViewControllerTests: XCTestCase {
         let spy = ListBusinessLogicSpy()
         sut.interactor = spy
         loadView()
-        sut.displayLoad(List.Load.ViewModel(books: BookFakes.onePage, errorMessage: nil))
+        sut.displayLoad(List.Load.ViewModel(dateText: "the date", books: BookFakes.onePage, errorMessage: nil))
         spy.loadListCalled = false
 
         sut.tableHandler.onScrolledToBottom?()
@@ -168,13 +163,14 @@ class ListViewControllerTests: XCTestCase {
 
     func testDisplayClear() {
         loadView()
-        let vm = List.Load.ViewModel(books: BookFakes.fakeList1, errorMessage: nil)
+        let vm = List.Load.ViewModel(dateText: "the date", books: BookFakes.fakeList1, errorMessage: nil)
         sut.displayLoad(vm)
         
         let viewModel = List.Clear.ViewModel()
         sut.displayClear(viewModel)
 
-        XCTAssert(sut.tableView.numberOfSections == 0)
+        XCTAssert(sut.tableView.numberOfSections == 1)
+        XCTAssert(sut.tableView.numberOfRows(inSection: 0) == 0)
     }
 
     // MARK: - Select
@@ -210,36 +206,5 @@ class ListViewControllerTests: XCTestCase {
         sut.displaySelectListItem(viewModel)
 
         XCTAssertFalse(routerSpy.routeToDetailCalled)
-    }
-
-    // MARK: - Add
-
-    func testShouldAddItem() {
-        let spy = ListBusinessLogicSpy()
-        sut.interactor = spy
-
-        loadView()
-        // TODO: do it with UI
-        sut.addListItem()
-
-        XCTAssertTrue(spy.addListItemCalled, "viewDidLoad() should ask the interactor to add")
-    }
-
-    func testDisplayNoErrorWithAddSuccess() {
-        let viewModel = List.Add.ViewModel(success: true, errorMessage: nil)
-
-        loadView()
-        sut.displayAddListItem(viewModel)
-
-        XCTAssert(sut.errorLabel.isHidden)
-    }
-
-    func testDisplayErrorWithAddFailure() {
-        let viewModel = List.Add.ViewModel(success: false, errorMessage: "error")
-
-        loadView()
-        sut.displayAddListItem(viewModel)
-
-        XCTAssertFalse(sut.errorLabel.isHidden)
     }
 }

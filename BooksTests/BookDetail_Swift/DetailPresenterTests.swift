@@ -34,10 +34,15 @@ class DetailPresenterTests: XCTestCase {
     // MARK: Test doubles
 
     class DetailDisplayLogicSpy: DetailDisplayLogic {
+        var displayPreviewCalled = false
         var displayLoadCalled = false
 
         func displayLoad(_: Detail.Load.ViewModel) {
             displayLoadCalled = true
+        }
+        
+        func displayPreview(_ viewModel: Detail.Preview.ViewModel) {
+            displayPreviewCalled = true
         }
     }
 

@@ -43,9 +43,14 @@ class DetailViewControllerTests: XCTestCase {
 
     class DetailBusinessLogicSpy: DetailBusinessLogic {
         var doLoadCalled = false
-
+        var loadPreviewCalled = false
+        
         func doLoad(_: Detail.Load.Request) {
             doLoadCalled = true
+        }
+        
+        func loadPreview(_ request: Detail.Preview.Request) {
+            loadPreviewCalled = true
         }
     }
 
@@ -65,8 +70,10 @@ class DetailViewControllerTests: XCTestCase {
             title: "title",
             author: "author",
             imageUrl: nil,
-            price: "price",
-            errorMessage: nil
+            errorMessage: nil,
+            publisher: "publi",
+            isbn: "1112223331",
+            descriptionText: "blah blah blah"
         )
 
         loadView()
@@ -75,28 +82,15 @@ class DetailViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.titleLabel.text, viewModel.title)
     }
 
-    func testDisplayLoadPrice() {
-        let viewModel = Detail.Load.ViewModel(
-            title: "title",
-            author: "author",
-            imageUrl: nil,
-            price: "price",
-            errorMessage: nil
-        )
-
-        loadView()
-        sut.displayLoad(viewModel)
-
-        XCTAssertEqual(sut.priceLabel.text, viewModel.price)
-    }
-
     func testDisplayLoadAuthor() {
         let viewModel = Detail.Load.ViewModel(
             title: "title",
             author: "author",
             imageUrl: nil,
-            price: "price",
-            errorMessage: nil
+            errorMessage: nil,
+            publisher: "publi",
+            isbn: "1112223331",
+            descriptionText: "blah blah blah"
         )
 
         loadView()

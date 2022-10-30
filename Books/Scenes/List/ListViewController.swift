@@ -140,7 +140,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
     }
 
     private func setupNavigationItem() {
-        navigationItem.title = NSLocalizedString("Fiction Books", comment: "")
+        navigationItem.title = NSLocalizedString("Hardcover Fiction Best Sellers ", comment: "")
     }
 
     // MARK: - Load
