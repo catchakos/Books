@@ -31,7 +31,7 @@ final class DetailRouterTests: XCTestCase {
     // MARK: Test setup
 
     func setupDetailViewController() {
-        backingVC = DetailViewControllerSpy()
+        backingVC = DetailViewControllerSpy(dependencies: DependenciesFake())
         sut = (backingVC.router as! DetailRouter)
         
         presenterDummy = PresenterSpy()
@@ -84,7 +84,7 @@ final class DetailRouterTests: XCTestCase {
     }
     
     func testRoutesToPreview() {
-        sut.dataStore?.previewURLString = "https://www.google.com"
+        sut.dataStore.previewURLString = "https://www.google.com"
         
         loadView()
         

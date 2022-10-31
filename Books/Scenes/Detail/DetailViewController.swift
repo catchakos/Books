@@ -6,8 +6,8 @@
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
-import UIKit
 import Kingfisher
+import UIKit
 
 protocol DetailDisplayLogic: AnyObject {
     func displayLoad(_ viewModel: Detail.Load.ViewModel)
@@ -15,12 +15,12 @@ protocol DetailDisplayLogic: AnyObject {
 }
 
 class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewController {
-    var dataStore: DependentStore? {
-        return router?.dataStore
+    var dataStore: DependentStore {
+        return router.dataStore
     }
 
-    var interactor: DetailBusinessLogic?
-    var router: (NSObjectProtocol & DetailRoutingLogic & DetailDataPassing)?
+    var interactor: DetailBusinessLogic
+    var router: NSObjectProtocol & DetailRoutingLogic & DetailDataPassing
 
     // MARK: - UI Elements
 
@@ -64,7 +64,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "movie_detail_author"
         return label
     }()
-    
+
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -74,7 +74,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.numberOfLines = 0
         return label
     }()
-    
+
     lazy var publisherLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
@@ -83,7 +83,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "movie_detail_publisher"
         return label
     }()
-    
+
     lazy var isbnLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .thin)
@@ -92,7 +92,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.accessibilityLabel = "movie_detail_isbn"
         return label
     }()
-    
+
     lazy var previewLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .light)
@@ -102,7 +102,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         label.text = NSLocalizedString("Fetching preview..", comment: "")
         return label
     }()
-    
+
     lazy var previewButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
@@ -115,7 +115,7 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         button.addTarget(self, action: #selector(didTapPreview), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -123,13 +123,14 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         imageView.accessibilityLabel = "movie_detail_image"
         return imageView
     }()
-    
+
     lazy var previewStack = UIStackView.horizontal(
         with: [
             previewLabel,
             previewButton
         ],
-        alignment: .center)
+        alignment: .center
+    )
 
     lazy var stack = UIStackView.vertical(
         with: [
@@ -144,29 +145,26 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
 
     // MARK: Object lifecycle
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
-    // MARK: Setup
-
-    private func setup() {
-        let viewController = self
-        let interactor = DetailInteractor()
+    required init(dependencies: DependenciesInterface) {
         let presenter = DetailPresenter()
-        let router = DetailRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+        let interactorAndDataStore = DetailInteractor(dependencies: dependencies, presenter: presenter)
+        let router = DetailRouter(dataStore: interactorAndDataStore)
+        interactor = interactorAndDataStore
+        self.router = router
+
+        super.init(nibName: nil, bundle: nil)
+
+        presenter.viewController = self
+        router.viewController = self
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    deinit {
+        print("")
     }
 
     // MARK: View lifecycle
@@ -207,11 +205,11 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
             make.leadingMargin.trailingMargin.equalToSuperview()
             make.top.equalTo(imageView.snp.bottom).offset(16)
         }
-        
+
         previewStack.snp.makeConstraints { make in
             make.height.greaterThanOrEqualTo(44)
         }
-        
+
         imageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(200)
@@ -223,12 +221,12 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         tap.addTarget(self, action: #selector(didTap(_:)))
         dimmedView.addGestureRecognizer(tap)
     }
- 
+
     // MARK: - Load Use Case
 
     func doLoad() {
         let request = Detail.Load.Request()
-        interactor?.doLoad(request)
+        interactor.doLoad(request)
     }
 
     func displayLoad(_ viewModel: Detail.Load.ViewModel) {
@@ -237,17 +235,17 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
         descriptionLabel.text = viewModel.descriptionText
         isbnLabel.text = viewModel.isbn
         publisherLabel.text = viewModel.publisher
-        
+
         imageView.kf.setImage(with: viewModel.imageUrl)
     }
-    
+
     // MARK: - Preview Use Case
 
     func loadBookPreview() {
         let request = Detail.Preview.Request()
-        interactor?.loadPreview(request)
+        interactor.loadPreview(request)
     }
-    
+
     func displayPreview(_ viewModel: Detail.Preview.ViewModel) {
         if viewModel.hasPreview {
             previewButton.isHidden = false
@@ -258,14 +256,15 @@ class DetailViewController: UIViewController, DetailDisplayLogic, DependentViewC
             previewLabel.text = NSLocalizedString("No preview", comment: "")
         }
     }
-    
+
     // MARK: - Actions
+
     @objc func didTap(_: UITapGestureRecognizer) {
-        router?.exitDetail()
+        router.exitDetail()
     }
-    
+
     @objc func didTapPreview() {
-        router?.routeToPreview()
+        router.routeToPreview()
     }
 }
 

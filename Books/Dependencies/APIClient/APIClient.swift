@@ -46,7 +46,7 @@ class APIClient: APIClientInterface {
             }
         }
     }
-    
+
     private func fetch(_ endpoint: Endpoint, completion: ((Data?, Error?, HTTPResponseCode?) -> Void)?) -> URLSessionDataTask? {
         guard let urlRequest = endpoint.urlRequest(for: endpoint.service) else {
             completion?(nil, APIClientError.cannotMakeUrl, nil)
@@ -54,7 +54,7 @@ class APIClient: APIClientInterface {
         }
 
         Logger.log("Request: \(urlRequest)")
-        
+
         let dataTask = session.dataTask(with: urlRequest) { data, response, error in
             if let httpResponse = response as? HTTPURLResponse {
                 Logger.log("Response: \(httpResponse.statusCode)")

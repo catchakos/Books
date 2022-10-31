@@ -15,6 +15,7 @@ class DetailViewControllerTests: XCTestCase {
     var sut: DetailViewController!
     var routerSpy: DetailRouterSpy!
     var interactorSpy: DetailBusinessLogicSpy!
+
     var window: UIWindow!
 
     // MARK: Test lifecycle
@@ -33,10 +34,11 @@ class DetailViewControllerTests: XCTestCase {
     // MARK: Test setup
 
     func setupDetailViewController() {
-        sut = DetailViewController()
-        routerSpy = DetailRouterSpy()
+        let dependencies = DependenciesFake()
+        sut = DetailViewController(dependencies: dependencies)
+        interactorSpy = DetailBusinessLogicSpy(dependencies: dependencies)
+        routerSpy = DetailRouterSpy(ds: interactorSpy)
         sut.router = routerSpy
-        interactorSpy = DetailBusinessLogicSpy()
         sut.interactor = interactorSpy
     }
 
@@ -47,9 +49,17 @@ class DetailViewControllerTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class DetailBusinessLogicSpy: DetailBusinessLogic {
+    class DetailBusinessLogicSpy: DetailBusinessLogic, DetailDataStore {
         var doLoadCalled = false
         var loadPreviewCalled = false
+        
+        var dependencies: DependenciesInterface
+        var listItem: ListItem?
+        var previewURLString: String?
+        
+        init(dependencies: DependenciesInterface) {
+            self.dependencies = dependencies
+        }
         
         func doLoad(_: Detail.Load.Request) {
             doLoadCalled = true
@@ -61,12 +71,16 @@ class DetailViewControllerTests: XCTestCase {
     }
     
     class DetailRouterSpy: NSObject, DetailRoutingLogic, DetailDataPassing {
-        var dataStore: DetailDataStore?
+        var dataStore: DetailDataStore
         
         var exitDetailCalled = false
         var onExitCalled: (() -> Void)?
         var routeToPreviewCalled = false
         var onRouteToPreviewCalled: (() -> Void)?
+        
+        init(ds: DetailDataStore) {
+            self.dataStore = ds
+        }
         
         func exitDetail() {
             exitDetailCalled = true

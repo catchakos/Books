@@ -8,16 +8,15 @@
 import Foundation
 
 struct NYTimesBooksListEndpoint: Endpoint {
-    
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd"
         return formatter
     }()
-    
+
     let service: APIService = NYTimesBookListService.v3
     let date: Date
-    
+
     var method: HTTPMethod<Body, Parameters> {
         return .get([:])
     }

@@ -10,7 +10,7 @@ import Foundation
 struct PreviewInfo: Codable {
     let previewURL: String
     let previewType: String
-    
+
     enum CodingKeys: String, CodingKey {
         case previewURL = "preview_url"
         case previewType = "preview"

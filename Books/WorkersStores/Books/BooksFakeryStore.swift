@@ -11,7 +11,7 @@ import Foundation
 class BooksFakeryStore: BooksRemoteStoreProtocol {
     let faker = Faker()
 
-    func fetchBooksList(date: Date, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
+    func fetchBooksList(date _: Date, completion: @escaping ((Result<ListItems, Error>) -> Void)) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             var items = [ListItem]()
             for _ in 0 ..< 20 {
@@ -22,7 +22,7 @@ class BooksFakeryStore: BooksRemoteStoreProtocol {
         }
     }
 
-   func fetchBookPreviewInfo(isbn: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
+    func fetchBookPreviewInfo(isbn _: String, completion: @escaping ((Result<PreviewInfo, Error>) -> Void)) {
         completion(.failure(NSError(domain: "fakery", code: 400)))
     }
 

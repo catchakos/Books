@@ -12,8 +12,7 @@ import XCTest
 class DetailSnapshots: XCTestCase {
         
     func testDetailControllerLoad() {
-        let vc = DetailViewController()
-        vc.dataStore?.dependencies = DependenciesFake()
+        let vc = DetailViewController(dependencies: DependenciesFake())
 
         let vm = Detail.Load.ViewModel(
             title: "title",
@@ -45,8 +44,7 @@ class DetailSnapshots: XCTestCase {
     }
 
     func testDetailControllerError() {
-        let vc = DetailViewController()
-        vc.dataStore?.dependencies = DependenciesFake()
+        let vc = DetailViewController(dependencies: DependenciesFake())
 
         let vm = Detail.Load.ViewModel(
             title: nil,

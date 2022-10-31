@@ -34,13 +34,13 @@ class ListViewControllerTests: XCTestCase {
     // MARK: Test setup
 
     func setupListViewController() {
-        sut = ListViewController()
-        sut.router?.dataStore?.dependencies = DependenciesFake()
+        let dependencies = DependenciesFake()
+        sut = ListViewController(dependencies: dependencies)
         
         interactorSpy = ListBusinessLogicSpy()
         sut.interactor = interactorSpy
         
-        routerSpy = ListRouterSpy()
+        routerSpy = ListRouterSpy(dataStore: interactorSpy)
         sut.router = routerSpy
     }
 
@@ -51,7 +51,14 @@ class ListViewControllerTests: XCTestCase {
 
     // MARK: Test doubles
 
-    class ListBusinessLogicSpy: ListBusinessLogic {
+    class ListBusinessLogicSpy: ListBusinessLogic, ListDataStore {
+        var listItems: ListItems = []
+        
+        var dateRequested: Date?
+        
+        var selectedItem: ListItem?
+        var dependencies: DependenciesInterface = DependenciesFake()
+        
         var loadListCalled = false
         var clearListCalled = false
         var selectListItemCalled = false
@@ -148,6 +155,7 @@ class ListViewControllerTests: XCTestCase {
 
     func DISABLEDtestLoadsNextPageWhenReachingBottom() {
         loadView()
+
         sut.displayLoad(List.Load.ViewModel(dateText: "the date", books: BookFakes.onePage, errorMessage: nil))
         interactorSpy.loadListCalled = false
 

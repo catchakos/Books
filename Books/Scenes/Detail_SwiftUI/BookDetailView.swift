@@ -112,7 +112,6 @@ struct BookDetailView: View {
                     Text("ISBN: " + viewModel.details.primaryISBN10)
                         .font(.footnote)
                         .accessibilityLabel("movie_detail_isbn")
-
                 }
             }
             .padding()

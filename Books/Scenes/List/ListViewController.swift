@@ -16,12 +16,12 @@ protocol ListDisplayLogic: AnyObject {
 }
 
 class ListViewController: UIViewController, ListDisplayLogic, DependentViewController {
-    var dataStore: DependentStore? {
-        return router?.dataStore
+    var dataStore: DependentStore {
+        return router.dataStore
     }
 
-    var interactor: ListBusinessLogic?
-    var router: (NSObjectProtocol & ListRoutingLogic & ListDataPassing)?
+    var interactor: ListBusinessLogic
+    var router: NSObjectProtocol & ListRoutingLogic & ListDataPassing
 
     // MARK: - UI Elements
 
@@ -53,7 +53,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         spinner.accessibilityLabel = "spinner"
         return spinner
     }()
-    
+
     lazy var header: ListHeaderView = {
         let header = ListHeaderView()
         header.dateField.addTarget(self, action: #selector(datePickerChanged(_:)), for: .valueChanged)
@@ -76,29 +76,22 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     // MARK: Object lifecycle
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
-    // MARK: Setup
-
-    private func setup() {
-        let viewController = self
-        let interactor = ListInteractor()
+    required init(dependencies: DependenciesInterface) {
         let presenter = ListPresenter()
-        let router = ListRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+        let interactorAndDataStore = ListInteractor(dependencies: dependencies, presenter: presenter)
+        let router = ListRouter(dataStore: interactorAndDataStore)
+        interactor = interactorAndDataStore
+        self.router = router
+
+        super.init(nibName: nil, bundle: nil)
+
+        presenter.viewController = self
+        router.viewController = self
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: View lifecycle
@@ -124,7 +117,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
             make.left.right.bottomMargin.equalToSuperview()
             make.top.equalTo(header.snp.bottom)
         }
-        
+
         header.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(view.snp.topMargin)
@@ -153,7 +146,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
         spinner.startAnimating()
 
         let request = List.Load.Request(date: header.dateField.date)
-        interactor?.loadList(request)
+        interactor.loadList(request)
     }
 
     func displayLoad(_ viewModel: List.Load.ViewModel) {
@@ -169,7 +162,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     func clearList() {
         let request = List.Clear.Request()
-        interactor?.clearList(request)
+        interactor.clearList(request)
     }
 
     func displayClear(_: List.Clear.ViewModel) {
@@ -180,7 +173,7 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
 
     func selectListItem(_ indexPath: IndexPath) {
         let request = List.Select.Request(indexPath: indexPath)
-        interactor?.selectListItem(request)
+        interactor.selectListItem(request)
     }
 
     func displaySelectListItem(_ viewModel: List.Select.ViewModel) {
@@ -188,12 +181,12 @@ class ListViewController: UIViewController, ListDisplayLogic, DependentViewContr
             return
         }
 
-        router?.routeToDetail()
+        router.routeToDetail()
     }
-    
+
     // MARK: Date
-    
-    @objc func datePickerChanged(_ picker: UIDatePicker) {
+
+    @objc func datePickerChanged(_: UIDatePicker) {
         clearList()
         loadList()
         dismiss(animated: true)

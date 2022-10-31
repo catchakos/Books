@@ -31,7 +31,7 @@ final class ListRouterTests: XCTestCase {
     // MARK: Test setup
 
     func setupListViewController() {
-        backingVC = ListViewControllerSpy()
+        backingVC = ListViewControllerSpy(dependencies: DependenciesFake())
         sut = (backingVC.router as! ListRouter)
 
         dummyNavController = DummyNavigationController(rootViewController: backingVC)

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DependentStore: AnyObject {
-    var dependencies: DependenciesInterface? { get set }
+    var dependencies: DependenciesInterface { get set }
 }

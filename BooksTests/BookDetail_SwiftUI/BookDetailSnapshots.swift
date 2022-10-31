@@ -41,7 +41,7 @@ class BookDetailSnapshots: XCTestCase {
             shotName: "BookDetailView_BookWithAmazonAndReviewLink")
     }
 
-    private func snapAndTestBookDetailView(with vm: BookDetailVM, shotName: String) {        
+    private func snapAndTestBookDetailView(with vm: BookDetailVM, shotName: String) {
         let view = BookDetailView(
             viewModel: vm,
             navigationController: nil)

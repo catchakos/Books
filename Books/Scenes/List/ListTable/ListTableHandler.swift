@@ -41,7 +41,7 @@ class ListTableHandler: NSObject {
         self.items = items
         tableView?.reloadData()
     }
-    
+
     func clear() {
         items.removeAll()
         tableView?.reloadData()
@@ -49,17 +49,17 @@ class ListTableHandler: NSObject {
 }
 
 extension ListTableHandler: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return items.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeue(cell: ListCell.self, indexPath: indexPath)
-        
+
         let item = items[indexPath.row]
         cell.configure(item)
 

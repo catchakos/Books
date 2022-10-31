@@ -32,11 +32,7 @@
 		5E57EDDA27DBB46F001F8989 /* ListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDD527DBB46F001F8989 /* ListModels.swift */; };
 		5E57EDDB27DBB46F001F8989 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDD627DBB46F001F8989 /* ListViewController.swift */; };
 		5E57EDDC27DBB46F001F8989 /* ListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDD727DBB46F001F8989 /* ListInteractor.swift */; };
-		5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDE027DBB4A3001F8989 /* SplashPresenter.swift */; };
-		5E57EDE627DBB4A3001F8989 /* SplashRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDE127DBB4A3001F8989 /* SplashRouter.swift */; };
-		5E57EDE727DBB4A3001F8989 /* SplashModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDE227DBB4A3001F8989 /* SplashModels.swift */; };
 		5E57EDE827DBB4A3001F8989 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDE327DBB4A3001F8989 /* SplashViewController.swift */; };
-		5E57EDE927DBB4A3001F8989 /* SplashInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDE427DBB4A3001F8989 /* SplashInteractor.swift */; };
 		5E57EDF027DBB4F8001F8989 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDEB27DBB4F8001F8989 /* DetailPresenter.swift */; };
 		5E57EDF127DBB4F8001F8989 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDEC27DBB4F8001F8989 /* DetailRouter.swift */; };
 		5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E57EDED27DBB4F8001F8989 /* DetailModels.swift */; };
@@ -142,11 +138,7 @@
 		5E57EDD527DBB46F001F8989 /* ListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModels.swift; sourceTree = "<group>"; };
 		5E57EDD627DBB46F001F8989 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5E57EDD727DBB46F001F8989 /* ListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListInteractor.swift; sourceTree = "<group>"; };
-		5E57EDE027DBB4A3001F8989 /* SplashPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPresenter.swift; sourceTree = "<group>"; };
-		5E57EDE127DBB4A3001F8989 /* SplashRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRouter.swift; sourceTree = "<group>"; };
-		5E57EDE227DBB4A3001F8989 /* SplashModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashModels.swift; sourceTree = "<group>"; };
 		5E57EDE327DBB4A3001F8989 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		5E57EDE427DBB4A3001F8989 /* SplashInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashInteractor.swift; sourceTree = "<group>"; };
 		5E57EDEB27DBB4F8001F8989 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		5E57EDEC27DBB4F8001F8989 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		5E57EDED27DBB4F8001F8989 /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
@@ -321,11 +313,7 @@
 		5E57EDDF27DBB48B001F8989 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				5E57EDE027DBB4A3001F8989 /* SplashPresenter.swift */,
-				5E57EDE127DBB4A3001F8989 /* SplashRouter.swift */,
-				5E57EDE227DBB4A3001F8989 /* SplashModels.swift */,
 				5E57EDE327DBB4A3001F8989 /* SplashViewController.swift */,
-				5E57EDE427DBB4A3001F8989 /* SplashInteractor.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -521,11 +509,11 @@
 				5E57EDF527DBB789001F8989 /* Model */,
 				5E57EDFA27DBB8E4001F8989 /* Extensions */,
 				5EAC40E127DCF22F00B615CC /* Presentations */,
+				5E57EE2927DC998C001F8989 /* WorkersStores */,
 				5ECFEB18290ADCEC00E2F97A /* Logger.swift */,
 				5EC7D3A227DBAF6C00FC0F7B /* Assets.xcassets */,
 				5EC7D3A427DBAF6C00FC0F7B /* LaunchScreen.storyboard */,
 				5EC7D3A727DBAF6C00FC0F7B /* Info.plist */,
-				5E57EE2927DC998C001F8989 /* WorkersStores */,
 			);
 			path = Books;
 			sourceTree = "<group>";
@@ -708,13 +696,11 @@
 				5E34F3C128B520FC007FE175 /* BookDetailView.swift in Sources */,
 				5E57EDF427DBB4F8001F8989 /* DetailInteractor.swift in Sources */,
 				5E57EDF227DBB4F8001F8989 /* DetailModels.swift in Sources */,
-				5E57EDE627DBB4A3001F8989 /* SplashRouter.swift in Sources */,
 				5EAC40E527DCF29900B615CC /* CustomPresentedViewController.swift in Sources */,
 				5E57EE2827DC9987001F8989 /* BooksRemoteStoreProtocol.swift in Sources */,
 				5E57EDCA27DBB308001F8989 /* DependentStore.swift in Sources */,
 				5E85A30A290D667700DAE7A4 /* OpenLibraryService.swift in Sources */,
 				5EAC40DE27DCDCF600B615CC /* UITableViewHeaderFooterView+.swift in Sources */,
-				5E57EDE927DBB4A3001F8989 /* SplashInteractor.swift in Sources */,
 				5E57EDC427DBB2D1001F8989 /* DependenciesInterface.swift in Sources */,
 				5E34F3B428B4D1DF007FE175 /* NYTimesBooksListEndpoint.swift in Sources */,
 				5E34F3B828B4D9A1007FE175 /* NYTimesBooksAdaptor.swift in Sources */,
@@ -726,7 +712,6 @@
 				5E57EDBF27DBB129001F8989 /* Router.swift in Sources */,
 				5E34F3B628B4D255007FE175 /* NYTimesBooksList.swift in Sources */,
 				5E57EDF127DBB4F8001F8989 /* DetailRouter.swift in Sources */,
-				5E57EDE727DBB4A3001F8989 /* SplashModels.swift in Sources */,
 				5E34F3C328B52213007FE175 /* BookDetailVM.swift in Sources */,
 				5E57EE2C27DC9AD8001F8989 /* BooksError.swift in Sources */,
 				5E57EE2227DC9961001F8989 /* BooksWorker.swift in Sources */,
@@ -754,7 +739,6 @@
 				5E57EE2E27DC9C36001F8989 /* BooksAPIStore.swift in Sources */,
 				5ECFEB19290ADCEC00E2F97A /* Logger.swift in Sources */,
 				5E57EDBD27DBB124001F8989 /* Routing.swift in Sources */,
-				5E57EDE527DBB4A3001F8989 /* SplashPresenter.swift in Sources */,
 				5E57EE0B27DBBB0A001F8989 /* Endpoint.swift in Sources */,
 				5E85A310290DC31700DAE7A4 /* ListHeaderView.swift in Sources */,
 				5EAC40E727DCF2D000B615CC /* ToBottomDismissal.swift in Sources */,

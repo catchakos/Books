@@ -12,7 +12,7 @@ class Router: Routing {
 
     private lazy var splash = SplashViewController()
 
-    var dependencies: DependenciesInterface = Dependencies()
+    private var dependencies: DependenciesInterface?
 
     private var listViewController: ListViewController? {
         guard let navController = window?.rootViewController as? UINavigationController else {
@@ -39,12 +39,17 @@ class Router: Routing {
         let group = DispatchGroup()
 
         group.enter()
-        dependencies.make {
+        let persistency = Persistency(completion: {
             group.leave()
-        }
-        dependencies.router = self
+        })
+
+        group.enter()
+        let apiClient = APIClient(completion: {
+            group.leave()
+        })
 
         group.notify(queue: .main) {
+            self.dependencies = Dependencies(persistency: persistency, apiClient: apiClient, router: self)
             self.moveOnFromSplash()
         }
     }
@@ -64,9 +69,7 @@ class Router: Routing {
     }
 
     private func moveToMainViewController() {
-        let viewController = ListViewController()
-        let ds = viewController.router?.dataStore
-        ds?.dependencies = dependencies
+        let viewController = ListViewController(dependencies: dependencies!)
 
         let navigationController = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationController

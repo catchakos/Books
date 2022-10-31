@@ -69,18 +69,18 @@ extension Endpoint {
 
         return urlRequest
     }
-    
+
     func url(for service: APIService) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = service.scheme
         urlComponents.host = host ?? service.baseHost
-        
+
         assert(path.first == "/", "paths should start with /")
         let finalPath = [service.rootPath, path]
             .compactMap { $0 }
             .joined(separator: "")
         urlComponents.path = finalPath
-        
+
         switch method {
         case let .get(parameters):
             if let parameters = parameters {
@@ -95,7 +95,7 @@ extension Endpoint {
         case .post:
             break
         }
-        
+
         return urlComponents.url
     }
 }

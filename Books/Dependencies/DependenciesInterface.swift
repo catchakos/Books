@@ -8,9 +8,7 @@
 import Foundation
 
 protocol DependenciesInterface {
-    var persistency: PersistencyInterface? { get set }
+    var persistency: PersistencyInterface { get set }
     var router: Routing? { get set }
-    var apiClient: APIClientInterface? { get set }
-
-    func make(completion: @escaping (() -> Void))
+    var apiClient: APIClientInterface { get set }
 }

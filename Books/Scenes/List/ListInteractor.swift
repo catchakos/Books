@@ -21,8 +21,8 @@ protocol ListDataStore: DependentStore {
 }
 
 class ListInteractor: ListBusinessLogic, ListDataStore {
-    var dependencies: DependenciesInterface?
-    var presenter: ListPresentationLogic?
+    var dependencies: DependenciesInterface
+    var presenter: ListPresentationLogic
 
     var isLoading = false
 
@@ -31,9 +31,16 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
     var dateRequested: Date?
 
     lazy var worker: BooksWorkerProtocol = BooksWorker(
-        store: BooksAPIStore(apiClient: dependencies!.apiClient!),
-        persistency: dependencies!.persistency!
+        store: BooksAPIStore(apiClient: dependencies.apiClient),
+        persistency: dependencies.persistency
     )
+
+    // MARK: Init
+
+    required init(dependencies: DependenciesInterface, presenter: ListPresentationLogic) {
+        self.dependencies = dependencies
+        self.presenter = presenter
+    }
 
     // MARK: Load
 
@@ -44,22 +51,23 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
 
         dateRequested = request.date
         isLoading = true
-        
+
         worker.fetchBooksList(
-            date: request.date) { result in
-                self.isLoading = false
-                
-                let response: List.Load.Response
-                switch result {
-                case let .success(items):
-                    self.listItems = items
-                    response = List.Load.Response(date: request.date, books: items, error: nil)
-                case let .failure(error):
-                    self.listItems = []
-                    response = List.Load.Response(date: request.date, books: nil, error: error)
-                }
-                self.presenter?.presentLoad(response)
+            date: request.date)
+        { result in
+            self.isLoading = false
+
+            let response: List.Load.Response
+            switch result {
+            case let .success(items):
+                self.listItems = items
+                response = List.Load.Response(date: request.date, books: items, error: nil)
+            case let .failure(error):
+                self.listItems = []
+                response = List.Load.Response(date: request.date, books: nil, error: error)
             }
+            self.presenter.presentLoad(response)
+        }
     }
 
     // MARK: Clear
@@ -68,23 +76,22 @@ class ListInteractor: ListBusinessLogic, ListDataStore {
         listItems.removeAll()
 
         let response = List.Clear.Response()
-        presenter?.presentClear(response)
+        presenter.presentClear(response)
     }
 
     // MARK: Select Item
 
     func selectListItem(_ request: List.Select.Request) {
         let itemIndex = request.indexPath.row
-        guard listItems.count > itemIndex else
-        {
+        guard listItems.count > itemIndex else {
             selectedItem = nil
             return
         }
-        
+
         let item = listItems[itemIndex]
         selectedItem = item
-        
+
         let response = List.Select.Response(book: selectedItem)
-        presenter?.presentItemSelect(response)
+        presenter.presentItemSelect(response)
     }
 }

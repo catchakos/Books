@@ -29,10 +29,10 @@ enum Detail {
             let descriptionText: String?
         }
     }
-    
+
     enum Preview {
         struct Request {}
-        
+
         struct Response {
             let hasPreview: Bool
         }

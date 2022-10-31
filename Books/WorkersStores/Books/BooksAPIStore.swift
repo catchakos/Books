@@ -37,15 +37,16 @@ class BooksAPIStore: BooksRemoteStoreProtocol {
             responseType: [String: PreviewInfo].self,
             completion: { result in
                 switch result {
-                case .success(let info):
+                case let .success(info):
                     if let previewInfo = info.values.first {
                         completion(.success(previewInfo))
                     } else {
                         completion(.failure(NSError(domain: "openLibraryResponseError", code: 500)))
                     }
-                case .failure(let failure):
+                case let .failure(failure):
                     completion(.failure(failure))
                 }
-            })
+            }
+        )
     }
 }

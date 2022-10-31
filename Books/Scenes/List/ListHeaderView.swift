@@ -8,7 +8,6 @@
 import UIKit
 
 class ListHeaderView: UIView {
-
     lazy var dateField: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
@@ -16,7 +15,7 @@ class ListHeaderView: UIView {
         picker.maximumDate = Date()
         return picker
     }()
-    
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
@@ -28,7 +27,6 @@ class ListHeaderView: UIView {
         return label
     }()
 
-    
     lazy var stack = UIStackView.horizontal(
         with: [
             label,
@@ -36,31 +34,29 @@ class ListHeaderView: UIView {
         ],
         alignment: .center
     )
-    
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         commonInit()
     }
-    
+
     private func commonInit() {
         setup()
         setupConstraints()
     }
-    
+
     private func setup() {
         backgroundColor = .lightGray.withAlphaComponent(0.1)
         addSubview(stack)
     }
-    
+
     private func setupConstraints() {
         stack.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -68,5 +64,4 @@ class ListHeaderView: UIView {
 //            make.right.equalToSuperview().offset(-16)
         }
     }
-
 }

@@ -6,8 +6,8 @@
 //  Copyright (c) 2022 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
-import UIKit
 import SafariServices
+import UIKit
 
 @objc protocol DetailRoutingLogic {
     func exitDetail()
@@ -15,25 +15,28 @@ import SafariServices
 }
 
 protocol DetailDataPassing {
-    var dataStore: DetailDataStore? { get }
+    var dataStore: DetailDataStore { get }
 }
 
 class DetailRouter: NSObject, DetailRoutingLogic, DetailDataPassing {
     weak var viewController: DetailViewController?
-    var dataStore: DetailDataStore?
+    var dataStore: DetailDataStore
 
-    // MARK: Routing
+    init(dataStore: DetailDataStore) {
+        self.dataStore = dataStore
+    } // MARK: Routing
 
     func exitDetail() {
         viewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
-    
+
     func routeToPreview() {
-        guard let urlString = dataStore?.previewURLString,
-              let url = URL(string: urlString) else {
+        guard let urlString = dataStore.previewURLString,
+              let url = URL(string: urlString) else
+        {
             return
         }
-        
+
         let safari = SFSafariViewController(url: url)
         viewController?.present(safari, animated: true)
     }

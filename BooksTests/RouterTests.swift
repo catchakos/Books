@@ -13,7 +13,6 @@ final class RouterTests: XCTestCase {
     // MARK: Subject under test
     
     var sut: Router!
-    var depencenciesSpy: DependenciesSpy!
     var window: UIWindow!
     
     // MARK: Test lifecycle
@@ -32,21 +31,9 @@ final class RouterTests: XCTestCase {
     
     func setupRouter() {
         sut = Router(window)
-        
-        depencenciesSpy = DependenciesSpy()
-        sut.dependencies = depencenciesSpy
     }
     
     // MARK: Test doubles
-    
-    class DependenciesSpy: Dependencies {
-        var makeCalled = false
-        
-        override func make(completion: @escaping (() -> Void)) {
-            makeCalled = true
-            completion()
-        }
-    }
     
     // MARK: Tests
     
@@ -54,11 +41,5 @@ final class RouterTests: XCTestCase {
         sut.start()
         
         XCTAssert(window.rootViewController is SplashViewController)
-    }
-    
-    func testStartsMakingDependenciesOnStart() {
-        sut.start()
-        
-        XCTAssert(depencenciesSpy.makeCalled)
     }
 }

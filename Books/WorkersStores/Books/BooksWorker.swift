@@ -41,14 +41,14 @@ class BooksWorker: BooksWorkerProtocol {
     func fetchBookPreviewURL(isbn: String, completion: @escaping ((Result<String, BooksError>) -> Void)) {
         store.fetchBookPreviewInfo(isbn: isbn) { result in
             switch result {
-            case .success(let info):
+            case let .success(info):
                 if info.previewType == "noview" {
                     completion(.failure(.notFound))
                 } else {
                     completion(.success(info.previewURL))
                 }
-                
-            case .failure(let error):
+
+            case let .failure(error):
                 completion(.failure(self.booksError(from: error)))
             }
         }

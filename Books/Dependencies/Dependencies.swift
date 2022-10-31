@@ -8,25 +8,13 @@
 import Foundation
 
 class Dependencies: DependenciesInterface {
-    var persistency: PersistencyInterface?
-    var apiClient: APIClientInterface?
+    var persistency: PersistencyInterface
+    var apiClient: APIClientInterface
     weak var router: Routing?
 
-    func make(completion: @escaping (() -> Void)) {
-        let group = DispatchGroup()
-
-        group.enter()
-        persistency = Persistency(completion: {
-            group.leave()
-        })
-
-        group.enter()
-        apiClient = APIClient(completion: {
-            group.leave()
-        })
-
-        group.notify(queue: DispatchQueue.main) {
-            completion()
-        }
+    init(persistency: PersistencyInterface, apiClient: APIClientInterface, router: Routing?) {
+        self.persistency = persistency
+        self.apiClient = apiClient
+        self.router = router
     }
 }

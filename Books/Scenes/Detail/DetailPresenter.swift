@@ -32,9 +32,9 @@ class DetailPresenter: DetailPresentationLogic {
         )
         viewController?.displayLoad(viewModel)
     }
-    
+
     // MARK: Preview
-    
+
     func presentPreview(_ response: Detail.Preview.Response) {
         let vm = Detail.Preview.ViewModel(hasPreview: response.hasPreview)
         viewController?.displayPreview(vm)

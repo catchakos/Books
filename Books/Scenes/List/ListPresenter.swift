@@ -16,7 +16,7 @@ protocol ListPresentationLogic {
 
 class ListPresenter: ListPresentationLogic {
     weak var viewController: ListDisplayLogic?
-    
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -28,7 +28,7 @@ class ListPresenter: ListPresentationLogic {
 
     func presentLoad(_ response: List.Load.Response) {
         let dateString = dateFormatter.string(from: response.date)
-        
+
         let vm = List.Load.ViewModel(
             dateText: String(format: NSLocalizedString("Best sellers %@", comment: ""), [dateString]),
             books: response.books ?? [],

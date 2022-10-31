@@ -15,7 +15,7 @@ class DetailInteractorTests: XCTestCase {
     var sut: DetailInteractor!
     var spyPresenter: DetailPresentationLogicSpy!
     var spyWorker: BooksWorkerSpy!
-    
+
     // MARK: Test lifecycle
     
     override func setUp() {
@@ -32,8 +32,12 @@ class DetailInteractorTests: XCTestCase {
     // MARK: Test setup
     
     func setupDetailInteractor() {
-        sut = DetailInteractor()
+        spyPresenter = DetailPresentationLogicSpy()
+        spyWorker = BooksWorkerSpy()
+        
+        sut = DetailInteractor(dependencies: DependenciesFake(), presenter: spyPresenter)
         sut.listItem = BookFakes.fakeListItem1
+        sut.worker = spyWorker
     }
     
     func setupDoubles() {

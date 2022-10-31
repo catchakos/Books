@@ -30,14 +30,13 @@ class ListInteractorTests: XCTestCase {
     // MARK: Test setup
 
     func setupListInteractor() {
-        sut = ListInteractor()
-        sut.dependencies = DependenciesFake()
+        let dependencies = DependenciesFake()
+        presenterSpy = ListPresentationLogicSpy()
+        
+        sut = ListInteractor(dependencies: dependencies, presenter: presenterSpy)
         
         workerSpy = BooksWorkerSpy()
         sut.worker = workerSpy
-        
-        presenterSpy = ListPresentationLogicSpy()
-        sut.presenter = presenterSpy
     }
 
     // MARK: Test doubles

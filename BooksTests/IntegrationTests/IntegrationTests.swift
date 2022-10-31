@@ -29,14 +29,13 @@ final class IntegrationTests: XCTestCase {
     }
     
     func setupViewControllers() {
-        listVCSpy = ListViewControllerSpy()
-        detailVCSpy = DetailViewControllerSpy()
-        detailVCSpy.router?.dataStore?.listItem = ListItemFakes.fakeBothLinks
-        
         fakeDependencies = DependenciesMock()
-        fakeDependencies.make { }
-        listVCSpy.router?.dataStore?.dependencies = fakeDependencies
-        detailVCSpy.router?.dataStore?.dependencies = fakeDependencies
+        listVCSpy = ListViewControllerSpy(dependencies: fakeDependencies)
+        detailVCSpy = DetailViewControllerSpy(dependencies: fakeDependencies)
+        detailVCSpy.router.dataStore.listItem = ListItemFakes.fakeBothLinks
+        
+        listVCSpy.router.dataStore.dependencies = fakeDependencies
+        detailVCSpy.router.dataStore.dependencies = fakeDependencies
     }
 
     func loadListView() {
@@ -53,15 +52,9 @@ final class IntegrationTests: XCTestCase {
     // MARK: Test Doubles
 
     class DependenciesMock: DependenciesInterface {
-        var persistency: PersistencyInterface? = PersistencyFake(completion: {})
+        var persistency: PersistencyInterface = PersistencyFake(completion: {})
         var router: Routing?
-        var apiClient: APIClientInterface?
-        
-        func make(completion: @escaping (() -> Void)) {
-            apiClient = APIClientMock(completion: {
-                completion()
-            })
-        }
+        var apiClient: APIClientInterface = APIClientMock(completion: {})
     }
     
     class APIClientMock: APIClient {
