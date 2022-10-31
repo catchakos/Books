@@ -55,7 +55,14 @@ class BooksUITests: XCTestCase {
         XCTAssertFalse(app.cells.firstMatch.isHittable)
         
         let dimmedView = app.otherElements["dimmed_view"]
-        dimmedView.tap()
+        let navBar = app.navigationBars.firstMatch
+        
+        if dimmedView.exists { // Swift version
+            dimmedView.tap()
+        } else if navBar.exists { // SwiftUI version
+            let navBarButton = navBar.buttons.firstMatch
+            navBarButton.tap()
+        }
         
         XCTAssert(app.cells.firstMatch.isHittable)
     }

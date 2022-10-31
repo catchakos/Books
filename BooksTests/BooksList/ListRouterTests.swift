@@ -33,7 +33,9 @@ final class ListRouterTests: XCTestCase {
     func setupListViewController() {
         backingVC = ListViewControllerSpy(dependencies: DependenciesFake())
         sut = (backingVC.router as! ListRouter)
-
+        
+        (backingVC.interactor as! ListInteractor).selectedItem = ListItemFakes.fakeBothLinks
+        
         dummyNavController = DummyNavigationController(rootViewController: backingVC)
     }
 
